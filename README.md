@@ -2,8 +2,10 @@
 
 This project is my attempt to rebuild as close as possible the old Megaman [Advanced PET](https://megaman.fandom.com/wiki/Advanced_PET) toy.
 
+https://xwellingtonx.github.io/advanced-pet/
+
 ## Current Status
-The project is at beginning yet so do not contains a lot of feature from the original one, I'm the unique one working so takes a lot of time to recreate everything.
+The project is at beginning yet so do not contains a lot of features, I'm the unique one working so takes a lot of time to create everything.
 
 
 ## Project setup

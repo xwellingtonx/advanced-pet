@@ -13,6 +13,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f git@github.com:xwellingtonx/advanced-pet.git master:gh-pages
+git push -f https://github.com/xwellingtonx/advanced-pet.git master:gh-pages
 
 cd -
