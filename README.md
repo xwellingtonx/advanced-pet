@@ -4,34 +4,20 @@ This project is my attempt to rebuild as close as possible the old Megaman [Adva
 
 https://xwellingtonx.github.io/advanced-pet/
 
-## Current Status
+## Status
 The project is at beginning yet so do not contains a lot of features, I'm the unique one working so takes a lot of time to create everything.
 
 
 ## Project setup
 
-This quick guide to setting up the project.
+The project was created with Vue/Vue CLI, if you're not familiar with, please take a look at the links below.
 
-### 0. Setup
-1. Install the project dependencies:
-    ``` bash
-    npm install
-    ```
+[Vue.js](https://vuejs.org/)
 
-### 1. Run the Website
-1. Run the following shell command:
-    ``` bash
-    npm start
-    ```
-
-### 2. Win.
-1. Browse to `http://localhost:8080`.
+[Vue CLI](https://cli.vuejs.org/)
 
 
-
-## Working with Vue CLI
-
-### Build Setup
+## Build Setup
 
 ``` bash
 # install dependencies
