@@ -102,17 +102,26 @@ export default {
 
                     //Save the time and move to next scene
                     this.$store.commit('session/setTime', timeStr);
-
-                    this.$store.commit('session/setCurrentScene', SceneNames.Opening);
+                    
+                    //Check the scene we're going to move.
+                    if (this.$store.state.session.lastScene === SceneNames.Greeting) {
+                        this.$store.commit('session/setCurrentScene', SceneNames.Opening);
+                    } else {
+                        this.$store.commit('session/setCurrentScene', SceneNames.OptionSound);
+                    }
                 }
             } else {
                 this.moveSelectorToRight();
             }
         },
         onCancel() {
-            if(this.isConfirmation) {
-                this.isConfirmation = false;
-                this.setTimeArray(this.$store.state.session.time);
+            if (this.itemSelected.index > 0) {
+                if(this.isConfirmation) {
+                    this.isConfirmation = false;
+                    this.setTimeArray(this.$store.state.session.time);
+                }
+            } else {
+                this.$store.commit('session/setCurrentScene', SceneNames.Option);
             }
         },
         setTimeArray(timeNow) {

@@ -27,6 +27,7 @@ const SceneNames = {
   StandBy: "StandByScene",
   Option: "OptionScene",
   OptionTime: "OptionTimeScene",
+  OptionSound: "OptionSoundScene",
   Status: "StatusScene",
   VS: "VSScene",
 }

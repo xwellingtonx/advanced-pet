@@ -6,6 +6,7 @@ const state = {
   lastScene: "",
   time: "00:00",
   myChips: [],
+  sound: true,
   naviStatus: {
     level: 1,
     exp: 0,
@@ -41,6 +42,9 @@ const mutations = {
   },
   setTime: (state, time) => {
     state.time = time;
+  },
+  setSound: (state, value) => {
+    state.sound = value;
   },
   addToMyChips (state, { index, item }) {
     state.myChips.splice(index, 0, item);

@@ -460,13 +460,16 @@ import { Howl } from 'howler';
 export default {
     name: "OpeningScene",
     mounted() {
-        var sound = new Howl({
-            src: require("../../assets/sounds/opening.mp3"),
-            volume: 0.1,
-            loop: true
-        });
 
-        sound.play();
+        if(this.$store.state.session.sound) {
+            var sound = new Howl({
+                src: require("../../assets/sounds/opening.mp3"),
+                volume: 0.1,
+                loop: true
+            });
+
+            sound.play();
+        }
 
         var timeLine = new TimelineLite({
             paused: true,

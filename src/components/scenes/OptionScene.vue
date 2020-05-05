@@ -31,6 +31,7 @@ export default {
             EventBus.$on(Events.Right, this.moveToVSBattleScene);
             EventBus.$on(Events.Left, this.moveToStatusScene);
             EventBus.$on(Events.Cancel, this.moveToStandByScene);
+            EventBus.$on(Events.Confirmation, this.moveToOptionTimeScene);
         },
         unregisterListeners() {
             EventBus.$off(Events.Right);
@@ -45,6 +46,9 @@ export default {
         },
         moveToStatusScene() {
             this.$store.commit('session/setCurrentScene', SceneNames.Status);
+        },
+        moveToOptionTimeScene() {
+            this.$store.commit('session/setCurrentScene', SceneNames.OptionTime);
         }  
     }        
 }

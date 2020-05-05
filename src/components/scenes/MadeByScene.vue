@@ -18,12 +18,15 @@ export default {
     props: {
     },
     mounted() {
-        var sound = new Howl({
-            src: require("../../assets/sounds/brand.mp3"),
-            volume: 0.1,
-            loop: true
-        });
-        sound.play();
+        if(this.$store.state.session.sound) {
+            var sound = new Howl({
+                src: require("../../assets/sounds/brand.mp3"),
+                volume: 0.1,
+                loop: true
+            });
+            
+            sound.play();
+        }
 
         setTimeout(() => {
             sound.stop();
