@@ -105,6 +105,8 @@ export default {
 
                     this.$store.commit('session/setCurrentScene', SceneNames.Opening);
                 }
+            } else {
+                this.moveSelectorToRight();
             }
         },
         onCancel() {

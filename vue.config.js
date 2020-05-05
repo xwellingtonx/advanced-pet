@@ -1,3 +1,4 @@
-module.exports = {
-    publicPath: '/advanced-pet/'
-}
+//Comment if you are running locally
+// module.exports = {
+//     publicPath: '/advanced-pet/'
+// }

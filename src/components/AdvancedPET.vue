@@ -170,7 +170,7 @@ export default {
             gsap.to('.cover-container', {display: 'none' , duration: 0,  ease: "none" });
             gsap.to('.cover-closed-group',{display: 'block' , duration: 0,  ease: "none" });
 
-            this.addBackToMyChips();
+            this.clearChipSlot();
         },
         onMoved() {
             this.draggableChip = [];
@@ -178,8 +178,8 @@ export default {
         onDrop(draggable) {
             //set timeout to prevent the vuejs duplicate key error
             setTimeout(() => {
-                //Automatically add back to myChips
-                this.addBackToMyChips();
+               
+               this.clearChipSlot();
                
                this.draggableChip.push({
                     index: draggable.index,
@@ -187,15 +187,11 @@ export default {
                 });
             }, 1)            
         },
-        addBackToMyChips() {
-            if(this.draggableChip.length > 0) {
-                this.$store.commit('session/addToMyChips', this.draggableChip[0]);
-            }
-            this.draggableChip = [];
-        },
         emitControlEvent(eventName) {
-            console.log(eventName);
             EventBus.$emit(eventName);
+        },
+        clearChipSlot() {
+            this.draggableChip = [];
         }
     }
 }

@@ -7,8 +7,7 @@
     <vddl-draggable v-for="(item, index) in chipItems" :key="item.name"
       :draggable="item"
       :index="index"
-      :moved="onMoved"
-      effect-allowed="move">
+      effect-allowed="copy">
         <chip-item :battle-chip="item"></chip-item>
     </vddl-draggable>
 
@@ -34,10 +33,12 @@ export default {
       this.$store.commit('session/removeFromMyChips', event.index);
     },
     onDrop(draggable) {
-      //set timeout to prevent the vuejs duplicate key error
-      setTimeout(() => {
-        this.$store.commit('session/addToMyChips', draggable);
-      }, 1)
+      var oldItem = this.chipItems.find(x => x.Id === draggable.item.Id);
+      //Remove the old item 
+      this.$store.commit('session/removeFromMyChips', this.chipItems.indexOf(oldItem));
+
+      //Add the new item moved
+      this.$store.commit('session/addToMyChips', draggable);
     }
   }
 }

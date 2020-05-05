@@ -1,8 +1,8 @@
 <template>
   <div class="library-painel">
 
-    <div class="library-item" v-for="(item, index) in chipItems" :key="index">
-      <!-- <b-form-checkbox switch size="lg"></b-form-checkbox> -->
+    <div class="library-item" v-for="(item, index) in library" :key="index">
+      <b-form-checkbox switch :checked="isInMyChips(item)" size="lg" @change="onChange(item, $event)"></b-form-checkbox>
       <chip-item :battleChip="item"></chip-item>
     </div>
   </div>           
@@ -19,9 +19,28 @@ export default {
   },
   computed: {
     ...mapState({
-      chipItems: state => state.battleChips.all,
-    })
+      library: state => state.battleChips.all,
+      myChips: state => state.session.myChips
+    }),
   },
+  methods: {
+    onChange(item, value) {
+      if(value) {
+        this.$store.commit('session/addToMyChips', {
+          index: 0,
+          item: item
+        });
+      } else {
+        var myChip = this.myChips.find(x => x.Id === item.Id); 
+        if(myChip) {
+          this.$store.commit('session/removeFromMyChips', this.myChips.indexOf(myChip));
+        }
+      }
+    },
+    isInMyChips(item) {
+      return this.myChips.some(x => x.Id === item.Id);
+    }
+  }  
 }
 </script>
 
