@@ -199,7 +199,7 @@ export default {
   }
   .chip-name-text {
     font-family: BN Elements;
-    font-size: 4.02px;
+    font-size: 3.80px;
     fill: #fff;
     transform: translate(16.73px, 37.58px) scale(1.03, 1);
   }
