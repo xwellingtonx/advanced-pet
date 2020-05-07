@@ -239,6 +239,17 @@ export default {
         fill: #0a4798;
       }
     }  
+
+    /*Roll background */
+    &.chip-314-bg {
+      .frame {
+        fill: #F9A2B9;
+      }
+      .frame-effects {
+        fill: #F7779F;
+      }
+    }    
+        
     /*ProtoMan background */
     &.chip-320-bg {
       .frame {
