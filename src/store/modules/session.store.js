@@ -10,7 +10,7 @@ const state = {
   naviStatus: {
     level: 1,
     exp: 0,
-    cp: 0,
+    cp: 3,
     hp:8,
     at:1,
     recovery: 100
