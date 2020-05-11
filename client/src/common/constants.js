@@ -30,6 +30,8 @@ const SceneNames = {
   OptionSound: "OptionSoundScene",
   Status: "StatusScene",
   VS: "VSScene",
+  VSLookingPlayer: "VSLookingPlayerScene",
+  BattleStart: "BattleStartScene"
 }
 
 const Events = {
