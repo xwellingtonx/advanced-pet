@@ -340,6 +340,16 @@ export default {
       }
     }    
 
+    /*Gutsman background */
+    &.chip-315-bg {
+      .frame {
+        fill: #FFF86D;
+      }
+      .frame-effects {
+        fill: #f9ed04;
+      }
+    }       
+
     /*ProtoMan background */
     &.chip-320-bg {
       .frame {
