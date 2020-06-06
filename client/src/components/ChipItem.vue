@@ -98,7 +98,7 @@
         </g>
       </g>
     </svg>
-    <div class="shiny-effect-container">
+    <div class="holographic-effect-container">
       <div
         class="shine"
         v-for="(item, index) in this.shinyItems"
@@ -307,7 +307,7 @@ export default {
       transform: translate(11.98px, 37.58px) scale(1.03, 1);
     }  
 
-    .shiny-effect-container {
+    .holographic-effect-container {
       width: 83px;
       height: 96px;
       position: relative;
