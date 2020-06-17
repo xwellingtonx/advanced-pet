@@ -39,7 +39,8 @@ const SceneNames = {
   MegaBuster: "MegaBusterScene",
   MegaBusterStatus: "MegaBusterStatusScene",
   ChipStatus: "ChipStatusScene",
-  ChipOk: "ChipOkScene"
+  ChipOk: "ChipOkScene",
+  BattleNaviStatus: "BattleNaviStatusScene"
 }
 
 const Events = {
