@@ -49,14 +49,17 @@ export default {
   },
   methods: {
     registerListeners() {
-      //EventBus.$on("confirmationEvent", this.moveToOptionScene);
+      EventBus.$on(Events.Confirmation, this.moveToLookingPlayerScene);
       EventBus.$on(Events.Left, this.moveToOptionScene);  
       EventBus.$on(Events.Cancel, this.moveToStandByScene);
     },
     unregisterListeners() {
+      EventBus.$off(Events.Confirmation);
       EventBus.$off(Events.Left);
       EventBus.$off(Events.Cancel);
-
+    },
+    moveToLookingPlayerScene() {
+      this.$store.commit('session/setCurrentScene', SceneNames.VSLookingPlayer);
     },
     moveToStandByScene() {
       this.$store.commit('session/setCurrentScene', SceneNames.StandBy);

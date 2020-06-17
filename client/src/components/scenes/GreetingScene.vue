@@ -41,18 +41,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { TimelineLite } from "gsap";
 import EventBus from '../../common/eventBus.js';
 import { SceneNames, Events } from '../../common/constants';
 
 export default {
     name: "GreetingScene",
-    computed: {
-        ...mapState({
-            currentScene: state => state.scenes.currentScene,
-        })
-    },
     data() {
         return {
             greetingText: "Hi I'm Megaman",

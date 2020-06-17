@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     ...mapState({
-      library: state => state.battleChips.all,
+      library: state => state.chips.all,
       myChips: state => state.session.myChips
     }),
   },

@@ -1,4 +1,5 @@
 module.exports = {
+    publicPath: process.env.NODE_ENV === 'production' ? '/advanced-pet/' : '',
     chainWebpack: config => {
       config.module
           .rule('images')

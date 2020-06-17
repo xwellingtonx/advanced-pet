@@ -1,6 +1,8 @@
 import { SceneNames } from  '../../common/constants.js'
+var UUID = require('uuid-random');
 
 const state = {
+  id: UUID(),
   theme: 0,
   currentScene: SceneNames.MadeBy,
   lastScene: "",
@@ -17,7 +19,8 @@ const state = {
   },
   wins: 0,
   losses: 0,
-  stageClear: 0
+  stageClear: 0,
+  isInBattle: false
 }
 
 const getters = {
@@ -51,7 +54,10 @@ const mutations = {
   },
   removeFromMyChips (state, index) {
     state.myChips.splice(index, 1);
-  }  
+  },
+  setIsInBattle: (state, value) => {
+    state.isInBattle = value;
+  }
 }
 
 const actions = {

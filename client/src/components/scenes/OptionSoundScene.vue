@@ -49,6 +49,7 @@ export default {
             EventBus.$off(Events.Right);
             EventBus.$off(Events.Left);
             EventBus.$off(Events.Cancel);
+            EventBus.$off(Events.Confirmation);
         },
         onLeft() {
             this.canSound = true;

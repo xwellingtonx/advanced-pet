@@ -31,7 +31,15 @@ const SceneNames = {
   Status: "StatusScene",
   VS: "VSScene",
   VSLookingPlayer: "VSLookingPlayerScene",
-  BattleStart: "BattleStartScene"
+  BattleStart: "BattleStartScene",
+  Roulette: "RouletteScene",
+  LoadingNow: "LoadingNowScene",
+  TurnType: "TurnTypeScene",
+  SlotIn: "SlotInScene",
+  MegaBuster: "MegaBusterScene",
+  MegaBusterStatus: "MegaBusterStatusScene",
+  ChipStatus: "ChipStatusScene",
+  ChipOk: "ChipOkScene"
 }
 
 const Events = {
@@ -40,7 +48,13 @@ const Events = {
   Left: "left",
   Right: "right",
   Confirmation: "confirmation",
-  Cancel: "cancel"
+  Cancel: "cancel",
+  SlotIn: "slotIn"
+}
+
+const TurnTypes = {
+  Attack: "attack",
+  Defense: "defense"
 }
 
 export {
@@ -48,5 +62,6 @@ export {
   ChipElements,
   ChipTypes,
   SceneNames,
-  Events
+  Events,
+  TurnTypes
 }

@@ -137,6 +137,7 @@
 import { gsap } from "gsap"
 import EventBus from '../common/eventBus.js'
 import { Events } from '../common/constants'
+import { mapState } from 'vuex'
 import SceneController from './SceneController.vue'
 import ChipItem from './ChipItem.vue'
 
@@ -145,6 +146,11 @@ export default {
     components: {
         SceneController, ChipItem
     },
+    computed: {
+        ...mapState({
+            isInBattle: state => state.session.isInBattle,
+        })
+    },   
     data() {
         return {
             draggableChip: [],
@@ -185,10 +191,14 @@ export default {
                     index: draggable.index,
                     item: draggable.item
                 });
+
+                if(this.isInBattle) {
+                    this.emitControlEvent(Events.SlotIn, draggable.item);
+                }
             }, 1)            
         },
-        emitControlEvent(eventName) {
-            EventBus.$emit(eventName);
+        emitControlEvent(eventName, data) {
+            EventBus.$emit(eventName, data);
         },
         clearChipSlot() {
             this.draggableChip = [];

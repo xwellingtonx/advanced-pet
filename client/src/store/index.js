@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import battleChips from './modules/battleChips.store.js'
+import chips from './modules/chips.store.js'
 import session from './modules/session.store.js'
+import battle from './modules/battle.store.js'
+
 //import moment from 'moment'
 
 Vue.use(Vuex)
@@ -28,8 +30,9 @@ var store = new Vuex.Store({
     // }
   },
   modules: {
-    battleChips,
-    session
+    chips,
+    session,
+    battle
   }
 })
 

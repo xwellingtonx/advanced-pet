@@ -37,6 +37,7 @@ export default {
             EventBus.$off(Events.Right);
             EventBus.$off(Events.Left);
             EventBus.$off(Events.Cancel);
+            EventBus.$off(Events.Confirmation);
         },
         moveToStandByScene() {
             this.$store.commit('session/setCurrentScene', SceneNames.StandBy);
