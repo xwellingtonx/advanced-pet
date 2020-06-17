@@ -46,7 +46,7 @@ export default {
             this.$store.commit('session/setCurrentScene', SceneNames.VS);
         },
         moveToStatusScene() {
-            this.$store.commit('session/setCurrentScene', SceneNames.Status);
+            this.$store.commit('session/setCurrentScene', SceneNames.NaviStatus);
         },
         moveToOptionTimeScene() {
             this.$store.commit('session/setCurrentScene', SceneNames.OptionTime);

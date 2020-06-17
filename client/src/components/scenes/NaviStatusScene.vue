@@ -35,7 +35,7 @@ import EventBus from '../../common/eventBus.js';
 import { SceneNames, Events } from '../../common/constants';
 
 export default {
-    name: "StatusScene",
+    name: "NaviStatusScene",
     mounted() {
         this.registerListeners();
     },

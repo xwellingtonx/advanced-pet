@@ -28,7 +28,7 @@ const SceneNames = {
   Option: "OptionScene",
   OptionTime: "OptionTimeScene",
   OptionSound: "OptionSoundScene",
-  Status: "StatusScene",
+  NaviStatus: "NaviStatusScene",
   VS: "VSScene",
   VSLookingPlayer: "VSLookingPlayerScene",
   BattleStart: "BattleStartScene",

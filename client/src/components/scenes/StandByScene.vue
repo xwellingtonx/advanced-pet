@@ -145,7 +145,7 @@ export default {
             EventBus.$off(Events.Right);
         },
         moveToStatusScene() {
-            this.$store.commit('session/setCurrentScene', SceneNames.Status);
+            this.$store.commit('session/setCurrentScene', SceneNames.NaviStatus);
         },       
         startDefaultAnimation() {
             var timeLine = new TimelineLite({
