@@ -42,10 +42,9 @@ export default {
     },
     sockets: {
         initializeBattle(battleId) {
-            console.log(battleId);
             this.$store.dispatch('battle/startBattle', {
                 id: battleId,
-                player: this.$store.session
+                player: this.$store.state.session
             });
 
             this.$store.commit('session/setCurrentScene', SceneNames.BattleStart);

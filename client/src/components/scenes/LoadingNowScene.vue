@@ -102,8 +102,6 @@
 
 export default {
     name: "LoadingNowScene",
-    data() {
-    },
     mounted() {
     }     
 }

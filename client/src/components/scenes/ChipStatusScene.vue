@@ -41,10 +41,10 @@ export default {
       this.$store.commit('session/setCurrentScene', SceneNames.BattleNaviStatus);
     },
     onRight() {
-
+      this.$store.commit('session/setCurrentScene', SceneNames.ChipElement);
     },
     onConfirmation() {
-        this.$store.commit('session/setCurrentScene', SceneNames.ChipOk);
+      this.$store.commit('session/setCurrentScene', SceneNames.ChipOk);
     }
   }
 }

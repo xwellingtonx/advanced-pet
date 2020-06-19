@@ -190,7 +190,7 @@
 	
    	{ "Id": "201", "Name": "LifeAura", "Classe": "Mega", "Element": "Neutral", "CP": 9, "AT": 0, "Type": "Support" }, 
    	{ "Id": "202", "Name": "Muramasa", "Classe": "Mega", "Element": "Neutral", "CP": 6, "AT": 5, "Type": "Attack" }, 
-   	{ "Id": "203", "Name": "Guardian", "Classe": "Mega", "Element": "Neutral", "CP": 9, "AT": 0, "Type": "Attack" },  
+   	{ "Id": "203", "Name": "Guardian", "Classe": "Mega", "Element": "Neutral", "CP": 9, "AT": 6, "Type": "Attack" },  
    	{ "Id": "204", "Name": "Anubis", "Classe": "Mega", "Element": "Neutral", "CP": 9, "AT": 7, "Type": "Attack" }, 
    	{ "Id": "205", "Name": "Atk+30", "Classe": "Mega", "Element": "Neutral", "CP": 4, "AT": 0, "Type": "Support" },  
     { "Id": "206", "Name": "BugFix", "Classe": "Mega", "Element": "Neutral", "CP": 9, "AT": 0, "Type": "Support" },  
