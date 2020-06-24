@@ -42,7 +42,9 @@ const SceneNames = {
   ChipOk: "ChipOkScene",
   BattleNaviStatus: "BattleNaviStatusScene",
   ChipElement: "ChipElementScene",
-  ChipAttackArea: "ChipAttackAreaScene"
+  ChipAttackArea: "ChipAttackAreaScene",
+  BattleBoard: "BattleBoardScene",
+  FireAttack: "FireAttackScene"
 }
 
 const Events = {

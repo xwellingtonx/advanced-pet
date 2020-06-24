@@ -6,15 +6,6 @@
                 <rect class="cls-1" x="2.92" y="64.51" width="76.89" height="7.45" />
                 <rect v-for="item in countDownBars" 
                     :key="item.id" :x="item.x" y="64.79" width="4.85" height="6.88"  />
-                <!-- <rect x="12.11" y="64.79" width="4.85" height="6.88" />
-                <rect x="19.78" y="64.79" width="4.85" height="6.88" />
-                <rect x="27.44" y="64.79" width="4.85" height="6.88" />
-                <rect x="35.11" y="64.79" width="4.85" height="6.88" />
-                <rect x="42.77" y="64.79" width="4.85" height="6.88" />
-                <rect x="50.44" y="64.79" width="4.85" height="6.88" />
-                <rect x="58.11" y="64.79" width="4.85" height="6.88" />
-                <rect x="65.77" y="64.79" width="4.85" height="6.88" />
-                <rect x="73.44" y="64.79" width="4.85" height="6.88" /> -->
             </g>
             <text class="cls-2" transform="translate(17.93 33.75)">SLOT<tspan x="15" y="18">IN</tspan></text>
         </svg>      
@@ -67,7 +58,7 @@ export default {
                         this.$store.commit('session/setCurrentScene', SceneNames.MegaBuster);
                     }
                 }
-            }, 1000);
+            }, 500);
         },
         onSlotIn(chipPlugged) {
             //TODO: Add validations about CP/First support chip after attack or Just attack

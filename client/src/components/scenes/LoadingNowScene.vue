@@ -98,12 +98,15 @@
 </template>
 
 <script>
-//import { SceneNames, Events } from '../../common/constants';
+import { SceneNames } from '../../common/constants';
 
 export default {
     name: "LoadingNowScene",
-    mounted() {
-    }     
+    sockets: {
+        playersReady() {
+            this.$store.commit('session/setCurrentScene', SceneNames.BattleBoard);
+        }
+    }  
 }
 </script>
 

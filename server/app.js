@@ -2,9 +2,10 @@ const Express = require("express")();
 const Http = require("http").Server(Express);
 const Socketio = require("socket.io")(Http);
 var UUID = require('uuid-random');
-const Helpers = require('./helpers');
+const Helpers = require('./common/helpers');
+const BattleRoom = require('./common/battleRoom');
 
-var battleRooms = [];
+var battleRooms = new Array();
 
 Socketio.on("connection", socket => {
     // Connect the client to the battle room
@@ -44,10 +45,10 @@ Socketio.on("connection", socket => {
                     }
                 } else {
                     //Add player to a new room
-                    var room = {
-                        id: UUID(),
-                        players: new Array()
-                    };
+                    var room = new BattleRoom(
+                        UUID(),
+                        new Array()
+                    );
 
                     socket.join('room-' + room.id);
 
@@ -61,11 +62,11 @@ Socketio.on("connection", socket => {
                 }
             });
         } else {
-            var room = {
-                id: UUID(),
-                players: new Array()
-            };
-            
+            var room = new BattleRoom(
+                UUID(),
+                new Array()
+            );
+
             socket.join('room-' + room.id);
 
             room.players.push({
@@ -88,7 +89,7 @@ Socketio.on("connection", socket => {
                 return;
             } 
 
-            console.log(room.players);
+            //console.log(room.players);
 
             room.players.forEach(item => {
                 if(item.socketId === socket.id) {
@@ -97,10 +98,87 @@ Socketio.on("connection", socket => {
                     item.currentTurn = "defense";
                 }
 
-                Socketio.to(item.socketId)
-                        .emit("turnRouletteResult", item.currentTurn);
+                Socketio
+                    .to(item.socketId)
+                    .emit("turnRouletteResult", item.currentTurn);
             });
         } 
+    });
+
+    //Send socket notifying other player that the 
+    socket.on("chipPlugged", function (roomId) {
+        //Notify player is ready to battle.
+        Socketio
+            .to('room-' + roomId)
+            .emit("playersReady");
+    });
+
+    //Start turn 
+    socket.on("startTurn", function (roomId) {
+        if(roomId === null || roomId === undefined) {
+            return;
+        }
+
+        var room = Helpers.getRoomById(battleRooms, roomId);
+
+        if(room.turnStatus === "" || room.turnStatus === "finished") {
+            room.turnStatus = "started";
+            room.turnCount += 1;
+
+            console.log("Starting turn: " + room.turnCount);
+
+            //generate blocked pieces random base on 3x3 matrix
+            var list = [];
+            do {
+                var item = {
+                    row: Math.floor(Math.random() * 3),
+                    column: Math.floor(Math.random() * 3)
+                }
+
+                //Just add the item if is not going to be in the middle of the matrix and not exist already
+                if(item.column !== 1 && 
+                    !list.some(x => x.row === item.row && x.column === item.column)) {
+
+                    list.push(item);
+                }
+
+            } while (list.length < 2);
+
+            room.turnBlockedItems = list;
+        }
+
+        Socketio.to(socket.id)
+        .emit("startTurnResult", room.turnBlockedItems);
+    });
+
+    //Defense Movement
+    socket.on("defenseMove", function (roomId, defensePosition) {
+        var room = Helpers.getRoomById(battleRooms, roomId);
+        //Find the other player in the room 
+        var player = room.players.find(item =>  item.socketId !== socket.id);
+
+        Socketio.to(player.socketId)
+        .emit("defensePosition", defensePosition);
+    });
+
+    //Attack Movement
+    socket.on("attackMove", function (roomId, attackPosition) {
+        var room = Helpers.getRoomById(battleRooms, roomId);
+        //Find the other player in the room 
+        var player = room.players.find(item =>  item.socketId !== socket.id);
+
+        Socketio.to(player.socketId)
+        .emit("attackPosition", attackPosition);
+    });
+
+    // Receive confirmation about fire the attack from the client
+    socket.on("attackConfirmed", function (roomId, isAttackHit, attackPower) {
+        console.log("attack confirmed to battle:" + roomId);
+        //TODO: add here here the hit player light in the client
+
+        //Send back a fire attack socket to all clients
+        Socketio.to('room-' + roomId)
+        .emit("fireAttack", isAttackHit, attackPower);
     });
 
     // Disconnect player
@@ -109,24 +187,6 @@ Socketio.on("connection", socket => {
     });
 });
   
-  
-//   /**
-//    * Handle the turn played by either player and notify the other. 
-//    */
-//   Socketio.on('playTurn', function(data){
-//     Socketio.broadcast.to(data.room).emit('turnPlayed', {
-//       tile: data.tile,
-//       room: data.room
-//     });
-//   });
-  
-//   /**
-//    * Notify the players about the victor.
-//    */
-//   Socketio.on('gameEnded', function(data){
-//     Socketio.broadcast.to(data.room).emit('gameEnd', data);
-//   });
-
 Http.listen(3000, () => {
     console.log("Listening at :3000...");
 });

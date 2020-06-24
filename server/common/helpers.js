@@ -16,7 +16,6 @@ class Helpers {
     }
 
     static getRoomById(battleRooms, roomId) {
-        console.log(roomId);
         return battleRooms.find(room => room.id === roomId);
     }
 }

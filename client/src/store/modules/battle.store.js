@@ -2,7 +2,8 @@ const state = {
     id: null,
     player: null,
     turnType: "",
-    chips: []
+    chips: [],
+    isAttackHit: false
   }
   
   const mutations = {
@@ -20,6 +21,12 @@ const state = {
       if(index >= 0) {
         state.chips.splice(index, 1)
       }
+    },
+    setIsAttackHit: (state, isAttackHit) => {
+      state.isAttackHit = isAttackHit;
+    },
+    setPlayerHit: (state, attackPower) => {
+      state.player.naviStatus.hp -= attackPower
     }
   }
   

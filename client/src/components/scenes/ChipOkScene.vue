@@ -38,6 +38,11 @@ export default {
     beforeDestroy() {
         this.unregisterListeners();
     },
+    sockets: {
+        playersReady() {
+            this.$store.commit('session/setCurrentScene', SceneNames.BattleBoard);
+        }
+    },
     methods: {
         registerListeners() {
             EventBus.$on(Events.Right, this.setChipIsOk);
@@ -54,7 +59,7 @@ export default {
         },
         onConfirmation() {
             if(this.isChipOk) {
-                this.$store.commit('session/setCurrentScene', SceneNames.Game);
+                this.$socket.client.emit('chipPlugged', this.$store.state.battle.id);
             } else {
                 //Remove last chip added from battle chips
                 this.$store.commit('battle/removeChip', this.$store.state.battle.chips.length - 1);
