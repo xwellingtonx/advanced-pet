@@ -159,7 +159,7 @@ export default {
 
             this.$store.commit('battle/setIsAttackHit', isAttackHit);
 
-            this.$store.commit('session/setCurrentScene', SceneNames.FireAttack);
+            this.$store.commit('session/setCurrentScene', SceneNames.BattleFireAttack);
         }
     },
     methods: {

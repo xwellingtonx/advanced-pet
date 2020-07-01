@@ -181,6 +181,12 @@ Socketio.on("connection", socket => {
         .emit("fireAttack", isAttackHit, attackPower);
     });
 
+    // Inform to all socket the animation should be skipted
+    socket.on("changeSceneRequest", function (roomId) {
+        Socketio.to('room-' + roomId)
+        .emit("changeScene");
+    });
+
     // Disconnect player
     socket.on("disconnectPlayer", function () {
 
