@@ -382,6 +382,16 @@ export default {
       .frame-effects {
         fill: #f9ed04;
       }
+    } 
+
+    /*Windman background */
+    &.chip-316-bg {
+      .frame {
+        fill: #04B7CA;
+      }
+      .frame-effects {
+        fill: #0398a8;
+      }
     }       
 
     /*ProtoMan background */
