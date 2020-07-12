@@ -392,7 +392,19 @@ export default {
       .frame-effects {
         fill: #0398a8;
       }
-    }       
+    }    
+
+    /*Searchman background */
+    &.chip-317-bg {
+      .frame {
+        fill: #6B9E57;
+      }
+      .frame-effects {
+        fill: #568046;
+      }
+    }      
+
+    
 
     /*ProtoMan background */
     &.chip-320-bg {
