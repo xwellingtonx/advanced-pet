@@ -6,16 +6,6 @@
                 <rect class="cls-1" x="3" y="64.55" width="76.89" height="7.45" />
                 <rect v-for="item in countDownBars" 
                     :key="item.id" :x="item.x" y="64.79" width="4.85" height="6.88"  />                
-                <!-- <rect x="4.52" y="64.84" width="4.85" height="6.88" />
-                <rect x="12.19" y="64.84" width="4.85" height="6.88" />
-                <rect x="19.86" y="64.84" width="4.85" height="6.88" />
-                <rect x="27.52" y="64.84" width="4.85" height="6.88" />
-                <rect x="35.19" y="64.84" width="4.85" height="6.88" />
-                <rect x="42.85" y="64.84" width="4.85" height="6.88" />
-                <rect x="50.52" y="64.84" width="4.85" height="6.88" />
-                <rect x="58.19" y="64.84" width="4.85" height="6.88" />
-                <rect x="65.85" y="64.84" width="4.85" height="6.88" />
-                <rect x="73.52" y="64.84" width="4.85" height="6.88" /> -->
             </g>
 
             <g class="board">
@@ -105,7 +95,9 @@ export default {
         this.unregisterListeners();
     },
     sockets: {
-        startTurnResult(blockedItems) {
+        startTurnResult(blockedItems, currentTurn) {
+            this.$store.commit('battle/setCurrentTurn', currentTurn);
+
             //Add blocked items to the board
             blockedItems.forEach(element => {
                 var item = {
@@ -158,6 +150,7 @@ export default {
             } 
 
             this.$store.commit('battle/setIsAttackHit', isAttackHit);
+            this.$socket.client.emit('updateNaviStaus', this.$store.state.battle.id, this.$store.state.battle.player.naviStatus);
 
             this.$store.commit('session/setCurrentScene', SceneNames.BattleFireAttack);
         }

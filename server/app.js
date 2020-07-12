@@ -148,7 +148,7 @@ Socketio.on("connection", socket => {
         }
 
         Socketio.to(socket.id)
-        .emit("startTurnResult", room.turnBlockedItems);
+        .emit("startTurnResult", room.turnBlockedItems, room.turnCount);
     });
 
     //Defense Movement
@@ -181,10 +181,51 @@ Socketio.on("connection", socket => {
         .emit("fireAttack", isAttackHit, attackPower);
     });
 
+    socket.on("updateNaviStaus", function (roomId, naviStatus) {
+        var room = Helpers.getRoomById(battleRooms, roomId);
+        //Find the other player in the room 
+        var playerSlot = room.players.find(item =>  item.socketId === socket.id);
+        console.log("updating player status....");
+
+        playerSlot.player.naviStatus = naviStatus;
+    });
+
     // Inform to all socket the animation should be skipted
     socket.on("changeSceneRequest", function (roomId) {
         Socketio.to('room-' + roomId)
         .emit("changeScene");
+    });
+
+    
+    socket.on("getPlayersStatus", function (roomId) {
+        var room = Helpers.getRoomById(battleRooms, roomId);
+        if(room) {
+            console.log("Getting players status....");
+
+            //Find the other player in the room 
+            var defenseSlot = room.players.find(item =>  item.currentTurn === "defense");
+            var attackSlot = room.players.find(item =>  item.currentTurn === "attack");
+
+            // Emite a socket just to the caller socket
+            socket.emit("playersStatus", attackSlot.player, defenseSlot.player);
+        }
+    });
+
+    //Start turn 
+    socket.on("changeTurnRequest", function (roomId) {
+        if(roomId === null || roomId === undefined) {
+            return;
+        }
+
+        console.log("changing turn to room:" + roomId);
+
+        var room = Helpers.getRoomById(battleRooms, roomId);
+        room.turnStatus = "finished";
+
+        var player = room.players.find(item =>  item.socketId === socket.id);
+        player.currentTurn = player.currentTurn === "attack" ? "defense" : "attack";
+
+        socket.emit("changeTurn", player.currentTurn);
     });
 
     // Disconnect player

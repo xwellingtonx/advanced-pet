@@ -2,6 +2,7 @@ const state = {
     id: null,
     player: null,
     turnType: "",
+    currentTurn: 0,
     chips: [],
     isAttackHit: false
   }
@@ -21,6 +22,12 @@ const state = {
       if(index >= 0) {
         state.chips.splice(index, 1)
       }
+    },
+    clearChips:(state) => {
+      state.chips = [];
+    },
+    setCurrentTurn: (state, turn) => {
+      state.currentTurn = turn;
     },
     setIsAttackHit: (state, isAttackHit) => {
       state.isAttackHit = isAttackHit;

@@ -15,6 +15,7 @@
 <script>
 import EventBus from '../../common/eventBus.js';
 import { Events, SceneNames } from '../../common/constants';
+import { Howl } from 'howler';
 
 export default {
     name: "SlotInScene",
@@ -50,8 +51,18 @@ export default {
             EventBus.$off(Events.SlotIn);
         },
         startCountDown: function() {
+            var sound = new Howl({
+                src: require("../../assets/sounds/slot-in.mp3"),
+                volume: 1,
+                loop: false
+            });
+
             this.interval = setInterval(() => {
                 if(this.countDownBars.length > 0) {
+                    if(this.$store.state.session.sound) {
+                        sound.play();
+                    }
+
                     this.countDownBars.splice(this.countDownBars.length - 1, 1);
 
                     if(this.countDownBars.length === 0) {
