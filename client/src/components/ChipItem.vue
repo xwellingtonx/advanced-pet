@@ -404,7 +404,25 @@ export default {
       }
     }      
 
-    
+     /*Fireman background */
+    &.chip-318-bg {
+      .frame {
+        fill: #a21616;
+      }
+      .frame-effects {
+        fill: #680808;
+      }
+    }    
+
+    /*thunderman background */
+    &.chip-319-bg {
+      .frame {
+        fill: #eff585;
+      }
+      .frame-effects {
+        fill: #d8de75;
+      }
+    }  
 
     /*ProtoMan background */
     &.chip-320-bg {

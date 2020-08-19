@@ -66,7 +66,8 @@ text, button {
 
 body {
   margin: 0px;
-  background-color: #53cfe0 !important;
+  background-color: rgb(0,149,215) !important;
+  background-image: url("~@/assets/circuit.svg");
   overflow: hidden;
 }
 
