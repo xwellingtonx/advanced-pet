@@ -433,6 +433,26 @@ export default {
         fill: #a01a11;
       }
     }
+
+    /*Numberman background */
+    &.chip-321-bg {
+      .frame {
+        fill: #A4C89A;
+      }
+      .frame-effects {
+        fill: #84a07c;
+      }
+    }
+
+    /*Metalman background */
+    &.chip-322-bg {
+      .frame {
+        fill: #B6B3AE;
+      }
+      .frame-effects {
+        fill: #9a9793;
+      }
+    }
   }
 }
 
