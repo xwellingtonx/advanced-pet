@@ -61,24 +61,6 @@ const mutations = {
 }
 
 const actions = {
-  // updateNaviStatus ({commit}) {
-  //   commit('updateNaviStatus')
-  // },
-  // incrementWins ({commit}) {
-  //   commit('incrementWins')
-  // },
-  // incrementLosses ({commit}) {
-  //   commit('incrementLosses')
-  // },
-  // setTime ({ commit }, time) {
-  //   commit("setTime", time);
-  // },  
-  // addToMyChips ({ commit }, item) {
-  //   commit("addToMyChips", item);
-  // },
-  // removeFromMyChips ({ commit }, index) {
-  //   commit("removeFromMyChips", index);
-  // }
 }
 
 export default {

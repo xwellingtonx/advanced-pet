@@ -45,7 +45,10 @@ const SceneNames = {
   ChipAttackArea: "ChipAttackAreaScene",
   BattleBoard: "BattleBoardScene",
   BattleFireAttack: "BattleFireAttackScene",
-  BattleAttackDamage: "BattleAttackDamageScene"
+  BattleAttackDamage: "BattleAttackDamageScene",
+  BattleChooseWinner: "BattleChooseWinnerScene",
+  BattleWinner: "BattleWinnerScene",
+  BattleLoser: "BattleLoserScene",
 }
 
 const Events = {

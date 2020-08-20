@@ -44,7 +44,7 @@ export default {
         initializeBattle(battleId) {
             this.$store.dispatch('battle/startBattle', {
                 id: battleId,
-                player: this.$store.state.session
+                player: JSON.parse(JSON.stringify(this.$store.state.session))
             });
 
             this.$store.commit('session/setCurrentScene', SceneNames.BattleStart);
@@ -58,7 +58,7 @@ export default {
             EventBus.$off(Events.Cancel);
         },
         onCancel() {
-            this.$socket.client.emit('disconnectPlayer');
+            this.$socket.client.emit('disconnectPlayer', this.$store.state.session.id);
             this.$store.commit('session/setCurrentScene', SceneNames.StandBy);
         }, 
     }            

@@ -228,9 +228,22 @@ Socketio.on("connection", socket => {
         socket.emit("changeTurn", player.currentTurn);
     });
 
-    // Disconnect player
-    socket.on("disconnectPlayer", function () {
+    //End battle removing the room from the list
+    socket.on("disconnectPlayer", function (playerId) {
+        if(playerId === null || playerId === undefined) {
+            return;
+        }
+        console.log("Disconnecting player:" + playerId);
+        Helpers.removeRoomByPlayerId(battleRooms, playerId);
+    }); 
 
+    //End battle removing the room from the list
+    socket.on("endBattle", function (roomId) {
+        if(roomId === null || roomId === undefined) {
+            return;
+        }
+        console.log("Ending battle:" + roomId);
+        Helpers.removeRoomById(battleRooms, roomId);
     });
 });
   

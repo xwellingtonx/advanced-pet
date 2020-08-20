@@ -82,7 +82,8 @@ export default {
                 { id: 8, x: "58.11"},
                 { id: 9, x: "65.77"},
                 { id: 10, x: "73.44"}                                                                                                                                      
-            ]
+            ],
+            defPlayer: null
         }
     },
     computed: {
@@ -104,6 +105,7 @@ export default {
     },
     sockets: {
         playersStatus(attackPlayer, defensePlayer) {
+            this.defPlayer = defensePlayer;
             //Show the status of defense player since received the damage
             console.log("defense hp:" + defensePlayer.naviStatus.hp);
             var totalHP = parseInt(defensePlayer.naviStatus.hp) * 10;
@@ -112,7 +114,7 @@ export default {
                 var numberBars = Math.round(totalHP / 10);
                 this.defenseHPBars = this.defenseHPBars.slice(0, numberBars);
 
-            } else if( totalHP < 0) {
+            } else if( totalHP <= 0) {
                 this.defenseHPBars = [];
             }
         },
@@ -136,10 +138,23 @@ export default {
 
             if(this.defenseHPBars.length === 0) {
                 //End game and move to winner/lose screen
-                console.log("End game and move to winner/lose screen");
+                var sceneName = "";
+
+                if(this.defPlayer.id === this.$store.state.session.id) {
+                    this.$store.commit('session/incrementLosses');
+                    sceneName = SceneNames.BattleLoser;
+                } else {
+                    this.$store.commit('session/incrementWins');
+                    sceneName = SceneNames.BattleWinner;
+                }
+
+                this.$socket.client.emit('endBattle', this.$store.state.battle.id);
+                this.$store.commit('session/setIsInBattle', false);
+                this.$store.commit('session/setCurrentScene', sceneName);
+
             } else if(this.$store.state.battle.currentTurn === 5) {
-                //choose winner
-                console.log("choose winner");
+                //Choose winner
+                this.$store.commit('session/setCurrentScene', SceneNames.BattleChooseWinner);
             } else {
                 this.$socket.client.emit('changeTurnRequest', this.$store.state.battle.id);
             }
