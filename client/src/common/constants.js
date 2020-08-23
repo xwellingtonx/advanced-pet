@@ -49,6 +49,7 @@ const SceneNames = {
   BattleChooseWinner: "BattleChooseWinnerScene",
   BattleWinner: "BattleWinnerScene",
   BattleLoser: "BattleLoserScene",
+  VSBattleResult: "VSBattleResultScene",
 }
 
 const Events = {
