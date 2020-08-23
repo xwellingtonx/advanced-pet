@@ -453,6 +453,26 @@ export default {
         fill: #9a9793;
       }
     }
+
+    /*Junkman background */
+    &.chip-323-bg {
+      .frame {
+        fill: #67553D;
+      }
+      .frame-effects {
+        fill: #483c2b;
+      }
+    }
+
+    /*Aquaman background */
+    &.chip-324-bg {
+      .frame {
+        fill: #8DB4CD;
+      }
+      .frame-effects {
+        fill: #7291a5;
+      }
+    }
   }
 }
 
