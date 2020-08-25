@@ -247,6 +247,8 @@ Socketio.on("connection", socket => {
     });
 });
   
-Http.listen(3000, () => {
-    console.log("Listening at :3000...");
+const port = process.env.PORT || 3000;
+
+Http.listen(port, () => {
+    console.log("Listening at: " + port);
 });
