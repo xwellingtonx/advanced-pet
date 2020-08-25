@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import chips from './modules/chips.store.js'
 import session from './modules/session.store.js'
 import battle from './modules/battle.store.js'
+import { SceneNames } from '../common/constants'; 
 
 //import moment from 'moment'
 
@@ -20,6 +21,11 @@ var store = new Vuex.Store({
       if(localStorage.getItem('sessionStore')) {
         //Assign session saved in local storage
         var sessionState = Object.assign(state.session, JSON.parse(localStorage.getItem('sessionStore')));
+        if(sessionState.isInBattle) {
+          sessionState.isInBattle = false;
+          sessionState.currentScene = SceneNames.StandBy;
+        } 
+        
         state.session = sessionState
       }
     },     

@@ -9,8 +9,8 @@ import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client';
 
 const serverUrl = process.env.NODE_ENV === 'development'
-? 'https://advanced-pet-server.herokuapp.com:3000/'
-: 'https://advanced-pet-server.herokuapp.com:3000/'
+? 'http://localhost:3000'
+: 'https://advanced-pet-server.herokuapp.com'
 
 const socket = io(serverUrl, {
   'reconnectionAttempts': 5
