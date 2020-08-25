@@ -7,7 +7,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client';
-const socket = io('http://localhost:3000', {
+
+const serverUrl = process.env.NODE_ENV === 'development'
+? 'http://localhost:3000'
+: 'https://advanced-pet-server.herokuapp.com:3000/'
+
+const socket = io(serverUrl, {
   'reconnectionAttempts': 5
 });
 
