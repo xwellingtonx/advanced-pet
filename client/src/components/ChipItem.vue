@@ -261,10 +261,10 @@ export default {
   }
 
   .standard-classe {
-    fill: #ededed;
+    fill: #d9dfef;
   }
   .mega-classe {
-    fill: #a2bdf4;
+    fill: #9cbbda;
   }
   .giga-classe {
     fill: #f2a2a2;
