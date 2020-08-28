@@ -1,12 +1,13 @@
-import { SceneNames } from  '../../common/constants.js'
 var UUID = require('uuid-random');
+import {SceneNames} from '../../global/constants'
+import moment from 'moment'
 
 const state = {
   id: UUID(),
   theme: 0,
   currentScene: SceneNames.MadeBy,
   lastScene: "",
-  time: "00:00",
+  time: new moment().format("hh:mm"),
   myChips: [],
   sound: true,
   naviStatus: {
@@ -57,10 +58,13 @@ const mutations = {
   },
   setIsInBattle: (state, value) => {
     state.isInBattle = value;
-  }
+  },
 }
 
 const actions = {
+  updateTime ({commit}) {
+    commit('setTime', new moment().format("hh:mm"));
+  }
 }
 
 export default {

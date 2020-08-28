@@ -3,9 +3,8 @@ import Vuex from 'vuex'
 import chips from './modules/chips.store.js'
 import session from './modules/session.store.js'
 import battle from './modules/battle.store.js'
-import { SceneNames } from '../common/constants'; 
+import { SceneNames } from '../global/constants.js'
 
-//import moment from 'moment'
 
 Vue.use(Vuex)
 
@@ -13,9 +12,6 @@ var store = new Vuex.Store({
   state: {
   },
   mutations: {
-    // updateTime(state) {
-    //   state.timeNow = new moment().format("hh:mm");
-    // }, 
     initializeSession(state) {
       // Check if the ID exists
       if(localStorage.getItem('sessionStore')) {
@@ -31,9 +27,6 @@ var store = new Vuex.Store({
     },     
   },
   actions: {
-    // updateTime ({commit}) {
-    //   commit('updateTime')
-    // }
   },
   modules: {
     chips,
