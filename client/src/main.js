@@ -21,7 +21,6 @@ Vue.use(BootstrapVue)
 Vue.use(Vddl)
 Vue.use(VueSocketIOExt, socket);
 
-
 new Vue({
   store,
   Vddl,

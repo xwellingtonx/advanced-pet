@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import ChipLibrary from './components/ChipLibrary.vue'
-import MyChips from './components/MyChips.vue'
-import AdvancedPet from './components/AdvancedPET.vue'
+import ChipLibrary from './components/battlechip/ChipLibrary.vue'
+import MyChips from './components/battlechip/MyChips.vue'
+import AdvancedPet from './components/PET.vue'
 
 
 export default {
