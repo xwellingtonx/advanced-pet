@@ -473,6 +473,26 @@ export default {
         fill: #7291a5;
       }
     }
+
+    /*Woodman background */
+    &.chip-325-bg {
+      .frame {
+        fill: #49B2A8;
+      }
+      .frame-effects {
+        fill: #429890;
+      }
+    }
+
+    /*Starman background */
+    &.chip-326-bg {
+      .frame {
+        fill: #f3cb30;
+      }
+      .frame-effects {
+        fill: #dcb72a;
+      }
+    }
   }
 }
 
