@@ -5,7 +5,7 @@ const ChipClasses = {
   Navi: "Navi"
 }
 
-const ChipElements = {
+const ElementTypes = {
   Neutral: "Neutral",
   Fire: "Fire",
   Aqua: "Aqua",
@@ -72,7 +72,7 @@ const TurnTypes = {
 
 export {
   ChipClasses,
-  ChipElements,
+  ElementTypes,
   ChipTypes,
   SceneNames,
   Events,

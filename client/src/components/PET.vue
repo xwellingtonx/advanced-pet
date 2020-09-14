@@ -1,5 +1,5 @@
 <template>
-    <div class="advanced-pet megaman-bg">
+    <div class="advanced-pet megaman-bg" :class="{'shaking': isShaking}" >
         <div class="cover-container">
             <svg viewBox="0 0 179.06 248"> 
                 <g class="cover-opened-group">
@@ -22,7 +22,7 @@
                     <vddl-draggable v-for="chip in draggableChip" :key="chip.item.name"
                     :draggable="chip.item"
                     :moved="onMoved"
-                    effect-allowed="move">
+                    effect-allowed="move" :dragstart="sendParentMessage">
                         <chip-item :battle-chip="chip.item"></chip-item>
                     </vddl-draggable>
                 </vddl-list>           
@@ -39,7 +39,7 @@
                         <rect class="handle-color-shadow" x="18.65" y="199.49" width="25.38" height="45.74" rx="12.69" ry="12.69" />
                         <rect class="handle-color" x="132.01" y="196.42" width="31.25" height="51.71" rx="15.62" ry="15.62" />
                         <rect class="handle-color-shadow" x="134.95" y="199.49" width="25.38" height="45.74" rx="12.69" ry="12.69" />
-                        <ellipse class="frame-light"  cx="89.3" cy="257.31" rx="9.05" ry="10.48" />
+                        <ellipse class="frame-light" :class="{'light-on': this.isLightOn && this.isCoverOpened}"  cx="89.3" cy="257.31" rx="9.05" ry="10.48" />
                 </g>
                 <g class="handle-group">
                     <path class="handle-color" d="M227.78,73.33s-9.22-15.77-14.14-18.08c-.42-.19-14.84-.11-14.84-.11H176V97.93a1.08,1.08,0,0,0,1,0c2.51-1.26,3.9-9.33,4.19-12.12.45-4.37-.26-12.36.75-16.63a9.32,9.32,0,0,1,6.49-5.91c2.15-.61,8.94-.65,8.94-.65s6.9,0,9.13.48a14.47,14.47,0,0,1,4.17,2,29.67,29.67,0,0,1,4.83,4.87,111.67,111.67,0,0,1,8.67,16.67C225.4,89.7,228,96,228.47,99.39a12.12,12.12,0,0,1,0,4.33,12.57,12.57,0,0,1-2.67,3.84c-1.94,1.77-6.65,4.3-8.66,6a80.12,80.12,0,0,0-8.84,9.83c-2.28,3-7,9-8.66,12.33-1.15,2.29-2.2,7.38-3.34,9.67a12.37,12.37,0,0,1-2.33,3.17,40.91,40.91,0,0,1-4.67,2.5,61.66,61.66,0,0,0-7,4.66,50.81,50.81,0,0,0-4.66,4.5c-.41.48-1.41,1.89-1.67,2.25v12h1l.23,0,.16,0,.17,0h.07l.14,0h0l.2,0,.12,0h.05l.17,0,.08,0,.23-.09c1.8-.89,3.65-4.38,4.88-6,1.83-2.34,5.55-7,8.25-8.56,2.05-1.15,7.13-2,9-3.44a9.94,9.94,0,0,0,1.75-3c2.31-4.85,5.7-15.16,8.5-19.75s10.2-12.39,14.5-15.5c2.66-1.92,9.14-4.24,11.25-6.75,1-1.24,1.79-4.63,1.75-6.25C238.25,96.56,227.78,73.33,227.78,73.33Z" />
@@ -58,28 +58,28 @@
                         <circle class="handle-color-shadow" cx="89.49" cy="204.67" r="34.06" />
                         <circle class="handle-color" cx="89.49" cy="204.67" r="15.67" />
 
-                        <g id="UpButton" @click="emitControlEvent(UpEvent)">
+                        <g id="UpButton" @click="emitControlEvent(upEvent)">
                             <path class="handle-color" d="M89.49,187.28a17.35,17.35,0,0,1,12.25,5.05l9.44-9.44a30.73,30.73,0,0,0-43.38,0l9.44,9.44A17.35,17.35,0,0,1,89.49,187.28Z" />
                             <path class="handle-color-shadow" d="M92.54,185.73h-6.1A1.21,1.21,0,0,1,85.36,184l4.13-8.27h0L93.62,184A1.21,1.21,0,0,1,92.54,185.73Z" />
                         </g>
-                        <g id="DownButton" @click="emitControlEvent(DownEvent)">
+                        <g id="DownButton" @click="emitControlEvent(downEvent)">
                             <path class="handle-color" d="M101.83,216.91a17.38,17.38,0,0,1-24.68,0l-9.44,9.44a30.73,30.73,0,0,0,43.56,0Z" />
                             <path class="handle-color-shadow" d="M92.54,223.42h-6.1a1.21,1.21,0,0,0-1.08,1.75l4.13,8.26h0l4.13-8.26A1.21,1.21,0,0,0,92.54,223.42Z" />
                         </g>
-                        <g id="LeftButton" @click="emitControlEvent(LeftEvent)">
+                        <g id="LeftButton" @click="emitControlEvent(leftEvent)">
                             <path class="handle-color" d="M72.11,204.67a17.33,17.33,0,0,1,5.13-12.34l-9.44-9.44a30.72,30.72,0,0,0-.09,43.46l9.44-9.44A17.36,17.36,0,0,1,72.11,204.67Z" />
                             <path class="handle-color-shadow" d="M70.65,201.53v6.09a1.21,1.21,0,0,1-1.76,1.08l-8.26-4.13h0l8.26-4.13A1.22,1.22,0,0,1,70.65,201.53Z" />
                         </g>
-                        <g id="RightButton" @click="emitControlEvent(RightEvent)">
+                        <g id="RightButton" @click="emitControlEvent(rightEvent)">
                             <path class="handle-color" d="M111.18,182.89l-9.44,9.44a17.39,17.39,0,0,1,.09,24.58l9.44,9.44a30.72,30.72,0,0,0-.09-43.46Z" />
                             <path class="handle-color-shadow" d="M108.33,201.53v6.09a1.21,1.21,0,0,0,1.76,1.08l8.26-4.13h0l-8.26-4.13A1.22,1.22,0,0,0,108.33,201.53Z" />
                         </g>                    
                     </g>                   
-                    <g id="ConfirmationButton" @click="emitControlEvent(ConfirmationEvent)">
+                    <g id="ConfirmationButton" @click="emitControlEvent(confirmationEvent)">
                         <path class="handle-color-shadow" d="M153.64,179.75,134.48,193a3.25,3.25,0,0,1-4.66-1.05l-7.68-13.3a3.25,3.25,0,0,1,1.43-4.56l21.07-10a3.23,3.23,0,0,1,4.2,1.31l5.76,10A3.24,3.24,0,0,1,153.64,179.75Z" />
                         <path class="handle-color" d="M152.25,179.66l-17.41,12.06a3,3,0,0,1-4.24-.95l-7-12.09a2.94,2.94,0,0,1,1.29-4.14l19.15-9a2.94,2.94,0,0,1,3.81,1.19l5.24,9.07A3,3,0,0,1,152.25,179.66Z" />
                     </g>
-                    <g id="CancelButton" @click="emitControlEvent(CancelEvent)">
+                    <g id="CancelButton" @click="emitControlEvent(cancelEvent)">
                         <path class="handle-color-shadow" d="M25.11,179.75,44.27,193A3.25,3.25,0,0,0,48.93,192l7.68-13.3a3.25,3.25,0,0,0-1.42-4.56l-21.08-10a3.22,3.22,0,0,0-4.19,1.31l-5.77,10A3.25,3.25,0,0,0,25.11,179.75Z" />
                         <path class="handle-color" d="M26.51,179.66l17.41,12.06a3,3,0,0,0,4.23-.95l7-12.09a3,3,0,0,0-1.3-4.14l-19.14-9a3,3,0,0,0-3.82,1.19l-5.24,9.07A3,3,0,0,0,26.51,179.66Z" />
                     </g>
@@ -95,7 +95,7 @@
                     <rect class="base-color-shadow" x="44.47" y="263.15" width="20.5" height="5.88" rx="2.94" ry="2.94" transform="translate(312.52 351.75) rotate(120)" />
                     <rect class="base-color-shadow" x="115.7" y="263.15" width="20.5" height="5.88" rx="2.94" ry="2.94" transform="translate(293.42 23.97) rotate(60)" />
                     <rect class="base-color-shadow" x="141.81" y="236.85" width="20.5" height="5.88" rx="2.94" ry="2.94" transform="translate(140.27 -43.9) rotate(30)" />
-                    <path class="slide-cover-light" d="M90.15,281.61h0l-8.72-11a1.55,1.55,0,0,1,1.21-2.51h15a1.55,1.55,0,0,1,1.21,2.51Z" />                
+                    <path class="slide-cover-light" :class="{'light-on': this.isLightOn && !this.isCoverOpened}" d="M90.15,281.61h0l-8.72-11a1.55,1.55,0,0,1,1.21-2.51h15a1.55,1.55,0,0,1,1.21,2.51Z" />                
                 </g>
                 <g class="cover-closed-group">
                     <path class="base-color" d="M176.06,45.62v-31h-4.69V4.22a1.41,1.41,0,0,0-1.31-1.41h0l-.33,0H9.4l-.34,0H9A1.41,1.41,0,0,0,7.63,4.22v10.4H3.06V181.53h34.5v23.59a52,52,0,0,0,52,52h0a52,52,0,0,0,52-52V181.53h34.5v-6H176V45.62Z" />
@@ -120,9 +120,9 @@
                         <path d="M89.31,42.62c-26.57,0-53.75,6.11-53.75,13.66h0v92.09l22.62,18.08a46.37,46.37,0,0,1,62.35-.07l22.53-18V56.28h0C143.06,48.73,117.65,42.62,89.31,42.62Z" />
                     </g>             
                 </g>  
-                <!-- The screen render will be here -->
-                <!-- <rect class="screen" x="48.05" y="64.94" width="83" height="75" rx="3.01" ry="3.01" /> -->
+
                 <scene-controller />
+
                 <g class="title-group" :class="{'yellow-color': this.isCoverOpened}">
                     <path class="logo-out-circle-color" d="M77.18,51H60.43a1.2,1.2,0,0,0-1.2,1.2v8.07a.87.87,0,0,0,.86.87H64a.87.87,0,0,0,.87-.87v-4h12.3a1.43,1.43,0,0,0,1.43-1.43V52.42A1.43,1.43,0,0,0,77.18,51Zm-4.69,3.86H64.88V52.36h7.61a1.25,1.25,0,0,1,0,2.49Z" />
                     <path class="logo-out-circle-color" d="M81.33,51a1.19,1.19,0,0,0-1.19,1.2v8.07a.86.86,0,0,0,.86.87H98.36V58.69H85.78V57.28H98.36V54.84H85.78V53.43H98.36V51h-17Z" />
@@ -136,11 +136,12 @@
 <script>
 import { gsap } from "gsap"
 import { mapState } from 'vuex'
+import { Howl } from 'howler';
 import SceneController from './game/SceneController.vue' 
 import ChipItem from './battlechip/ChipItem.vue'
-import { Events } from "../global/constants";
+import { Events, SceneNames } from "../global/constants";
 import EventBus from "../global/eventBus";
-
+var Shake = require('shake.js');
 
 export default {
     name: "PET",
@@ -150,19 +151,40 @@ export default {
     computed: {
         ...mapState({
             isInBattle: state => state.session.isInBattle,
+            currentScene: state => state.session.currentScene,
+            recovery: state => state.session.naviStatus.recovery,
         })
     },   
+    watch: {
+        currentScene() {
+            this.toggleShakeEvent();
+        }
+    },
     data() {
         return {
             draggableChip: [],
             isCoverOpened: false,
-            UpEvent: Events.Up,
-            DownEvent: Events.Down,
-            LeftEvent: Events.Left,
-            RightEvent: Events.Right,
-            ConfirmationEvent: Events.Confirmation,
-            CancelEvent: Events.Cancel
+            upEvent: Events.Up,
+            downEvent: Events.Down,
+            leftEvent: Events.Left,
+            rightEvent: Events.Right,
+            confirmationEvent: Events.Confirmation,
+            cancelEvent: Events.Cancel,
+            isShaking: false,
+            shakeCount: 0,
+            myShakeEvent: null,
+            isLightOn: false,
+            shakingSound: null,
+            desktopInterval: null
         }
+    },
+    mounted() {
+        this.myShakeEvent = new Shake({
+            threshold: 10, // optional shake strength threshold
+            timeout: 1000 // optional, determines the frequency of event generation
+        });
+
+        this.toggleShakeEvent();
     },
     methods: {
         openCover() {
@@ -198,11 +220,81 @@ export default {
                 }
             }, 1)            
         },
+        toggleShakeEvent() {
+            if(this.currentScene === SceneNames.StandBy) {
+                window.addEventListener('shake', this.onShaking, false);
+                this.myShakeEvent.start();
+            } else {
+                window.removeEventListener('shake', this.onShaking, false);
+                this.myShakeEvent.stop();
+                this.shakeCount = 0;
+            }
+        },
+        togglePetLed() {
+            //TODO: Addd here virus alert Scene
+            //if(this.currentScene === SceneNames.StandBy) {
+                this.isLightOn = true;
+
+            //} else {
+                //this.isLightOn = false;
+
+                // if(this.shakingSound !== null) {
+                //     this.shakingSound.stop();
+                // }
+            //}
+        },
+        onShaking() {
+            if(!this.isInBattle && this.recovery == 100) {
+                if(this.shakeCount > 5) {
+                    this.isShaking = false;
+                    this.stopShakingForDesktop();
+                    this.shakingSound.stop();
+                    //this.togglePetLed();
+                    this.shakeCount = 0;
+                    alert('shake!');
+                } else {
+                    this.shakeCount += 1;
+                    this.startShakingAnimation();
+                }
+            }
+        },
+        startShakingAnimation() {
+            //Play shaking sound
+            if(this.shakingSound === null) {
+                this.shakingSound= new Howl({
+                    src: require("../assets/sounds/shaking.mp3"),
+                    volume: 1,
+                    loop: false
+                });
+            }
+
+            this.isShaking = true;
+            this.shakingSound.play();
+            setTimeout(() => {
+                this.isShaking = false;
+                this.shakingSound.stop();
+            }, 10000);
+        },
+        startShakingForDesktop() {
+            if(this.currentScene === SceneNames.StandBy) {
+                this.desktopInterval = setInterval(() => {
+                    this.onShaking();
+                }, 1000);
+            }
+        },
+        stopShakingForDesktop() {
+            if(this.desktopInterval != null) {
+                clearInterval(this.desktopInterval);
+            }
+        },
         emitControlEvent(eventName, data) {
             EventBus.$emit(eventName, data);
         },
         clearChipSlot() {
             this.draggableChip = [];
+        },
+        sendParentMessage() {
+            this.$emit('dragstart');
         }
     }
 }
@@ -269,4 +361,51 @@ export default {
         font-size:8.89px;
         font-family:BN Elements;
     }
+
+.light-on {
+    &.slide-cover-light,
+    &.frame-light {
+        fill: #F00;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
+        -webkit-animation: blinkRed 0.5s infinite;
+        -moz-animation: blinkRed 0.5s infinite;
+        -ms-animation: blinkRed 0.5s infinite;
+        -o-animation: blinkRed 0.5s infinite;
+        animation: blinkRed 0.5s infinite;
+    }
+}
+
+.shaking {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) infinite;
+    -webkit-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) infinite;
+    -moz-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) infinite;
+    -ms-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) infinite;
+    -o-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) infinite;
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) infinite;
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes blinkRed {
+    from { fill: #F00; }
+    50% { fill: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { fill: #F00; }
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
 </style>

@@ -502,7 +502,7 @@ export default {
                     this.attackSound = new Howl({
                         src: require("../../../../assets/sounds/attack.mp3"),
                         volume: 0.1,
-                        loop: true
+                        loop: false
                     });
 
                     this.attackSound.play();
@@ -547,7 +547,6 @@ export default {
 
             var soundSrc = this.isAttackHit ? require("../../../../assets/sounds/hit-attack.mp3")
                 : require("../../../../assets/sounds/miss-attack.mp3");
-
             var sound = new Howl({
                 src: soundSrc,
                 volume: 0.1,
