@@ -5,8 +5,10 @@ import Vddl from 'vddl'
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import "font-awesome/css/font-awesome.min.css";
 import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client';
+
 
 const serverUrl = process.env.NODE_ENV === 'development'
 ? 'http://localhost:3000'
@@ -15,6 +17,7 @@ const serverUrl = process.env.NODE_ENV === 'development'
 const socket = io(serverUrl, {
   'reconnectionAttempts': 5
 });
+ 
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)

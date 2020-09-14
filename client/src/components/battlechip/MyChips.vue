@@ -1,17 +1,21 @@
 <template>
-  <vddl-list class="mychips-painel"
-    :list="chipItems"
-    :horizontal="false"
-    :drop="onDrop">
+  <div>
+    <vddl-list class="mychips-painel"
+      :list="chipItems"
+      :horizontal="false"
+      :drop="onDrop" v-if="chipItems.length > 0">
 
-    <vddl-draggable v-for="(item, index) in chipItems" :key="item.name"
-      :draggable="item"
-      :index="index"
-      effect-allowed="copy">
-        <chip-item :battle-chip="item"></chip-item>
-    </vddl-draggable>
+      <vddl-draggable v-for="(item, index) in chipItems" :key="item.name"
+        :draggable="item"
+        :index="index"
+        :dragstart="sendParentMessage"
+        effect-allowed="copy">
+          <chip-item :battle-chip="item"></chip-item>
+      </vddl-draggable>
 
-  </vddl-list>           
+    </vddl-list>
+    <p v-if="chipItems.length == 0">No chips added to my chips!</p>    
+  </div>       
 </template>
 
 <script>
@@ -39,6 +43,9 @@ export default {
 
       //Add the new item moved
       this.$store.commit('session/addToMyChips', draggable);
+    },
+    sendParentMessage() {
+      this.$emit('dragstart');
     }
   }
 }
@@ -66,4 +73,7 @@ export default {
     }
   }
 
+  p {
+    text-align: center;
+  }
 </style>
