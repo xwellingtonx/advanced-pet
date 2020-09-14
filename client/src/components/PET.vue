@@ -264,7 +264,7 @@ export default {
                 this.shakingSound= new Howl({
                     src: require("../assets/sounds/shaking.mp3"),
                     volume: 1,
-                    loop: false
+                    loop: true
                 });
             }
 
@@ -273,7 +273,7 @@ export default {
             setTimeout(() => {
                 this.isShaking = false;
                 this.shakingSound.stop();
-            }, 10000);
+            }, 7000);
         },
         startShakingForDesktop() {
             if(this.currentScene === SceneNames.StandBy) {
