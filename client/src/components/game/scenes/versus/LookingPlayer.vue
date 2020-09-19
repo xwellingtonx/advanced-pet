@@ -27,7 +27,7 @@
 
 <script>
 import EventBus from '../../../../global/eventBus.js';
-import { SceneNames, Events } from '../../../../global/constants';
+import { SceneNames, Events, BattleTypes } from '../../../../global/constants';
 
 export default {
     name: "LookingPlayer",
@@ -44,6 +44,7 @@ export default {
         initializeBattle(battleId) {
             this.$store.dispatch('battle/startBattle', {
                 id: battleId,
+                type: BattleTypes.Player,
                 player: JSON.parse(JSON.stringify(this.$store.state.session))
             });
 

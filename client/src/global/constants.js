@@ -24,6 +24,7 @@ const SceneNames = {
   Opening: "other/Opening",
   StandBy: "other/StandBy",
   Splash: "other/Splash",
+  Notification: "other/Notification",
   
   Option: "option/Option",
   OptionTime: "option/OptionTime",
@@ -33,12 +34,12 @@ const SceneNames = {
 
   PlayerVSPlayer: "versus/PlayerVSPlayer",
   LookingPlayer: "versus/LookingPlayer",
-  BattleStart: "versus/BattleStart",
   Roulette: "versus/Roulette",
   LoadingNow: "versus/LoadingNow",
   RoundType: "versus/RoundType",
   BattleResult: "versus/BattleResult",
 
+  BattleStart: "battle/BattleStart",
   SlotIn: "battle/SlotIn",
   MegaBuster: "battle/MegaBuster",
   MegaBusterStatus: "battle/MegaBusterStatus",
@@ -53,6 +54,9 @@ const SceneNames = {
   BattleChooseWinner: "battle/BattleChooseWinner",
   BattleWinner: "battle/BattleWinner",
   BattleLoser: "battle/BattleLoser",
+  
+  PlugIn: "story/PlugIn",
+  Enemy: "story/Enemy"
 }
 
 const Events = {
@@ -70,11 +74,30 @@ const TurnTypes = {
   Defense: "defense"
 }
 
+const NotificationTypes = {
+  Virus: "virus",
+  Email: "email"
+}
+
+const BattleTypes = {
+  AI: "AI",
+  Player: "Player"
+}
+
+const DeviceTypes = {
+  Megaman: "megaman",
+  Protoman: "protoman", 
+  Bass: "bass"
+}
+
 export {
   ChipClasses,
   ElementTypes,
   ChipTypes,
   SceneNames,
   Events,
-  TurnTypes
+  TurnTypes,
+  NotificationTypes,
+  DeviceTypes,
+  BattleTypes
 }

@@ -288,7 +288,7 @@
   	{ "Id": "304", "Name": "RedSun", "Classe": "Giga", "Element": "Neutral", "CP": 10, "AT": 12, "Type": "Attack" },
   	{ "Id": "305", "Name": "SignalRed", "Classe": "Giga", "Element": "Neutral", "CP": 9, "AT": 6, "Type": "Attack" },
    	{ "Id": "306", "Name": "BassAnly", "Classe": "Giga", "Element": "Neutral", "CP": 10, "AT": 11, "Type": "Attack" },
-   	{ "Id": "307", "Name": "HolyDream", "Classe": "Giga", "Element": "Neutral", "CP": 12, "AT": 13, "Type": "Attack" }, 
+   	{ "Id": "307", "Name": "HolyDream", "Classe": "Giga", "Element": "Neutral", "CP": 12, "AT": 14, "Type": "Attack" }, 
    	{ "Id": "308", "Name": "BlakBarr", "Classe": "Giga", "Element": "Neutral", "CP": 9, "AT": 0, "Type": "Support" }, 
     { "Id": "309", "Name": "BlueMoon", "Classe": "Giga", "Element": "Neutral", "CP": 8, "AT": 10, "Type": "Attack" }, 
     { "Id": "310", "Name": "BugCharge", "Classe": "Giga", "Element": "Neutral", "CP": 8, "AT": 10, "Type": "Attack" },  

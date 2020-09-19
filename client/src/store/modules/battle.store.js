@@ -1,16 +1,20 @@
 const state = {
     id: null,
     player: null,
+    enemy: null,
     turnType: "",
     currentTurn: 0,
     chips: [],
-    isAttackHit: false
+    isAttackHit: false,
+    type: ""
   }
   
   const mutations = {
     startBattle: (state, payload) => {
       state.id = payload.id;
       state.player = payload.player;
+      state.enemy = payload.enemy;
+      state.type = payload.type;
     },
     setTurnType: (state, turnType) => {
       state.turnType = turnType;

@@ -90,6 +90,16 @@ export default {
 </script>
 
 <style lang="scss">
+$primary-fill: #fff;
+$default-fill: #000;
+
+.primary-color {
+    fill: $primary-fill;    
+} 
+.default-color {
+    fill: $default-fill;    
+}
+
 @font-face {
     font-family: "Advanced Pet Font";
     src: url("./assets/fonts/advanced-pet-font.ttf"); /*IE doesn't support .ttf */
@@ -98,6 +108,9 @@ export default {
 @font-face {
     font-family: "BN Elements";
     src: url("./assets/fonts/bn-elements.ttf"); /*IE doesn't support .ttf */
+}
+.pet-font {
+	font-family: Advanced Pet Font;
 }
 
 * {
