@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { EnemyTypes, Events, SceneNames } from  '../../../../global/constants'
+import { BattleActionTypes, EnemyTypes, Events, SceneNames } from  '../../../../global/constants'
 import { mapState } from 'vuex';
 import EventBus from '../../../../global/eventBus.js';
 
@@ -56,7 +56,12 @@ export default {
             //Returns a number between 0 and 1
             var num = Math.random();
             if(num <= hitPercentage) {
-                this.$store.commit('battle/setPlayerHit', parseInt(this.enemy.at));
+                //this.$store.commit('battle/setPlayerHit', parseInt(this.enemy.at));
+                this.$store.commit('battle/addBattleAction', {
+                    type: BattleActionTypes.PlayerDamage, 
+                    value: -parseInt(this.enemy.at)
+                });
+
                 this.$store.commit('battle/setIsAttackHit', true);
                 
             } else {

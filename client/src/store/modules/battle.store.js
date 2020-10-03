@@ -41,17 +41,8 @@ const state = {
     setIsAttackHit: (state, isAttackHit) => {
       state.isAttackHit = isAttackHit;
     },
-    setPlayerHit: (state, attackPower) => {
-      state.player.hp = state.player.hp - attackPower
-    },
-    setEnemyDamage: (state, attackPower) => {
-      state.enemy.hp = state.enemy.hp - attackPower
-    },
-    addBattleAction:(state, type, payload) => {
-      state.battleActions.push({
-        type: type,
-        payload: payload
-      });
+    addBattleAction:(state, action) => {
+      state.battleActions.push(action);
     }
   }
   

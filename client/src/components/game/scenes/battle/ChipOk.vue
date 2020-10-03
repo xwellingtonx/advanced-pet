@@ -23,16 +23,18 @@
 
 <script>
 import EventBus from '../../../../global/eventBus';
-import { SceneNames, Events, BattleTypes } from '../../../../global/constants';
-import { mapState } from 'vuex';
+import { SceneNames, Events, BattleTypes, BattleActionTypes } from '../../../../global/constants';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     name: "ChipOk",
     computed: {
         ...mapState({
             battleType: state => state.battle.type,
-            battleChips: state => state.chips
-        })       
+        }),
+        ...mapGetters({
+            lastChipPlugged: 'battle/getLastChip'
+        })        
     },    
     data() {
         return {
@@ -67,13 +69,21 @@ export default {
         onConfirmation() {
             if(this.isChipOk) {
                 if(this.battleType === BattleTypes.AI) {
+                    //Prevent add the cannon fake chip
+                    if(this.lastChipPlugged) {
+                        this.$store.commit('battle/addBattleAction', {
+                            type: BattleActionTypes.ChipUsage,
+                            payload: this.lastChipPlugged
+                        });
+                    }
+
                     this.$store.commit('session/setCurrentScene', SceneNames.BattleBoard);
                 } else {
                     this.$socket.client.emit('chipPlugged', this.$store.state.battle.id);
                 }
             } else {
                 //Remove last chip added from battle chips
-                this.$store.commit('battle/removeChip', this.battleChips.length - 1);
+                this.$store.commit('battle/removeChip', this.lastChipPlugged);
 
                 //Redirect to slotin scene
                 this.$store.commit('session/setCurrentScene', SceneNames.SlotIn);

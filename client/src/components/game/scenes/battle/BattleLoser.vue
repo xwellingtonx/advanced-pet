@@ -88,7 +88,8 @@ export default {
             setTimeout(() => {
                 //Move to battle result scene
                 if(this.battleType === BattleTypes.AI) {
-                    this.$store.commit('session/setCurrentScene', SceneNames.StoryResult);
+                    this.$store.commit('session/setIsInBattle', false);
+                    this.$store.commit('session/setCurrentScene', SceneNames.StandBy);
                 } else {
                     this.$store.commit('session/setCurrentScene', SceneNames.VersusResult);
                 }

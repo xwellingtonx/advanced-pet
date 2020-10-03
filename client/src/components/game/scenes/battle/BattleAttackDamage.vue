@@ -12,38 +12,25 @@
                 </g>  
             </g>
 
-            <g class="hp-bar">
-                <rect x="2.91" y="62.02" width="77.18" height="9.98" />
-                <rect class="primary-color" x="3" y="64.55" width="77.18" height="7.45" />
-                <rect v-for="item in defenseHPBars" 
-                    :key="item.id" :x="item.x" y="64.79" width="4.85" height="6.88"  />                
-            </g>
-
+            <health-status ref="hpBar" />
         </svg>      
     </g>
 </template>
 
 <script>
 import { BattleTypes, EnemyTypes, SceneNames, TurnTypes } from '../../../../global/constants.js';
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex';
+import HealthStatus from '../../ui/HealthStatus'
+
 
 export default {
     name: "BattleAttackDamage",
+    components: {
+        HealthStatus
+    },
     data() {
         return {
             toggleColor: false,
-            defenseHPBars: [
-                { id: 1, x: "4.44"},
-                { id: 2, x: "12.11"},  
-                { id: 3, x: "19.78"},
-                { id: 4, x: "27.44"},
-                { id: 5, x: "35.11"},
-                { id: 6, x: "42.77"},    
-                { id: 7, x: "50.44"},
-                { id: 8, x: "58.11"},
-                { id: 9, x: "65.77"},
-                { id: 10, x: "73.44"}                                                                                                                                      
-            ],
             defPlayer: null,
             screenContent: ""
         }
@@ -57,24 +44,29 @@ export default {
             enemy: state => state.battle.enemy,
             player: state => state.battle.player,
             currentTurn: state => state.battle.currentTurn
+        }),
+        ...mapGetters({
+            enemyDamageActions: 'battle/getAllEnemyDamageActions',
+            playerDamageActions: 'battle/getAllPlayerDamageActions'
+
         })
     },    
     mounted() {
         if(this.turnType === TurnTypes.Attack) {
             if(this.enemy.type === EnemyTypes.Virus) {
                 this.importVirus();
-                this.showHPStatus(this.enemy.hp);
+                this.showHPStatus(this.enemy.hp, this.enemyDamageActions);
             } else if (this.enemy.type === EnemyTypes.Boss) {
                 //TODO: Import Boss sprite
                 //Boss
-                this.showHPStatus(this.enemy.hp);
+                this.showHPStatus(this.enemy.hp, this.enemyDamageActions);
             } else {
                 //player
                 this.showPlayerScreens(this.enemy.name)
             }
         } else {
             this.showPlayerScreens(this.deviceType);
-            this.showHPStatus(this.player.hp);
+            this.showHPStatus(this.player.hp, this.playerDamageActions);
         }
 
         setTimeout(() => {
@@ -103,9 +95,8 @@ export default {
     methods: {
         changeTurnRequest() {
             this.$store.commit('battle/clearChips');
-            this.$store.commit('battle/setCurrentTurn', this.currentTurn + 1);
 
-            if(this.defenseHPBars.length === 0) {
+            if(this.$refs.hpBar.getHealth() === 0) {
                 //End game and move to winner/lose screen
                 var sceneName = "";
 
@@ -137,10 +128,12 @@ export default {
                 
                 this.$store.commit('session/setCurrentScene', sceneName);
 
-            } else if(this.currentTurn > 5) {
+            } else if(this.currentTurn == 5) {
                 //Choose winner
                 this.$store.commit('session/setCurrentScene', SceneNames.BattleChooseWinner);
             } else {
+                this.$store.commit('battle/setCurrentTurn', this.currentTurn + 1);
+
                 if(this.battleType === BattleTypes.AI) {
                     if(this.turnType === TurnTypes.Attack) {
                         this.$store.commit('battle/setTurnType', TurnTypes.Defense);
@@ -177,16 +170,8 @@ export default {
                 this.importRightFace(deviceType);
             }
         },
-        showHPStatus(hp) {
-            //Show HP after damage
-            var totalHP = parseInt(hp) * 10;
-            if(totalHP > 0 && totalHP < 100) {
-                var numberBars = Math.round(totalHP / 10);
-                this.defenseHPBars = this.defenseHPBars.slice(0, numberBars);
-
-            } else if( totalHP <= 0) {
-                this.defenseHPBars = [];
-            }
+        showHPStatus(hp, damages) {
+            this.$refs.hpBar.updateHealth(hp, damages);
         }
     }     
 }

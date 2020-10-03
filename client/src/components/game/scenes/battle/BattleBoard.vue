@@ -65,7 +65,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { SceneNames, Events, BattleTypes, TurnTypes, EnemyTypes } from '../../../../global/constants.js';
+import { SceneNames, Events, BattleTypes, TurnTypes, EnemyTypes, BattleActionTypes } from '../../../../global/constants.js';
 import EventBus from '../../../../global/eventBus.js';
 import { getChipAttackArea } from '../../common/chipHelper';
 
@@ -150,7 +150,11 @@ export default {
         fireAttack(isAttackHit, attackPower) {
             if(this.turnType === TurnTypes.Defense) {
                 if(isAttackHit) {
-                    this.$store.commit('battle/setPlayerHit', attackPower);
+                    //this.$store.commit('battle/setPlayerHit', attackPower);
+                    this.$store.commit('battle/addBattleAction', {
+                        type: BattleActionTypes.PlayerDamage, 
+                        value: -parseInt(attackPower)
+                    });
                 }
             } 
 
@@ -425,7 +429,11 @@ export default {
 
                 } else {
                     if(isAttackHit) {
-                        this.$store.commit('battle/setEnemyDamage', attackPower);
+                        ///this.$store.commit('battle/setEnemyDamage', attackPower);
+                        this.$store.commit('battle/addBattleAction', {
+                            type: BattleActionTypes.EnemyDamage, 
+                            value: -attackPower
+                        });
                     }
 
                     this.$store.commit('battle/setIsAttackHit', isAttackHit);
