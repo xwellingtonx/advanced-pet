@@ -154,7 +154,7 @@ export default {
         ...mapState({
             isInBattle: state => state.session.isInBattle,
             currentScene: state => state.session.currentScene,
-            recovery: state => state.session.naviStatus.recovery,
+            recovery: state => state.session.navi.recovery,
         })
     },   
     watch: {
@@ -234,7 +234,7 @@ export default {
             }
         },
         togglePetLed() {
-            if(this.currentScene === SceneNames.Notification &&
+            if(this.currentScene === SceneNames.Notification && this.$store.state.session.notification !== null &&
                 this.$store.state.session.notification.type === NotificationTypes.Virus) {
                 this.isLightOn = true;
 

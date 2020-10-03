@@ -28,9 +28,10 @@
 </template>
 
 <script>
-//import { SceneNames } from '../../../../global/constants';
+import { SceneNames } from '../../../../global/constants';
 import { mapState } from 'vuex';
 import { BattleTypes } from '../../../../global/constants';
+import { Howl } from 'howler';
 
 export default {
     name: "BattleStart",
@@ -45,13 +46,27 @@ export default {
         }
     },
     mounted() {
+        var sound = null;
         if(this.battleType === BattleTypes.AI) {
+            if(this.$store.state.session.sound) {
+                sound = new Howl({
+                    src: require("../../../../assets/sounds/battle-start.mp3"),
+                    volume: 0.5,
+                    loop: true
+                });
+                
+                sound.play();
+            }
+
             this.playerColorAnim();
         }
 
         setTimeout(() => {
-            //this.$store.commit('session/setCurrentScene', SceneNames.Roulette);
-        }, 2000);
+            if(sound !== null) {
+                sound.stop();
+            }
+            this.$store.commit('session/setCurrentScene', SceneNames.Roulette);
+        }, 3500);
     },
     methods: {
         playerColorAnim() {

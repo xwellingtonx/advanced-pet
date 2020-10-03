@@ -34,12 +34,12 @@ const SceneNames = {
 
   PlayerVSPlayer: "versus/PlayerVSPlayer",
   LookingPlayer: "versus/LookingPlayer",
-  Roulette: "versus/Roulette",
   LoadingNow: "versus/LoadingNow",
   RoundType: "versus/RoundType",
-  BattleResult: "versus/BattleResult",
+  VersusResult: "versus/VersusResult",
 
   BattleStart: "battle/BattleStart",
+  Roulette: "battle/Roulette",
   SlotIn: "battle/SlotIn",
   MegaBuster: "battle/MegaBuster",
   MegaBusterStatus: "battle/MegaBusterStatus",
@@ -50,13 +50,18 @@ const SceneNames = {
   ChipAttackArea: "battle/ChipAttackArea",
   BattleBoard: "battle/BattleBoard",
   BattleFireAttack: "battle/BattleFireAttack",
+  BattleAttackHit: "battle/BattleAttackHit",
+  BattleAttackMiss: "battle/BattleAttackMiss",
   BattleAttackDamage: "battle/BattleAttackDamage",
   BattleChooseWinner: "battle/BattleChooseWinner",
   BattleWinner: "battle/BattleWinner",
   BattleLoser: "battle/BattleLoser",
   
   PlugIn: "story/PlugIn",
-  Enemy: "story/Enemy"
+  Enemy: "story/Enemy",
+  EnemyAttack: "story/EnemyAttack",
+  StoryResult: "story/StoryResult",
+  StoryResultDetails: "story/StoryResultDetails"
 }
 
 const Events = {
@@ -80,14 +85,26 @@ const NotificationTypes = {
 }
 
 const BattleTypes = {
-  AI: "AI",
-  Player: "Player"
+  AI: "ai",
+  Player: "player"
+}
+
+const BattleActionTypes = {
+  PlayerDamage: "playerDamage",
+  EnemyDamage: "EnemyDamage",
+  ChipUsage: "chipUsage"
 }
 
 const DeviceTypes = {
   Megaman: "megaman",
   Protoman: "protoman", 
   Bass: "bass"
+}
+
+const EnemyTypes = {
+  Virus: "virus",
+  Boss: "boss",
+  Player: "player"
 }
 
 export {
@@ -99,5 +116,7 @@ export {
   TurnTypes,
   NotificationTypes,
   DeviceTypes,
-  BattleTypes
+  BattleTypes,
+  EnemyTypes,
+  BattleActionTypes
 }

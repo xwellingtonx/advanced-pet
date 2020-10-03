@@ -36,8 +36,10 @@
 </template>
 
 <script>
-import { SceneNames } from '../../../../global/constants';
+import { BattleTypes, SceneNames } from '../../../../global/constants';
 import { Howl } from 'howler';
+import { mapState } from 'vuex'
+
 
 export default {
     name: "BattleLoser",
@@ -49,6 +51,11 @@ export default {
             loseTextInterval: null
         }
     },
+    computed: {
+        ...mapState({
+            battleType: state => state.battle.type,
+        })
+    },      
     mounted() {
         if(this.$store.state.session.sound) {
             this.howlSound = new Howl({
@@ -66,7 +73,10 @@ export default {
 
         setTimeout(() => {
             clearInterval(this.loseTextInterval);
-            this.howlSound.stop();
+            if(this.howlSound !== null) {
+                this.howlSound.stop();
+            }
+            
             this.showNaviFace();
         }, 4000);
     },
@@ -77,7 +87,11 @@ export default {
 
             setTimeout(() => {
                 //Move to battle result scene
-                this.$store.commit('session/setCurrentScene', SceneNames.BattleResult);
+                if(this.battleType === BattleTypes.AI) {
+                    this.$store.commit('session/setCurrentScene', SceneNames.StoryResult);
+                } else {
+                    this.$store.commit('session/setCurrentScene', SceneNames.VersusResult);
+                }
             }, 1500);
         }
     }        

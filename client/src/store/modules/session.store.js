@@ -1,6 +1,7 @@
 var UUID = require('uuid-random');
 import {SceneNames, DeviceTypes, ElementTypes} from '../../global/constants'
 import moment from 'moment'
+import LevelupHelper from '../../components/game/common/levelupHelper';
 
 const state = {
   id: UUID(),
@@ -66,13 +67,38 @@ const mutations = {
   },
   setNotification: (state, value) => {
     state.notification = value;
-  }
+  },
+  decrementStageClear: (state, value) => {
+    state.stageClear -= value;
+  },
+  decrementNaviRecovery: (state, value) => {
+    state.navi.recovery -= value;
+  },
+  incrementNaviRecovery: (state, value) => {
+    state.navi.recovery += value;
+  },
+  levelup: (state) => {
+    var exp = state.navi.exp + 2;
+
+    if(exp >= LevelupHelper.levelToTotalExp(state.navi.level + 1)) {
+      state.navi.exp = 0;
+      state.navi.level += 1;
+      state.navi.cp += 1;
+      state.navi.hp += 2;
+      state.navi.at += 1;
+    } else {
+      state.navi.exp = exp;
+    }
+  },
+  // stateClear() {
+  //   var currentStage = World.getCurrentStage(state.deviceType, state.currentWorld,)
+  // }
 }
 
 const actions = {
   updateTime ({commit}) {
     commit('setTime', new moment().format("hh:mm"));
-  }
+  }, 
 }
 
 export default {

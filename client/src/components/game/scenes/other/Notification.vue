@@ -110,9 +110,8 @@ export default {
       }
     },
     onCancel() {
-      this.$store.commit('session/setNotification', null);
-
       if(this.notification.type === NotificationTypes.Virus) {
+        this.$store.commit('session/setNotification', null);
         this.stopVirusSound();
         this.$store.commit('session/setCurrentScene', SceneNames.StandBy);
       }

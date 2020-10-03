@@ -113,6 +113,10 @@ $default-fill: #000;
 	font-family: Advanced Pet Font;
 }
 
+.svg-text-right-direction {
+    direction: rtl;
+}
+
 * {
   margin: 0;
   padding: 0;

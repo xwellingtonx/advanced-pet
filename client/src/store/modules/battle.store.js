@@ -1,12 +1,15 @@
+import { BattleActionTypes } from "../../global/constants";
+
 const state = {
     id: null,
     player: null,
     enemy: null,
     turnType: "",
-    currentTurn: 0,
+    currentTurn: 1,
     chips: [],
     isAttackHit: false,
-    type: ""
+    type: "",
+    battleActions: []
   }
   
   const mutations = {
@@ -15,6 +18,8 @@ const state = {
       state.player = payload.player;
       state.enemy = payload.enemy;
       state.type = payload.type;
+      state.currentTurn = 1;
+      state.battleActions = []
     },
     setTurnType: (state, turnType) => {
       state.turnType = turnType;
@@ -37,7 +42,16 @@ const state = {
       state.isAttackHit = isAttackHit;
     },
     setPlayerHit: (state, attackPower) => {
-      state.player.naviStatus.hp -= attackPower
+      state.player.hp = state.player.hp - attackPower
+    },
+    setEnemyDamage: (state, attackPower) => {
+      state.enemy.hp = state.enemy.hp - attackPower
+    },
+    addBattleAction:(state, type, payload) => {
+      state.battleActions.push({
+        type: type,
+        payload: payload
+      });
     }
   }
   
@@ -51,6 +65,15 @@ const state = {
   const getters = {
     getLastChip: state => {
       return state.chips[state.chips.length - 1];
+    },
+    getAllPlayerDamageActions: state => {
+      return state.battleActions.filter(x => x.type === BattleActionTypes.PlayerDamage);
+    },
+    getAllEnemyDamageActions: state => {
+      return state.battleActions.filter(x => x.type === BattleActionTypes.EnemyDamage);
+    },    
+    getAllChipsActions: state => {
+      return state.battleActions.filter(x => x.type === BattleActionTypes.ChipUsage);
     }
   }
 

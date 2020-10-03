@@ -23,10 +23,17 @@
 
 <script>
 import EventBus from '../../../../global/eventBus';
-import { SceneNames, Events } from '../../../../global/constants';
+import { SceneNames, Events, BattleTypes } from '../../../../global/constants';
+import { mapState } from 'vuex';
 
 export default {
     name: "ChipOk",
+    computed: {
+        ...mapState({
+            battleType: state => state.battle.type,
+            battleChips: state => state.chips
+        })       
+    },    
     data() {
         return {
             isChipOk: true
@@ -59,10 +66,14 @@ export default {
         },
         onConfirmation() {
             if(this.isChipOk) {
-                this.$socket.client.emit('chipPlugged', this.$store.state.battle.id);
+                if(this.battleType === BattleTypes.AI) {
+                    this.$store.commit('session/setCurrentScene', SceneNames.BattleBoard);
+                } else {
+                    this.$socket.client.emit('chipPlugged', this.$store.state.battle.id);
+                }
             } else {
                 //Remove last chip added from battle chips
-                this.$store.commit('battle/removeChip', this.$store.state.battle.chips.length - 1);
+                this.$store.commit('battle/removeChip', this.battleChips.length - 1);
 
                 //Redirect to slotin scene
                 this.$store.commit('session/setCurrentScene', SceneNames.SlotIn);

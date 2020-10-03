@@ -1,7 +1,7 @@
 <template>
   <g>
     <svg viewBox="0 0 83 75" width="83" height="75" x="48.05" y="64.94">
-        <rect class="cls-1" x="3.14" y="2.84" width="77" height="69" />
+        <rect class="primary-color" x="3.14" y="2.84" width="77" height="69" />
         <g v-if="!showPlugInScreen">
             <g id="sprite_1">
                 <polygon points="22.12 21.85 24.51 21.85 24.51 23.86 29.55 23.86 29.55 26.04 46.55 26.04 46.55 23.86 51.27 23.86 51.27 21.85 53.48 21.85 53.48 19.61 22.12 19.61 22.12 21.85" />
@@ -63,8 +63,8 @@
 
         <g id="plugin-screen" v-if="showPlugInScreen">
             <polygon points="10.1 18.6 10.1 40.44 24.31 40.44 24.31 62.27 59.74 62.27 59.74 40.44 72.63 40.44 72.63 18.6 10.1 18.6" />
-            <text class="cls-2" transform="translate(13.75 38.31) scale(1.02 1)">plug<tspan x="8.26" y="21.14" xml:space="preserve"> in!</tspan></text>
-            <text class="cls-3" transform="translate(13.75 38.31) scale(1.02 1)">plug<tspan x="8.26" y="21.14" xml:space="preserve"> in!</tspan></text>
+            <text class="pet-font" transform="translate(13.75 38.31) scale(1.02 1)">plug<tspan x="8.26" y="21.14" xml:space="preserve"> in!</tspan></text>
+            <text class="primary-color pet-font" transform="translate(13.75 38.31) scale(1.02 1)">plug<tspan x="8.26" y="21.14" xml:space="preserve"> in!</tspan></text>
             <polygon points="31.02 3.58 31.02 2.84 8.63 2.84 8.63 3.58 11.03 3.58 11.03 5.46 33.51 5.46 33.51 3.58 31.02 3.58" />
             <polygon points="3.7 5.65 3.7 3.77 3.14 3.77 3.14 5.65 3.14 7.57 6.1 7.57 6.1 5.65 3.7 5.65" />
             <polygon points="23.64 13.15 23.64 11.06 23.64 9.39 3.14 9.39 3.14 11.06 21.07 11.06 21.07 13.15 3.14 13.15 3.14 16.72 25.9 16.72 25.9 13.15 23.64 13.15" />
@@ -89,45 +89,70 @@
 <script>
 import { Howl } from 'howler';
 import { TimelineLite } from "gsap";
-import { SceneNames } from '../../../../global/constants';
+import { Events, SceneNames } from '../../../../global/constants';
+import EventBus from '../../../../global/eventBus.js';
 
 export default {
   name: "PlugIn",
   data() {
     return {
-      showPlugInScreen: false
+      showPlugInScreen: false,
+      sound: null,
+      timeLine: null
     }
   },
   mounted() {
+    this.registerListeners();
+
     if(this.$store.state.session.sound) {
-        var sound = new Howl({
+        this.sound = new Howl({
             src: require("../../../../assets/sounds/plug-in.mp3"),
             volume: 0.1
         });
 
-        sound.play();
+        this.sound.play();
     }
 
-    var timeLine = new TimelineLite({
+    this.timeLine = new TimelineLite({
         repeat: 4,
     });
 
-    timeLine.to('#sprite_1', {display: 'none', duration: 0.3,  ease: "none"});
-    timeLine.to('#sprite_2', {display: 'block', duration: 0.3,  ease: "none"});
-    timeLine.set('#sprite_2', {display: 'none'});
-    timeLine.to('#sprite_3', {display: 'block', duration: 0.3,  ease: "none"});
-    timeLine.set('#sprite_3', {display: 'none'});
-    timeLine.set('#sprite_1', {display: 'block'});
+    this.timeLine.to('#sprite_1', {display: 'none', duration: 0.3,  ease: "none"});
+    this.timeLine.to('#sprite_2', {display: 'block', duration: 0.3,  ease: "none"});
+    this.timeLine.set('#sprite_2', {display: 'none'});
+    this.timeLine.to('#sprite_3', {display: 'block', duration: 0.3,  ease: "none"});
+    this.timeLine.set('#sprite_3', {display: 'none'});
+    this.timeLine.set('#sprite_1', {display: 'block'});
 
-    timeLine.play().then(() => {
-        sound.stop();
-        this.showPlugInScreen = true;
-        setTimeout(() => {
-            this.$store.commit('session/setCurrentScene', SceneNames.Enemy);
-        }, 2000);
+    this.timeLine.play().then(() => {
+      if(this.sound !== null) {
+        this.sound.stop();
+      }
+      
+      this.showPlugInScreen = true;
+      setTimeout(() => {
+          this.$store.commit('session/setCurrentScene', SceneNames.Enemy);
+      }, 2000);
     });
   },
   methods: {
+    registerListeners() {
+      EventBus.$on(Events.Confirmation, this.onConfirmation);
+    },
+    unregisterListeners() {
+      EventBus.$off(Events.Confirmation);
+    },   
+    onConfirmation() {
+      if(this.sound !== null) {
+        this.sound.stop();
+      }
+
+      if(this.timeLine !== null) {
+        this.timeLine.kill();
+      }
+
+      this.$store.commit('session/setCurrentScene', SceneNames.Enemy);
+    } 
   }
 }
 </script>
@@ -135,8 +160,10 @@ export default {
 <style scoped lang="scss">
 #sprite_2,
 #sprite_3 {
-    display: none;
+  display: none;
 }
 
-.cls-1,.cls-3{fill:#fff;}.cls-2,.cls-3{font-size:17.61px;font-family:Advanced-PET-Font, Advanced PET Font;}
+.pet-font {
+  font-size:17.61px;
+}
 </style>

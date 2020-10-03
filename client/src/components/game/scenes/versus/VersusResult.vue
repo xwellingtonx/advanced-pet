@@ -17,7 +17,7 @@ import { Howl } from 'howler';
 import { mapState } from 'vuex'
 
 export default {
-    name: "BattleResult",
+    name: "VersusResult",
     computed: {
         ...mapState({
             wins: state => state.session.wins,
@@ -37,7 +37,11 @@ export default {
         }
 
         setTimeout(() => {
-            sound.stop();
+            if(sound != null) {
+                sound.stop();
+            }
+            
+            this.$store.commit('session/setIsInBattle', false);
             this.$store.commit('session/setCurrentScene', SceneNames.StandBy);
         }, 3000);
     }
