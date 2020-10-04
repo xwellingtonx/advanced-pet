@@ -33,12 +33,12 @@
             <g class="nav-status-values" v-if="showValues && player !== null">
                 <rect class="cls-3" x="3" y="3" width="77" height="69" />
                 <text class="status-values" transform="translate(4.87 30.99)">CP</text>
-                <text class="status-values" transform="translate(58.4 30.99)" >{{player.cp}}</text>
+                <text class="status-values svg-text-right-direction" transform="translate(78 30.99)" >{{player.cp}}</text>
                 <text class="status-values" transform="translate(4.87 50.1)">HP</text>
-                <text class="status-values" transform="translate(58.4 50.1)" >{{player.hp}}</text>
+                <text class="status-values svg-text-right-direction" transform="translate(78 50.1)" >{{playerHP}}</text>
 
                 <text class="status-values" transform="translate(4.87 70.1)">AT</text>
-                <text class="status-values" transform="translate(58.4 70.1)" >{{player.at}}</text>
+                <text class="status-values svg-text-right-direction" transform="translate(78 70.1)" >{{player.at}}</text>
 
                 <polygon points="75.41 6.18 77.29 6.18 77.29 7.1 79.17 7.1 79.17 8.88 77.29 8.88 77.29 9.75 75.41 9.75 75.41 11.53 73.52 11.53 73.52 9.75 73.52 7.99 73.52 7.96 73.52 6.2 73.52 4.42 75.41 4.42 75.41 6.18" />
             </g>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import EventBus from '../../../../global/eventBus.js';
 import { SceneNames, Events } from '../../../../global/constants';
 
@@ -55,16 +55,25 @@ export default {
     name: "BattleNaviStatus",
     data () {
         return {
-            showValues: false
+            showValues: false,
+            playerHP: 0
         }
     },
     computed: {
         ...mapState({
             player: state => state.battle.player,
+        }),
+        ...mapGetters({
+            playerDamageActions: 'battle/getAllPlayerDamageActions'
         })
     },   
     mounted() {
         this.registerListeners();
+
+        this.playerHP = this.player.hp;
+        this.playerDamageActions.forEach((item) => {
+            this.playerHP += item.value
+        });
     },
     beforeDestroy() {
         this.unregisterListeners();

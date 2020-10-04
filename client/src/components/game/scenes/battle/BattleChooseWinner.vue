@@ -10,38 +10,24 @@
             <g v-if="this.battleType !== 'ai' && this.currentCharacter !== null" class="standby-face-right" :class="{ 'flip': currentCharacter.currentTurn === 'defense' }">
             </g>    
 
-            <g class="hp-bar">
-                <rect x="2.91" y="62.02" width="77.18" height="9.98" />
-                <rect class="primary-color" x="3" y="64.55" width="77.18" height="7.45" />
-                <rect v-for="item in hpBars" 
-                    :key="item.id" :x="item.x" y="64.79" width="4.85" height="6.88"  />                
-            </g>          
+            <health-status ref="hpBar" />
         </svg>      
     </g>
 </template>
 
 <script>
 import { TurnTypes, SceneNames, BattleTypes, EnemyTypes } from '../../../../global/constants';
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
+import HealthStatus from '../../ui/HealthStatus'
 
 export default {
     name: "BattleChooseWinner",
+    components: {
+        HealthStatus
+    },    
     data() {
         return {
             currentCharacter: null,
-            allHPBars: [
-                { id: 1, x: "4.44"},
-                { id: 2, x: "12.11"},  
-                { id: 3, x: "19.78"},
-                { id: 4, x: "27.44"},
-                { id: 5, x: "35.11"},
-                { id: 6, x: "42.77"},    
-                { id: 7, x: "50.44"},
-                { id: 8, x: "58.11"},
-                { id: 9, x: "65.77"},
-                { id: 10, x: "73.44"}                                                                                                                                      
-            ],
-            hpBars: [],
             screenContent: ""
         }
     },
@@ -52,8 +38,13 @@ export default {
             enemy: state => state.battle.enemy,
             player: state => state.battle.player,
             currentTurn: state => state.battle.currentTurn,
-            deviceType: state => state.session.deviceType
-        })
+            deviceType: state => state.session.deviceType,
+            sessionId: state => state.session.id
+        }),
+        ...mapGetters({
+            enemyDamageActions: 'battle/getAllEnemyDamageActions',
+            playerDamageActions: 'battle/getAllPlayerDamageActions'
+        })        
     },  
     mounted() {
         if(this.battleType === BattleTypes.AI) {
@@ -73,23 +64,29 @@ export default {
         }
     },
     methods: {
-        createHPBars(player) {
-            var totalHP = parseInt(player.hp) * 10;
-            if(totalHP > 0 && totalHP < 100) {
-                var numberBars = Math.round(totalHP / 10);
-                console.log(numberBars);
+        createHPBars(character) {
+            var damages = null;
+             if(this.currentCharacter.type === EnemyTypes.Player) {
+                 if(this.currentCharacter.sessionId === this.sessionId) {
+                    damages = this.playerDamageActions;
+                 } else {
+                    damages = this.enemyDamageActions;
+                 }
+            } else if(this.currentCharacter.type === EnemyTypes.Virus) {
+                damages = this.enemyDamageActions;
+            } 
 
-                this.hpBars = this.allHPBars.slice(0, numberBars);
-            } else if( totalHP < 0) {
-                this.hpBars = [];
-            }
+            this.$refs.hpBar.updateHealth(character.hp, damages);
         },
         startAnim(character1, character2) {
             var intervaltime = 750, timeout = 4000, interval = null;  
 
             interval = setInterval(() => {
-                if(timeout !== 0) {
-                    
+                if(timeout <= 0) {
+                    //If timeout be sure the currentCharacter is the winner 
+                    clearInterval(interval);
+                    this.chooseWinner(character1, character2);
+                } else if(timeout > 0) {
                     if(this.battleType === BattleTypes.AI) {
                         if(this.currentCharacter.type === character1.type) {
                             this.currentCharacter = character2;
@@ -106,14 +103,7 @@ export default {
 
                     this.createUI();
                     timeout -= intervaltime;
-
-                    //If timeout be sure the currentCharacter is the winner 
-                    if(timeout <= 0) {
-                        clearInterval(interval);
-                        this.chooseWinner(character1, character2);
-                    }
                 }
-                
             }, intervaltime);
         },
         chooseWinner(character1, character2) {

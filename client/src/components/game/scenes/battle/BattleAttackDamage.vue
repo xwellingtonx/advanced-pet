@@ -48,7 +48,6 @@ export default {
         ...mapGetters({
             enemyDamageActions: 'battle/getAllEnemyDamageActions',
             playerDamageActions: 'battle/getAllPlayerDamageActions'
-
         })
     },    
     mounted() {

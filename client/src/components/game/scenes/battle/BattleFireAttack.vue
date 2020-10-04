@@ -45,7 +45,8 @@ export default {
             turnType: state => state.battle.turnType,
             isAttackHit: state => state.battle.isAttackHit,
             battleType: state => state.battle.type,
-            enemy: state => state.battle.enemy
+            enemy: state => state.battle.enemy,
+            player: state => state.battle.player
         }),
         ...mapGetters({
             pluggedChip: 'battle/getLastChip'
@@ -90,10 +91,18 @@ export default {
             } else {
                 //Get attack element from player/battle chipss
                 if(this.pluggedChip) {
-                    return this.pluggedChip.Element
+                    if(this.pluggedChip.Element === ElementTypes.Neutral && this.pluggedChip.AT >= 10) {
+                        return "superneutral";
+                    } else {
+                        return this.pluggedChip.Element
+                    }
                 } else {
-                    //Using cannon
-                    return ElementTypes.Neutral
+                    if(this.player.at >= 10) {
+                        return "superneutral";
+                    } else {
+                        //Using cannon
+                        return ElementTypes.Neutral
+                    }
                 }
             }
         },
