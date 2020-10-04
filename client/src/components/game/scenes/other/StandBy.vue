@@ -3,7 +3,7 @@
         <svg viewBox="0 0 83 75" width="83" height="75" x="48.05" y="64.94">
             <rect width="83" height="75" rx="3.01" ry="3.01" />
             <rect class="cls-1" x="3" y="3" width="77" height="69" />
-            <g v-if="!this.damageReceived" class="default-standby">
+            <g v-if="!this.isSadAnimation" class="default-standby">
                 <g id="standby-face-center">
                     <rect x="71.52" y="43.71" width="2.19" height="4.62" />
                     <rect x="69.28" y="48.32" width="2.23" height="2.32" />
@@ -55,7 +55,7 @@
                     <polygon points="28.58 72.19 26.4 72.19 26.4 72.07 26.39 72.07 26.39 70.08 28.58 70.08 28.58 72.07 28.58 72.19" />
                 </g> 
             </g>
-            <g v-if="this.damageReceived" class="lose-standby">
+            <g v-if="this.isSadAnimation" class="lose-standby">
                 <g id="sad-standby-close-mouth">
                     <rect x="74.04" y="31.96" width="2.29" height="11.35" />
                     <polygon points="69.37 47.78 69.37 47.89 69.37 50.01 67.2 50.01 67.2 52.23 69.37 52.23 69.37 50.22 71.75 50.22 71.75 47.89 71.75 47.78 71.75 47.54 69.37 47.54 69.37 47.78" />
@@ -113,25 +113,31 @@ import { SceneNames, Events } from '../../../../global/constants';
 
 export default {
     name: "StandBy",
-    props: {
-        damageReceived: {
-            type: Boolean,
-            default: false
-        }
-    },
     computed: {
          ...mapState({
-            timeNow: state => state.session.time
+            timeNow: state => state.session.time,
+            naviRecovery: state => state.session.navi.recovery
         })       
+    },
+    data() {
+        return {
+            isSadAnimation: false
+        }
     },
     mounted() {
         this.registerListeners();
 
-        if(!this.damageReceived) {
+        if(this.naviRecovery === 100) {
+            this.isSadAnimation = false;
             this.startDefaultAnimation();
             //this.startSpeakingAnimation();
         } else {
-           this.startDamageReceivedAnimation();
+            debugger;
+           this.isSadAnimation = true;
+           //timeout to wait render the elements
+           setTimeout(() => {
+                this.startDamageReceivedAnimation();
+           }, 10);
         }
     },
     beforeDestroy() {

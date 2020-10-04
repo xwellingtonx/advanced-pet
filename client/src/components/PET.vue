@@ -243,8 +243,8 @@ export default {
             }
         },
         onShaking() {
-            if(!this.isInBattle && this.recovery == 100) {
-                if(this.shakeCount > 5) {
+            if(!this.isInBattle) {
+                if(this.shakeCount > 5 && this.recovery == 100) {
                     this.isShaking = false;
                     this.stopShakingForDesktop();
                     this.shakingSound.stop();
@@ -258,6 +258,9 @@ export default {
                     this.$store.commit('session/setCurrentScene', SceneNames.Notification);    
                 } else {
                     this.shakeCount += 1;
+                    if(this.recovery < 100) {
+                        this.$store.commit('session/incrementNaviRecovery', 10);
+                    }
                     this.startShakingAnimation();
                 }
             }
