@@ -132,7 +132,6 @@ export default {
             this.startDefaultAnimation();
             //this.startSpeakingAnimation();
         } else {
-            debugger;
            this.isSadAnimation = true;
            //timeout to wait render the elements
            setTimeout(() => {
