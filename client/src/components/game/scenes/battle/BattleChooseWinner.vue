@@ -65,18 +65,7 @@ export default {
     },
     methods: {
         createHPBars(character) {
-            var damages = null;
-             if(this.currentCharacter.type === EnemyTypes.Player) {
-                 if(this.currentCharacter.sessionId === this.sessionId) {
-                    damages = this.playerDamageActions;
-                 } else {
-                    damages = this.enemyDamageActions;
-                 }
-            } else if(this.currentCharacter.type === EnemyTypes.Virus) {
-                damages = this.enemyDamageActions;
-            } 
-
-            this.$refs.hpBar.updateHealth(character.hp, damages);
+            this.$refs.hpBar.updateHealth(character.hp, this.getDamage(character));
         },
         startAnim(character1, character2) {
             var intervaltime = 750, timeout = 4000, interval = null;  
@@ -107,13 +96,13 @@ export default {
             }, intervaltime);
         },
         chooseWinner(character1, character2) {
-            if(character1.hp > character2.hp) {
+            if(this.calculateTotalHP(character1) > this.calculateTotalHP(character2)) {
                 this.currentCharacter = character1;
             } else {
                 this.currentCharacter = character2;
             }
-            
             var sceneName = "";
+            this.createUI();
 
             if(this.battleType === BattleTypes.AI) {
                 if(this.currentCharacter.type === EnemyTypes.Player) {
@@ -165,6 +154,29 @@ export default {
             }
 
             this.createHPBars(this.currentCharacter);
+        },
+        calculateTotalHP(character) {
+            var totalDamage = 0;
+            var damages = this.getDamage(character);
+            damages.forEach((item) => {
+                totalDamage += item.value
+            });
+
+            return character.hp + totalDamage;
+        },
+        getDamage(character) {
+            var damages = null;
+            if(character.type === EnemyTypes.Player) {
+                 if(character.sessionId === this.sessionId) {
+                    damages = this.playerDamageActions;
+                 } else {
+                    damages = this.enemyDamageActions;
+                 }
+            } else if(character.type === EnemyTypes.Virus) {
+                damages = this.enemyDamageActions;
+            } 
+
+            return damages;
         }
     },
     sockets: {
