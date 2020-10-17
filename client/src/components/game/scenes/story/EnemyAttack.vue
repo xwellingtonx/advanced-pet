@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { BattleActionTypes, EnemyTypes, Events, SceneNames } from  '../../../../global/constants'
+import { BattleActionTypes, ElementTypes, EnemyTypes, Events, SceneNames } from  '../../../../global/constants'
 import { mapState } from 'vuex';
 import EventBus from '../../../../global/eventBus.js';
 
@@ -19,7 +19,8 @@ export default {
     name: "EnemyAttack",
     computed: {
         ...mapState({
-            enemy: state => state.battle.enemy
+            enemy: state => state.battle.enemy,
+            player: state => state.battle.player
         })      
     },
     data() {
@@ -56,10 +57,13 @@ export default {
             //Returns a number between 0 and 1
             var num = Math.random();
             if(num <= hitPercentage) {
+                var atkPower = this.getAttackPower(this.enemy.element, parseInt(this.enemy.at), 
+                    this.player.element);
+
                 //this.$store.commit('battle/setPlayerHit', parseInt(this.enemy.at));
                 this.$store.commit('battle/addBattleAction', {
                     type: BattleActionTypes.PlayerDamage, 
-                    value: -parseInt(this.enemy.at)
+                    value: -atkPower
                 });
 
                 this.$store.commit('battle/setIsAttackHit', true);
@@ -73,7 +77,47 @@ export default {
         importVirus(image) {
             //Import using html loarder
             this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${image}`);
-        }
+        },
+        getAttackPower(atkElement, atkPower, defElement) {
+            debugger;
+            if(atkElement === ElementTypes.Neutral || defElement === ElementTypes.Neutral) {
+                return atkPower;
+            }
+
+            if(atkElement === ElementTypes.Fire) {
+                if(defElement === ElementTypes.Wood) {
+                    return atkPower * 2;
+                } else if(defElement === ElementTypes.Aqua) {
+                    return Math.floor(atkPower / 2);
+                } else {
+                    return atkPower;
+                }
+            } else if(atkElement === ElementTypes.Wood) {
+                if(defElement === ElementTypes.Elec) {
+                    return atkPower * 2;
+                } else if(defElement === ElementTypes.Fire) {
+                    return Math.floor(atkPower / 2);
+                } else {
+                    return atkPower;
+                }
+            } else if(atkElement === ElementTypes.Elec) {
+                if(defElement === ElementTypes.Aqua) {
+                    return atkPower * 2;
+                } else if(defElement === ElementTypes.Wood) {
+                    return Math.floor(atkPower / 2);
+                } else {
+                    return atkPower;
+                }
+            } else if(atkElement === ElementTypes.Aqua) {
+                if(defElement === ElementTypes.Fire) {
+                    return atkPower * 2;
+                } else if(defElement === ElementTypes.Elec) {
+                    return Math.floor(atkPower / 2);
+                } else {
+                    return atkPower;
+                }
+            }
+        }     
     }
 }
 </script>

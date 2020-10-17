@@ -1,6 +1,5 @@
-import { ChipClasses } from  '../../../global/constants'
-
 //Get possible combinations for the chipe attack area base on a 3x3 matrix
+//value 1 attack pattern, value 0 can move, value -1 can't move. 
 /*
     0, 0, 0
     0, 0, 0
@@ -9,83 +8,203 @@ import { ChipClasses } from  '../../../global/constants'
 function getAllAreaCombinations() {
     var combinationList = [];
 
+    /*
+        0, -1, -1
+        1, -1, -1
+        0, -1, -1
+    */
     combinationList.push({
-        areaSize: 1,
-        matrixIndexes: [{r: 1, c: 1}]
+        pattern: 1,
+        matrixIndexes: [[0, -1, -1], [1, -1, -1], [0, -1, -1]]
     });
 
+    /*
+        0, 0, 0
+        0, 1, 0
+        0, 0, 0
+    */
     combinationList.push({
-        areaSize: 2,
-        matrixIndexes: [{r: 1, c: 0}, {r: 1, c: 1}]
+        pattern: 2,
+        matrixIndexes: [[0, 0, 0], [0, 1, 0], [0, 0, 0]]
     });
 
+    /*
+        0, 0, -1
+        1, 1, -1
+        0, 0, -1
+    */
+   combinationList.push({
+        pattern: 3,
+        matrixIndexes: [[0, 0, -1], [1, 1, -1], [0, 0, -1]]
+    });    
+
+    /*
+        -1, 0, 0
+        -1, 1, 1
+        -1, 0, 0
+    */
     combinationList.push({
-        areaSize: 3,
-        matrixIndexes: [{r: 1, c: 0}, {r: 1, c: 1}, {r: 1, c: 2}]
-    });
-
+        pattern: 4,
+        matrixIndexes: [[-1, 0, 0], [-1, 1, 1], [-1, 0, 0]]
+    });   
+        
+    /*
+        1, -1, -1
+        1, -1, -1
+        1, -1, -1
+    */
     combinationList.push({
-        areaSize: 4, 
-        matrixIndexes: [{r: 1, c: 0}, {r: 1, c: 1}, {r: 0, c: 2},  {r: 2, c: 2}]
-    });
-
+        pattern: 5,
+        matrixIndexes: [[1, -1, -1], [1, -1, -1], [1, -1, -1]]
+    });   
+    
+    /*
+        0, 1, 0
+        0, 1, 0
+        0, 1, 0
+    */
     combinationList.push({
-        areaSize: 5, 
-        matrixIndexes: [{r: 0, c: 1}, {r: 1, c: 0}, {r: 1, c: 1},  {r: 1, c: 2}, {r: 2, c: 1}]
-    });
+        pattern: 6,
+        matrixIndexes: [[0, 1, 0], [0, 1, 0], [0, 1, 0]]
+    });          
 
+    /*
+        -1, -1, 0
+        -1, -1, 0
+        -1, -1, 0
+    */
     combinationList.push({
-        areaSize: 6, 
-        matrixIndexes: [{r: 0, c: 0}, {r: 1, c: 0}, {r: 2, c: 0},  {r: 0, c: 1}, {r: 1, c: 1},  {r: 2, c: 1}]
-    });
+        pattern: 7,
+        matrixIndexes: [[-1, -1, 1], [-1, -1, 1], [-1, -1, 1]]
+    });     
 
+    /*
+        0, 0, 0
+        1, 1, 1
+        0, 0, 0
+    */
     combinationList.push({
-        areaSize: 9,
-        matrixIndexes: [{r: 0, c: 0},{r: 0, c: 1},{r: 0, c: 2},{r: 1, c: 0}, {r: 1, c: 1}, {r: 1, c: 2},{r: 2, c: 0},{r: 2, c: 1},{r: 2, c: 2}]});
+        pattern: 8,
+        matrixIndexes: [[0, 0, 0], [1, 1, 1], [0, 0, 0]]
+    });    
+    
+    /*
+        -1, 1, -1
+         1, 1, -1
+        -1, 1, -1
+    */
+    combinationList.push({
+        pattern: 9,
+        matrixIndexes: [[-1, 1, -1], [1, 1, -1], [-1, 1, -1]]
+    });         
 
-    return combinationList;
-}
+    /*
+        -1, -1, 1
+         1, 1, -1
+        -1, -1, 1
+    */
+    combinationList.push({
+        pattern: 10,
+        matrixIndexes: [[-1, -1, 1], [1, 1, -1], [-1, -1, 1]]
+    });   
 
-function findChipAreaCombination(chip) {
-    var allCombinations = getAllAreaCombinations();
+    /*
+        -1,  1, -1
+         1, -1,  1
+        -1,  1, -1
+    */
+    combinationList.push({
+        pattern: 11,
+        matrixIndexes: [[-1, 1, -1], [1, -1, 1], [-1, 1, -1]]
+    });  
 
-    if(chip.Classe === ChipClasses.Standard) {
-        if(chip.AT < 5) {
-            return allCombinations.find(x => x.areaSize === chip.AT);
-        } else {
-            //Decrease the power of the chip because is standard
-            var newAt = (chip.AT - chip.CP);
-            
-            return allCombinations.find(x => x.areaSize === (newAt <= 0 ? 2 : newAt));
-        }
-    } else { //Mega/Giga/Navi
-        if(chip.AT > 6) {
-            //Just get the combination with size 9
-            return allCombinations.find(x => x.areaSize === 9);
-        } else {
-            return allCombinations.find(x => x.areaSize === chip.AT);
-        }
-    }
+    /*
+        1,  1, 1
+        1, -1, 1
+        1,  1, 1
+    */
+    combinationList.push({
+        pattern: 12,
+        matrixIndexes: [[1, 1, 1], [1, -1, 1], [1, 1, 1]]
+    });      
+
+    /*
+         1,-1, 1
+        -1, 1,-1
+         1,-1, 1
+    */
+    combinationList.push({
+        pattern: 13,
+        matrixIndexes: [[1, -1, 1], [-1, 1, -1], [1,-1, 1]]
+    });   
+
+    /*
+        -1, 1,-1
+         1, 1, 1
+        -1, 1,-1
+    */
+    combinationList.push({
+        pattern: 14,
+        matrixIndexes: [[-1, 1,-1], [1, 1, 1], [-1,1,-1]]
+    });   
+
+    /*
+        1, 1, 0
+        1, 1, 0
+        1, 1, 0
+    */
+    combinationList.push({
+        pattern: 15,
+        matrixIndexes: [[1, 1,0], [1, 1, 0], [1,1,0]]
+    }); 
+
+    /*
+        1, 1, 1
+       -1,-1,-1
+        1, 1, 1
+    */
+    combinationList.push({
+        pattern: 16,
+        matrixIndexes: [[1, 1, 1], [-1, -1, -1], [1,1,1]]
+    });   
+    
+    /*
+        1, 1, 1
+       -1,-1, 1
+        1, 1, 1
+    */
+    combinationList.push({
+        pattern: 17,
+        matrixIndexes: [[1, 1, 1], [-1, -1, 1], [1,1,1]]
+    });  
+    
+    /*
+        1, 1, 1
+       -1,-1, 1
+        1, 1, 1
+    */
+    combinationList.push({
+        pattern: 18,
+        matrixIndexes: [[1, 1, 1], [1, 1, 1], [1,1,1]]
+    });      
+
+    return combinationList;    
 }
 
 export function getChipAttackArea(chip) {
 
-    //Create a 3x3 matrix with zeros inside.
-    var matrix = Array(3).fill(null).map(() => Array(3).fill(0));
+    var allCombinations = getAllAreaCombinations();
+    var pattern = 1;
 
-    //Get chip area combination
-    var combination = findChipAreaCombination(chip);
-
-    if(combination) {
-        for(var row = 0; row < matrix.length; row++) {
-        for(var column = 0; column < matrix.length; column++) {
-            //Replace zeros for one to mark the space
-            if(combination.matrixIndexes.some(elem => elem.r === row && elem.c === column)) {
-                matrix[row][column] = 1;
-            }
-            }
+    if(chip.Pattern > 0) {
+        pattern = chip.Pattern;
+    } else {
+        if(chip.AT > 0) {
+            pattern = chip.AT - chip.CP;
+        } else {
+            pattern = chip.CP;
         }
     }
 
-    return matrix;
+    return allCombinations.find(x => x.pattern === pattern).matrixIndexes;
 }

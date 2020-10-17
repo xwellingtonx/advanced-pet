@@ -65,7 +65,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { SceneNames, Events, BattleTypes, TurnTypes, EnemyTypes, BattleActionTypes } from '../../../../global/constants.js';
+import { SceneNames, Events, BattleTypes, TurnTypes, EnemyTypes, BattleActionTypes, ElementTypes } from '../../../../global/constants.js';
 import EventBus from '../../../../global/eventBus.js';
 import { getChipAttackArea } from '../../common/chipHelper';
 
@@ -313,7 +313,10 @@ export default {
                             break;                                                 
                     }     
 
-                    if((atkRow >= 0 && atkRow <= 2) && (atkColumn >= 0 && atkColumn <= 2)) {
+                    var chipArea = this.getChipArea(this.pluggedChip);
+
+                    if((atkRow >= 0 && atkRow <= 2) && (atkColumn >= 0 && atkColumn <= 2) &&
+                    chipArea[atkRow][atkColumn] >= 0) {
 
                         var area = {
                             id: `${atkRow}_${atkColumn}`,
@@ -325,7 +328,6 @@ export default {
                         
                         newAttackAreas.push(area);  
                     } else {
-                        console.log("negative failed");
                         canAddItems = false;
                         break;
                     }
@@ -392,12 +394,13 @@ export default {
         },
         getChipArea() {
             var chipArea = null;
-            //If no chip was plugged use MegaBuster attack area
+            
             if(this.pluggedChip) {
-                chipArea = getChipAttackArea(this.pluggedChip); //
+                chipArea = getChipAttackArea(this.pluggedChip); 
             } else {
+                //If no chip was plugged use MegaBuster attack area
                 chipArea = [
-                    [0, 0 , 0],
+                    [0, 0, 0],
                     [0, 1, 0],
                     [0, 0, 0]
                 ]
@@ -408,6 +411,7 @@ export default {
         onConfirmation() {
             if(this.turnType === TurnTypes.Attack) {
                 clearInterval(this.countDownInterval);
+                
                 if(this.enemyInterval != null) {
                     clearInterval(this.enemyInterval);
                 }
@@ -418,9 +422,13 @@ export default {
 
                 if(isAttackHit) {
                     if(this.pluggedChip) {
-                        attackPower = this.pluggedChip.AT;
+                        attackPower = this.getAttackPower(
+                            this.pluggedChip.Element, this.pluggedChip.AT,
+                            this.enemy.element)
                     } else {
-                        attackPower = this.player.at
+                        attackPower = this.getAttackPower(
+                            this.player.Element, this.player.at,
+                            this.enemy.element)                        
                     }
                 }
 
@@ -476,6 +484,46 @@ export default {
                 var index = Math.floor(Math.random() * positions.length);
                 this.moveCharacterTo(positions[index]);
             }, interval);
+        },
+        getAttackPower(atkElement, atkPower, defElement) {
+            debugger;
+            if(atkElement === ElementTypes.Neutral || defElement === ElementTypes.Neutral) {
+                return atkPower;
+            }
+
+            if(atkElement === ElementTypes.Fire) {
+                if(defElement === ElementTypes.Wood) {
+                    return atkPower * 2;
+                } else if(defElement === ElementTypes.Aqua) {
+                    return Math.floor(atkPower / 2);
+                } else {
+                    return atkPower;
+                }
+            } else if(atkElement === ElementTypes.Wood) {
+                if(defElement === ElementTypes.Elec) {
+                    return atkPower * 2;
+                } else if(defElement === ElementTypes.Fire) {
+                    return Math.floor(atkPower / 2);
+                } else {
+                    return atkPower;
+                }
+            } else if(atkElement === ElementTypes.Elec) {
+                if(defElement === ElementTypes.Aqua) {
+                    return atkPower * 2;
+                } else if(defElement === ElementTypes.Wood) {
+                    return Math.floor(atkPower / 2);
+                } else {
+                    return atkPower;
+                }
+            } else if(atkElement === ElementTypes.Aqua) {
+                if(defElement === ElementTypes.Fire) {
+                    return atkPower * 2;
+                } else if(defElement === ElementTypes.Elec) {
+                    return Math.floor(atkPower / 2);
+                } else {
+                    return atkPower;
+                }
+            }
         }     
     }     
 }

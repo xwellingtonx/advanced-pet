@@ -81,7 +81,8 @@ const TurnTypes = {
 
 const NotificationTypes = {
   Virus: "virus",
-  Email: "email"
+  Email: "email",
+  Tournament: "tournament"
 }
 
 const BattleTypes = {

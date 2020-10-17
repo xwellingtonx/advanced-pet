@@ -44,7 +44,7 @@ export default {
         ...mapGetters({
             enemyDamageActions: 'battle/getAllEnemyDamageActions',
             playerDamageActions: 'battle/getAllPlayerDamageActions'
-        })        
+        })
     },  
     mounted() {
         if(this.battleType === BattleTypes.AI) {
@@ -108,7 +108,7 @@ export default {
                 if(this.currentCharacter.type === EnemyTypes.Player) {
                     sceneName = SceneNames.BattleWinner;
                     this.$store.commit('session/levelup');
-                    //Need include the stage clear
+                    this.$store.dispatch('session/stageClear');
                 } else {
                     sceneName = SceneNames.BattleLoser;
 

@@ -12,18 +12,18 @@ var allWorlds = [
                 stageClear: 10,
                 boss: new Navi("NormalNaviA", 10, 8, ElementTypes.Neutral, 2, "normalnavi.svg", ""),
                 viruses: [
-                    new Virus("Mettaur", 1, 6, ElementTypes.Neutral, 2, "mettaur.svg"),
-                    new Virus("Spikey", 1, 7, ElementTypes.Fire, 3, "spikey.svg"),
-                    new Virus("Shrimpy", 1, 7, ElementTypes.Aqua, 3, "shrimpy.svg"),
-                    new Virus("Boomer", 1, 7, ElementTypes.Neutral, 3, "boomer.svg"),
-                    new Virus("Dharma", 1, 8, ElementTypes.Neutral, 2, "dharma.svg"),
-                    new Virus("Kilby", 1, 8, ElementTypes.Wood, 3, "kilby.svg"),
-                    new Virus("Melody", 1, 7, ElementTypes.Neutral, 2, "melody.svg"),
-                    new Virus("VolGear", 1, 7, ElementTypes.Fire, 2, "volgear.svg"),
-                    new Virus("Moloko", 1, 7, ElementTypes.Neutral, 2, "moloko.svg"),
-                    new Virus("Billy", 1, 6, ElementTypes.Elec, 2, "billy.svg"),
-                    new Virus("Weather", 1, 7, ElementTypes.Neutral, 2, "weather.svg"),
-                    new Virus("Trumpy", 1, 7, ElementTypes.Neutral, 2, "trumpy.svg")
+                    new Virus("Mettaur", 1, 10, ElementTypes.Neutral, 2, "mettaur.svg"),
+                    new Virus("Spikey", 1, 10, ElementTypes.Fire, 3, "spikey.svg"),
+                    new Virus("Shrimpy", 1, 10, ElementTypes.Aqua, 3, "shrimpy.svg"),
+                    new Virus("Boomer", 1, 10, ElementTypes.Neutral, 3, "boomer.svg"),
+                    new Virus("Dharma", 1, 10, ElementTypes.Neutral, 2, "dharma.svg"),
+                    new Virus("Kilby", 1, 10, ElementTypes.Wood, 3, "kilby.svg"),
+                    new Virus("Melody", 1, 10, ElementTypes.Neutral, 2, "melody.svg"),
+                    new Virus("VolGear", 1, 10, ElementTypes.Fire, 2, "volgear.svg"),
+                    new Virus("Moloko", 1, 10, ElementTypes.Neutral, 2, "moloko.svg"),
+                    new Virus("Billy", 1, 10, ElementTypes.Elec, 2, "billy.svg"),
+                    new Virus("Weather", 1, 10, ElementTypes.Neutral, 2, "weather.svg"),
+                    new Virus("Trumpy", 1, 10, ElementTypes.Neutral, 2, "trumpy.svg")
                 ]
             },
             {
@@ -158,7 +158,7 @@ export default class World {
         var virusIndex = Math.floor(Math.random() * stage.viruses.length);  
         
         return stage.viruses[virusIndex];
-    }   
+    }
     static getWorldsCount() {
         return allWorlds.length;
     }

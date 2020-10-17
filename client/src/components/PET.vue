@@ -155,6 +155,7 @@ export default {
             isInBattle: state => state.session.isInBattle,
             currentScene: state => state.session.currentScene,
             recovery: state => state.session.navi.recovery,
+            notification: state => state.session.notification
         })
     },   
     watch: {
@@ -243,14 +244,14 @@ export default {
             }
         },
         onShaking() {
-            if(!this.isInBattle) {
+            if(!this.isInBattle && this.notification === null) {
                 if(this.shakeCount > 5 && this.recovery == 100) {
                     this.isShaking = false;
                     this.stopShakingForDesktop();
                     this.shakingSound.stop();
                     this.shakeCount = 0;
                     var virus = World.getRandomVirus(this.$store.state.session.deviceType,
-                        this.$store.state.session.currentWorld, this.$store.state.session.stageId);
+                        this.$store.state.session.currentWorld, this.$store.state.session.currentStage);
 
                     this.$store.commit('session/setNotification', 
                         new Notification("A VIRUS!!", NotificationTypes.Virus, virus));

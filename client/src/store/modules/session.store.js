@@ -1,12 +1,16 @@
 var UUID = require('uuid-random');
-import {SceneNames, DeviceTypes, ElementTypes} from '../../global/constants'
+import {SceneNames, DeviceTypes, ElementTypes, NotificationTypes} from '../../global/constants'
 import moment from 'moment'
 import LevelupHelper from '../../components/game/common/levelupHelper';
+import Notification from '../../components/game/common/notification';
+import World from '../../components/game/common/world';
+
 
 const state = {
   id: UUID(),
   version: "1.0.0",
   currentWorld: 1,
+  currentStage: 1,
   deviceType: DeviceTypes.Megaman,
   currentScene: SceneNames.MadeBy,
   lastScene: "",
@@ -22,7 +26,6 @@ const state = {
     recovery: 100,
     element: ElementTypes.Neutral
   },
-  stageId: 1,
   wins: 0,
   losses: 0,
   stageClear: 0,
@@ -71,6 +74,9 @@ const mutations = {
   decrementStageClear: (state, value) => {
     state.stageClear -= value;
   },
+  incrementStageClear: (state, value) => {
+    state.stageClear += value;
+  },
   decrementNaviRecovery: (state, value) => {
     state.navi.recovery -= value;
   },
@@ -90,15 +96,20 @@ const mutations = {
       state.navi.exp = exp;
     }
   },
-  // stateClear() {
-  //   var currentStage = World.getCurrentStage(state.deviceType, state.currentWorld,)
-  // }
 }
 
 const actions = {
   updateTime ({commit}) {
     commit('setTime', new moment().format("hh:mm"));
   }, 
+  stageClear({commit, state}) {
+    var currentStage = World.getCurrentStage(state.deviceType, state.currentWorld, state.currentStage);
+
+    if(currentStage.stageClear === (state.stageClear + 1)) {
+      commit('setNotification', new Notification("A EMAIL!", NotificationTypes.Tournament, currentStage.boss))
+    } 
+    commit('incrementStageClear', 1);
+  }
 }
 
 export default {
