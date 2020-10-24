@@ -1,4 +1,4 @@
-import { BattleActionTypes } from "../../global/constants";
+import { BattleActionTypes, ChipTypes } from "../../global/constants";
 
 const state = {
     id: null,
@@ -19,7 +19,8 @@ const state = {
       state.enemy = payload.enemy;
       state.type = payload.type;
       state.currentTurn = 1;
-      state.battleActions = []
+      state.battleActions = [];
+      state.chips = [];
     },
     setTurnType: (state, turnType) => {
       state.turnType = turnType;
@@ -27,9 +28,9 @@ const state = {
     addChip: (state, chip) => {
       state.chips.push(chip);
     },
-    removeChip: (state, index) => {
-      if(index >= 0) {
-        state.chips.splice(index, 1)
+    removeChip: (state, chip) => {
+      if(chip) {
+        state.chips = state.chips.filter(x => x.Id !== chip.Id);
       }
     },
     clearChips:(state) => {
@@ -57,14 +58,28 @@ const state = {
     getLastChip: state => {
       return state.chips[state.chips.length - 1];
     },
-    getAllPlayerDamageActions: state => {
-      return state.battleActions.filter(x => x.type === BattleActionTypes.PlayerDamage);
+    getAttackChip: state => {
+      return state.chips.find(x => x.Type === ChipTypes.Attack);
+    },
+    getSupportChip: state => {
+      return state.chips.find(x => x.Type === ChipTypes.Support);
+    },
+    getAllPlayerHPActions: state => {
+      return state.battleActions.filter(x => x.type === BattleActionTypes.PlayerHP);
     },
     getAllEnemyDamageActions: state => {
       return state.battleActions.filter(x => x.type === BattleActionTypes.EnemyDamage);
     },    
     getAllChipsActions: state => {
       return state.battleActions.filter(x => x.type === BattleActionTypes.ChipUsage);
+    },
+    getPlayerCurrentHP: state => {
+      var playerHP = state.player.hp;
+      state.battleActions.filter(x => x.type === BattleActionTypes.PlayerHP).forEach((item) => {
+        playerHP += item.value
+      });
+
+      return playerHP;
     }
   }
 

@@ -34,7 +34,7 @@ export default {
     name: "ChipAttackArea",
     computed: {
         ...mapGetters({
-            pluggedChip: 'battle/getLastChip'
+            pluggedChip: 'battle/getAttackChip'
         })
     },    
     data () {

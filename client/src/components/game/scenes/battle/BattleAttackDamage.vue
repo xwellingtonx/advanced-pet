@@ -47,7 +47,7 @@ export default {
         }),
         ...mapGetters({
             enemyDamageActions: 'battle/getAllEnemyDamageActions',
-            playerDamageActions: 'battle/getAllPlayerDamageActions'
+            playerHPActions: 'battle/getAllPlayerHPActions'
         })       
     },    
     mounted() {
@@ -65,7 +65,7 @@ export default {
             }
         } else {
             this.showPlayerScreens(this.deviceType);
-            this.showHPStatus(this.player.hp, this.playerDamageActions);
+            this.showHPStatus(this.player.hp, this.playerHPActions);
         }
 
         setTimeout(() => {
@@ -93,8 +93,6 @@ export default {
     },
     methods: {
         changeTurnRequest() {
-            this.$store.commit('battle/clearChips');
-
             if(this.$refs.hpBar.getHealth() === 0) {
                 //End game and move to winner/lose screen
                 var sceneName = "";
@@ -139,10 +137,13 @@ export default {
                         this.$store.commit('battle/setTurnType', TurnTypes.Defense);
                         this.$store.commit('session/setCurrentScene', SceneNames.EnemyAttack);
                     } else {
+                        this.$store.commit('battle/clearChips');
+
                         this.$store.commit('battle/setTurnType', TurnTypes.Attack);
                         this.$store.commit('session/setCurrentScene', SceneNames.SlotIn);
                     }
                 } else {
+                    this.$store.commit('battle/clearChips');
                     this.$socket.client.emit('changeTurnRequest', this.$store.state.battle.id);
                 }
             }

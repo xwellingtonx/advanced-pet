@@ -55,8 +55,7 @@ export default {
     name: "BattleNaviStatus",
     data () {
         return {
-            showValues: false,
-            playerHP: 0
+            showValues: false
         }
     },
     computed: {
@@ -64,16 +63,11 @@ export default {
             player: state => state.battle.player,
         }),
         ...mapGetters({
-            playerDamageActions: 'battle/getAllPlayerDamageActions'
+            playerHP: 'battle/getPlayerCurrentHP'
         })
     },   
     mounted() {
         this.registerListeners();
-
-        this.playerHP = this.player.hp;
-        this.playerDamageActions.forEach((item) => {
-            this.playerHP += item.value
-        });
     },
     beforeDestroy() {
         this.unregisterListeners();

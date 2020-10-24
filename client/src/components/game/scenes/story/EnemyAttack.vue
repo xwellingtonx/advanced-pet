@@ -12,8 +12,9 @@
 
 <script>
 import { BattleActionTypes, ElementTypes, EnemyTypes, Events, SceneNames } from  '../../../../global/constants'
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import EventBus from '../../../../global/eventBus.js';
+import { getSupportChipEffectById } from '../../common/chipHelper';
 
 export default {
     name: "EnemyAttack",
@@ -21,7 +22,10 @@ export default {
         ...mapState({
             enemy: state => state.battle.enemy,
             player: state => state.battle.player
-        })      
+        }),
+        ...mapGetters({
+            supportChip: 'battle/getSupportChip'
+        })               
     },
     data() {
         return {
@@ -34,9 +38,15 @@ export default {
 
         this.importVirus(this.enemy.image);
 
+        var time = 3000;
+
+        if(this.supportChip && this.supportChip.Id === "121") {
+            time = getSupportChipEffectById(this.supportChip.Id).value;
+        }
+
         this.fireTimeout = setTimeout(() => {
             this.onConfirmation();
-        }, 3000);
+        }, time);
     },
     beforeDestroy() {
         EventBus.$off(Events.Confirmation);
@@ -49,9 +59,14 @@ export default {
 
             var hitPercentage = 0;
             if(this.enemy.type === EnemyTypes.Virus) {
-                hitPercentage = (35 + (10 * this.enemy.level)) / 100;
+                hitPercentage = (45 + (5 * this.enemy.level)) / 100;
             } else if(this.enemy.type === EnemyTypes.Navi) {
                 hitPercentage = 0.75;
+            }
+
+            if(this.supportChip && (this.supportChip.Id === "129" || this.supportChip.Id === "133" ||
+                this.supportChip.Id === "134" || this.supportChip.Id === "201" || this.supportChip.Id === "206")) {
+                hitPercentage -= getSupportChipEffectById(this.supportChip.Id).value;
             }
             
             //Returns a number between 0 and 1
@@ -60,9 +75,8 @@ export default {
                 var atkPower = this.getAttackPower(this.enemy.element, parseInt(this.enemy.at), 
                     this.player.element);
 
-                //this.$store.commit('battle/setPlayerHit', parseInt(this.enemy.at));
                 this.$store.commit('battle/addBattleAction', {
-                    type: BattleActionTypes.PlayerDamage, 
+                    type: BattleActionTypes.PlayerHP, 
                     value: -atkPower
                 });
 
@@ -79,43 +93,53 @@ export default {
             this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${image}`);
         },
         getAttackPower(atkElement, atkPower, defElement) {
-            debugger;
+            var atkPowerTotal = 0;
+
             if(atkElement === ElementTypes.Neutral || defElement === ElementTypes.Neutral) {
-                return atkPower;
+                atkPowerTotal = atkPower;
             }
 
             if(atkElement === ElementTypes.Fire) {
                 if(defElement === ElementTypes.Wood) {
-                    return atkPower * 2;
+                    atkPowerTotal = atkPower * 2;
                 } else if(defElement === ElementTypes.Aqua) {
-                    return Math.floor(atkPower / 2);
+                    atkPowerTotal = Math.floor(atkPower / 2);
                 } else {
-                    return atkPower;
+                    atkPowerTotal = atkPower;
                 }
             } else if(atkElement === ElementTypes.Wood) {
                 if(defElement === ElementTypes.Elec) {
-                    return atkPower * 2;
+                    atkPowerTotal = atkPower * 2;
                 } else if(defElement === ElementTypes.Fire) {
-                    return Math.floor(atkPower / 2);
+                    atkPowerTotal = Math.floor(atkPower / 2);
                 } else {
-                    return atkPower;
+                    atkPowerTotal = atkPower;
                 }
             } else if(atkElement === ElementTypes.Elec) {
                 if(defElement === ElementTypes.Aqua) {
-                    return atkPower * 2;
+                    atkPowerTotal = atkPower * 2;
                 } else if(defElement === ElementTypes.Wood) {
-                    return Math.floor(atkPower / 2);
+                    atkPowerTotal = Math.floor(atkPower / 2);
                 } else {
-                    return atkPower;
+                    atkPowerTotal = atkPower;
                 }
             } else if(atkElement === ElementTypes.Aqua) {
                 if(defElement === ElementTypes.Fire) {
-                    return atkPower * 2;
+                    atkPowerTotal = atkPower * 2;
                 } else if(defElement === ElementTypes.Elec) {
-                    return Math.floor(atkPower / 2);
+                    atkPowerTotal = Math.floor(atkPower / 2);
                 } else {
-                    return atkPower;
+                    atkPowerTotal = atkPower;
                 }
+            }
+
+            if(this.supportChip && (this.supportChip.Id === "135" || this.supportChip.Id === "136" ||
+                this.supportChip.Id === "137" || this.supportChip.Id === "139" || this.supportChip.Id === "208")) {
+                atkPowerTotal -= getSupportChipEffectById(this.supportChip.Id).value;
+                
+                return atkPowerTotal > 0 ? atkPowerTotal : 0;
+            } else {
+                return atkPowerTotal;
             }
         }     
     }

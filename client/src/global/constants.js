@@ -91,7 +91,7 @@ const BattleTypes = {
 }
 
 const BattleActionTypes = {
-  PlayerDamage: "playerDamage",
+  PlayerHP: "playerHP",
   EnemyDamage: "EnemyDamage",
   ChipUsage: "chipUsage"
 }

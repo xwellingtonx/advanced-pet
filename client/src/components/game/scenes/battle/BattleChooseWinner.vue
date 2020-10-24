@@ -43,7 +43,7 @@ export default {
         }),
         ...mapGetters({
             enemyDamageActions: 'battle/getAllEnemyDamageActions',
-            playerDamageActions: 'battle/getAllPlayerDamageActions'
+            playerHPActions: 'battle/getAllPlayerHPActions'
         })
     },  
     mounted() {
@@ -168,7 +168,7 @@ export default {
             var damages = null;
             if(character.type === EnemyTypes.Player) {
                  if(character.sessionId === this.sessionId) {
-                    damages = this.playerDamageActions;
+                    damages = this.playerHPActions;
                  } else {
                     damages = this.enemyDamageActions;
                  }

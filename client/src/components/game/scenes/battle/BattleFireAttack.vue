@@ -49,7 +49,7 @@ export default {
             player: state => state.battle.player
         }),
         ...mapGetters({
-            pluggedChip: 'battle/getLastChip'
+            pluggedChip: 'battle/getAttackChip'
         })    
     },
     mounted() {

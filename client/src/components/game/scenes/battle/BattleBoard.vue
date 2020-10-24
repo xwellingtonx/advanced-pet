@@ -67,7 +67,7 @@
 import { mapGetters, mapState } from 'vuex';
 import { SceneNames, Events, BattleTypes, TurnTypes, EnemyTypes, BattleActionTypes, ElementTypes } from '../../../../global/constants.js';
 import EventBus from '../../../../global/eventBus.js';
-import { getChipAttackArea } from '../../common/chipHelper';
+import { getChipAttackArea, getSupportChipEffectById } from '../../common/chipHelper';
 
 export default {
     name: "BattleBoard",
@@ -98,7 +98,8 @@ export default {
             player: state => state.battle.player
         }),        
         ...mapGetters({
-            pluggedChip: 'battle/getLastChip'
+            attackChip: 'battle/getAttackChip',
+            supportChip: 'battle/getSupportChip'
         })       
     },
     mounted() {
@@ -150,9 +151,8 @@ export default {
         fireAttack(isAttackHit, attackPower) {
             if(this.turnType === TurnTypes.Defense) {
                 if(isAttackHit) {
-                    //this.$store.commit('battle/setPlayerHit', attackPower);
                     this.$store.commit('battle/addBattleAction', {
-                        type: BattleActionTypes.PlayerDamage, 
+                        type: BattleActionTypes.PlayerHP, 
                         value: -parseInt(attackPower)
                     });
                 }
@@ -181,6 +181,12 @@ export default {
             EventBus.$off(Events.Confirmation);
         },
         startCountDown: function() {
+            var time = 500;
+
+            if(this.supportChip && this.supportChip.Id === "120") {
+                time = getSupportChipEffectById(this.supportChip.Id).value;
+            }
+
             this.countDownInterval = setInterval(() => {
                 if(this.countDownBars.length > 0) {
                     this.countDownBars.splice(this.countDownBars.length - 1, 1);
@@ -189,7 +195,7 @@ export default {
                         this.onConfirmation();
                     }
                 }
-            }, 500);
+            }, time);
         },
         startGame(blockedItems) {
             this.startCountDown();
@@ -313,7 +319,7 @@ export default {
                             break;                                                 
                     }     
 
-                    var chipArea = this.getChipArea(this.pluggedChip);
+                    var chipArea = this.getChipArea(this.attackChip);
 
                     if((atkRow >= 0 && atkRow <= 2) && (atkColumn >= 0 && atkColumn <= 2) &&
                     chipArea[atkRow][atkColumn] >= 0) {
@@ -395,8 +401,8 @@ export default {
         getChipArea() {
             var chipArea = null;
             
-            if(this.pluggedChip) {
-                chipArea = getChipAttackArea(this.pluggedChip); 
+            if(this.attackChip) {
+                chipArea = getChipAttackArea(this.attackChip); 
             } else {
                 //If no chip was plugged use MegaBuster attack area
                 chipArea = [
@@ -421,13 +427,13 @@ export default {
                 var attackPower = 0;
 
                 if(isAttackHit) {
-                    if(this.pluggedChip) {
+                    if(this.attackChip) {
                         attackPower = this.getAttackPower(
-                            this.pluggedChip.Element, this.pluggedChip.AT,
+                            this.attackChip.Element, this.attackChip.AT,
                             this.enemy.element)
                     } else {
                         attackPower = this.getAttackPower(
-                            this.player.Element, this.player.at,
+                            this.player.element, this.player.at,
                             this.enemy.element)                        
                     }
                 }
@@ -451,28 +457,52 @@ export default {
         },
         ramdomBlockedPanels() {
             //TODO: Chips can affect this
-            var panelsCount = Math.floor(Math.random() * 2) + 1; //The panels can be 1 or 2
-
             var list = [];
-            do {
-                var item = {
-                    row: Math.floor(Math.random() * 3),
-                    column: Math.floor(Math.random() * 3)
-                }
 
-                //Just add the item if is not going to be in the middle of the matrix and not exist already
-                if(item.column !== 1 && !list.some(x => x.row === item.row && x.column === item.column)) {
-                    list.push(item);
-                }
+            if(this.supportChip && 
+                (this.supportChip.Id === "091" || this.supportChip.Id === "092" ||
+                this.supportChip.Id === "093" || this.supportChip.Id === "116" ||
+                this.supportChip.Id === "117" || this.supportChip.Id === "123" ||
+                this.supportChip.Id === "124" || this.supportChip.Id === "125")) {
 
-            } while (list.length < panelsCount);
+                var effect = getSupportChipEffectById(this.supportChip.Id);
+
+                for (let row = 0; row < effect.value.length; row++) {
+                    for (let col = 0; col < effect.value.length; col++) {
+                        list.push({
+                            row: row,
+                            column: col
+                        });
+                    }
+                }
+            } else {
+                var panelsCount = Math.floor(Math.random() * 2) + 1; //The panels can be 1 or 2
+
+                do {
+                    var item = {
+                        row: Math.floor(Math.random() * 3),
+                        column: Math.floor(Math.random() * 3)
+                    }
+
+                    //Just add the item if is not going to be in the middle of the matrix and not exist already
+                    if(item.column !== 1 && !list.some(x => x.row === item.row && x.column === item.column)) {
+                        list.push(item);
+                    }
+
+                } while (list.length < panelsCount);
+            }
 
             return list;
         },
         startEnemyMovement() {
-            var interval = 1700;
-            interval -= 100 * this.enemy.level; //speedy up base on the level
-            interval = interval < 1000 ? 1000 : interval; //Cannot be under 1 second
+            var interval = 800;
+
+            if (this.supportChip && (this.supportChip.Id === "083" || this.supportChip.Id === "084")) {
+                interval = getSupportChipEffectById(this.supportChip.Id).value;
+            }
+
+            interval -= 15 * this.enemy.level; //speedy up base on the level
+            interval = interval < 500 ? 500 : interval; //Cannot be under 1 second
 
             var positions = [
                 Events.Up.toString(),
@@ -486,43 +516,51 @@ export default {
             }, interval);
         },
         getAttackPower(atkElement, atkPower, defElement) {
-            debugger;
+            var totalAtkPower = 0;
+
             if(atkElement === ElementTypes.Neutral || defElement === ElementTypes.Neutral) {
-                return atkPower;
+                totalAtkPower = atkPower;
             }
 
             if(atkElement === ElementTypes.Fire) {
                 if(defElement === ElementTypes.Wood) {
-                    return atkPower * 2;
+                    totalAtkPower = atkPower * 2;
                 } else if(defElement === ElementTypes.Aqua) {
-                    return Math.floor(atkPower / 2);
+                    totalAtkPower = Math.floor(atkPower / 2);
                 } else {
-                    return atkPower;
+                    totalAtkPower = atkPower;
                 }
             } else if(atkElement === ElementTypes.Wood) {
                 if(defElement === ElementTypes.Elec) {
-                    return atkPower * 2;
+                    totalAtkPower = atkPower * 2;
                 } else if(defElement === ElementTypes.Fire) {
-                    return Math.floor(atkPower / 2);
+                    totalAtkPower = Math.floor(atkPower / 2);
                 } else {
-                    return atkPower;
+                    totalAtkPower = atkPower;
                 }
             } else if(atkElement === ElementTypes.Elec) {
                 if(defElement === ElementTypes.Aqua) {
-                    return atkPower * 2;
+                    totalAtkPower = atkPower * 2;
                 } else if(defElement === ElementTypes.Wood) {
-                    return Math.floor(atkPower / 2);
+                    totalAtkPower = Math.floor(atkPower / 2);
                 } else {
-                    return atkPower;
+                    totalAtkPower = atkPower;
                 }
             } else if(atkElement === ElementTypes.Aqua) {
                 if(defElement === ElementTypes.Fire) {
-                    return atkPower * 2;
+                    totalAtkPower = atkPower * 2;
                 } else if(defElement === ElementTypes.Elec) {
-                    return Math.floor(atkPower / 2);
+                    totalAtkPower = Math.floor(atkPower / 2);
                 } else {
-                    return atkPower;
+                    totalAtkPower = atkPower;
                 }
+            }
+
+            if(this.supportChip && this.supportChip.Id === "205") {
+                var effect = getSupportChipEffectById(this.supportChip.Id);
+                return totalAtkPower = totalAtkPower + Math.floor(effect.value * totalAtkPower);
+            } else {
+                return totalAtkPower;
             }
         }     
     }     

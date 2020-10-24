@@ -45,7 +45,9 @@ export default {
       this.$store.commit('session/addToMyChips', draggable);
     },
     sendParentMessage() {
-      this.$emit('dragstart');
+      setTimeout(() => {
+        this.$emit('dragstart');
+      }, 3);
     }
   }
 }
