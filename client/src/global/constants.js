@@ -24,7 +24,6 @@ const SceneNames = {
   Opening: "other/Opening",
   StandBy: "other/StandBy",
   Splash: "other/Splash",
-  Notification: "other/Notification",
   
   Option: "option/Option",
   OptionTime: "option/OptionTime",
@@ -45,9 +44,12 @@ const SceneNames = {
   MegaBusterStatus: "battle/MegaBusterStatus",
   ChipStatus: "battle/ChipStatus",
   ChipOk: "battle/ChipOk",
+  ChipError: "battle/ChipError",
+  ChipCPShortage: "battle/ChipCPShortage",
   BattleNaviStatus: "battle/BattleNaviStatus",
   ChipElement: "battle/ChipElement",
   ChipAttackArea: "battle/ChipAttackArea",
+  ChipSupportDetails: "battle/ChipSupportDetails",
   BattleBoard: "battle/BattleBoard",
   BattleFireAttack: "battle/BattleFireAttack",
   BattleAttackHit: "battle/BattleAttackHit",
@@ -61,7 +63,9 @@ const SceneNames = {
   Enemy: "story/Enemy",
   EnemyAttack: "story/EnemyAttack",
   StoryResult: "story/StoryResult",
-  StoryResultDetails: "story/StoryResultDetails"
+  StoryResultDetails: "story/StoryResultDetails",
+  VirusNotification: "story/VirusNotification",
+
 }
 
 const Events = {

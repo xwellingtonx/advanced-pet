@@ -28,10 +28,11 @@
 </template>
 
 <script>
-import { SceneNames } from '../../../../global/constants';
+import { Events, SceneNames } from '../../../../global/constants';
 import { mapState } from 'vuex';
 import { BattleTypes } from '../../../../global/constants';
 import { Howl } from 'howler';
+import EventBus from '../../../../global/eventBus';
 
 export default {
     name: "BattleStart",
@@ -42,30 +43,30 @@ export default {
     }, 
     data() {
         return {
-            isColorInverted: false
+            isColorInverted: false,
+            timeOut: null,
+            sound: null
         }
     },
     mounted() {
-        var sound = null;
+        EventBus.$on(Events.Confirmation, this.moveToRoulette);
+        
         if(this.battleType === BattleTypes.AI) {
             if(this.$store.state.session.sound) {
-                sound = new Howl({
+                this.sound = new Howl({
                     src: require("../../../../assets/sounds/battle-start.mp3"),
                     volume: 0.5,
                     loop: true
                 });
                 
-                sound.play();
+                this.sound.play();
             }
 
             this.playerColorAnim();
         }
 
-        setTimeout(() => {
-            if(sound !== null) {
-                sound.stop();
-            }
-            this.$store.commit('session/setCurrentScene', SceneNames.Roulette);
+        this.timeOut = setTimeout(() => {
+            this.moveToRoulette();
         }, 3500);
     },
     methods: {
@@ -73,6 +74,17 @@ export default {
             setInterval(() => {
                 this.isColorInverted = !this.isColorInverted;
             }, 200);
+        },
+        moveToRoulette() {
+            if(this.sound !== null) {
+                this.sound.stop();
+            }
+
+            if(this.timeOut !== null) {
+               clearTimeout(this.timeOut);
+            }
+
+            this.$store.commit('session/setCurrentScene', SceneNames.Roulette);
         }  
     }   
 }

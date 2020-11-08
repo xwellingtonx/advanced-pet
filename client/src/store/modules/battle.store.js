@@ -44,6 +44,10 @@ const state = {
     },
     addBattleAction:(state, action) => {
       state.battleActions.push(action);
+    },
+    decreasePlayerCP: (state, value) => {
+      var decreasedCP = state.player.cp - value;
+      state.player.cp = decreasedCP < 0 ? 0 : decreasedCP
     }
   }
   

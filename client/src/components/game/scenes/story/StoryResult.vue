@@ -21,6 +21,11 @@ import { Howl } from 'howler';
 
 export default {
     name: "StoryResult",
+    data () {
+        return {
+            sound: null
+        }
+    },
     mounted() {
         EventBus.$on(Events.Right, () => {
            this.$store.commit('session/setCurrentScene', SceneNames.StoryResultDetails);
@@ -28,19 +33,21 @@ export default {
 
         EventBus.$on(Events.Confirmation, () => {
             //TODO: If is navi battle is going to redirect to Arena OK screen
+            if(this.sound != null)
+                this.sound.stop()
+                
             this.$store.commit('session/setIsInBattle', false);
 
             this.$store.commit('session/setCurrentScene', SceneNames.StandBy);
         });  
 
-        if(this.$store.state.session.sound && 
-            this.$store.state.session.lastScene !== SceneNames.StoryResultDetails) {
-            var sound = new Howl({
+        if(this.$store.state.session.sound && this.$store.state.session.lastScene !== SceneNames.StoryResultDetails) {
+           this.sound = new Howl({
                 src: require("../../../../assets/sounds/ai-battle-result.mp3"),
                 volume: 1
             });
             
-            sound.play();
+            this.sound.play();
         }
     },
     computed: {

@@ -21,7 +21,7 @@ const state = {
     level: 1,
     exp: 0,
     cp: 3,
-    hp:10,
+    hp:8,
     at:1,
     recovery: 100,
     element: ElementTypes.Neutral
