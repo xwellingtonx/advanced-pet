@@ -109,14 +109,15 @@
 import { TimelineLite } from "gsap";
 import { mapState } from 'vuex';
 import EventBus from '../../../../global/eventBus.js';
-import { SceneNames, Events } from '../../../../global/constants';
+import { SceneNames, Events, NotificationTypes } from '../../../../global/constants';
 
 export default {
     name: "StandBy",
     computed: {
          ...mapState({
             timeNow: state => state.session.time,
-            naviRecovery: state => state.session.navi.recovery
+            naviRecovery: state => state.session.navi.recovery,
+            notification: state => state.session.notification
         })       
     },
     data() {
@@ -130,7 +131,13 @@ export default {
         if(this.naviRecovery === 100) {
             this.isSadAnimation = false;
             this.startDefaultAnimation();
-            //this.startSpeakingAnimation();
+            
+            if(this.notification !== null && this.notification.type == NotificationTypes.Tournament) {
+                setTimeout(() => {
+                    this.$store.commit('session/setCurrentScene', SceneNames.Notification);
+                }, 2000);
+            }
+
         } else {
            this.isSadAnimation = true;
            //timeout to wait render the elements
@@ -167,17 +174,6 @@ export default {
 
             timeLine.play();
         },
-        // startSpeakingAnimation() {
-        //     var timeLine = new TimelineLite({
-        //         paused: true,
-        //         repeat: -1,
-        //     });
-
-        //     timeLine.to('#standby-face-center', {display: 'none', duration: 0.5,  ease: "none"});
-        //     timeLine.to('#standby-face-open-mouth', {display: 'block', duration: 0.5,  ease: "none"});
-
-        //     timeLine.play();
-        // },
         startDamageReceivedAnimation() {
             var timeLine = new TimelineLite({
                 paused: true,

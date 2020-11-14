@@ -75,7 +75,10 @@ export default {
             var lastChipPlugged = this.pluggedChips[this.pluggedChips.length - 1];
 
             if(this.isChipOk) {
-                if(lastChipPlugged && (lastChipPlugged.CP > this.player.cp || ((this.player.cp - lastChipPlugged.CP) < 0))) {
+                if(lastChipPlugged && 
+                    this.lastScene !== SceneNames.MegaBuster && 
+                    (lastChipPlugged.CP > this.player.cp || ((this.player.cp - lastChipPlugged.CP) < 0))) {
+                        
                     this.$store.commit('battle/removeChip', lastChipPlugged);
                     this.$store.commit('session/setCurrentScene', SceneNames.ChipCPShortage);
                 } else {
@@ -83,7 +86,7 @@ export default {
                         this.moveToBattle(null);
                     } else if(lastChipPlugged.Type === ChipTypes.Attack) {
                         //If the attack chip was already used in the battle, show the error view.
-                        if(this.chipsActions.length > 0 && this.chipsActions.filter(x => x.payload.Id === lastChipPlugged.Id)) {
+                        if(this.chipsActions.length > 0 && this.chipsActions.some(x => x.payload.Id === lastChipPlugged.Id)) {
                             this.$store.commit('battle/removeChip', lastChipPlugged);
                             this.$store.commit('session/setCurrentScene', SceneNames.ChipError);
                         } else {

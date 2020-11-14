@@ -107,7 +107,7 @@ export default {
     if(this.$store.state.session.sound) {
         this.sound = new Howl({
             src: require("../../../../assets/sounds/plug-in.mp3"),
-            volume: 0.1
+            volume: 1
         });
 
         this.sound.play();

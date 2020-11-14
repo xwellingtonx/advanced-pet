@@ -60,7 +60,7 @@ export default {
         if(this.$store.state.session.sound) {
             this.howlSound = new Howl({
                 src: require("../../../../assets/sounds/lose-battle.mp3"),
-                volume: 0.1,
+                volume: 1,
                 loop: true
             });
 

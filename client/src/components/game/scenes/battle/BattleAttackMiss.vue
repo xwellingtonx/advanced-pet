@@ -48,7 +48,7 @@ export default {
       
         var sound = new Howl({
             src: require("../../../../assets/sounds/miss-attack.mp3"),
-            volume: 0.1,
+            volume: 1,
             loop: true
         });
 

@@ -36,7 +36,11 @@ export default {
     mounted() {
         EventBus.$on(Events.Confirmation, this.onConfirmation);
 
-        this.importVirus(this.enemy.image);
+        if(this.enemy.type === EnemyTypes.Virus) {
+            this.importVirus(this.enemy.image);
+        } else {
+            this.importBoss(this.enemy.image);
+        }
 
         var time = 3000;
 
@@ -60,7 +64,7 @@ export default {
             var hitPercentage = 0;
             if(this.enemy.type === EnemyTypes.Virus) {
                 hitPercentage = (45 + (5 * this.enemy.level)) / 100;
-            } else if(this.enemy.type === EnemyTypes.Navi) {
+            } else if(this.enemy.type === EnemyTypes.Boss) {
                 hitPercentage = 0.75;
             }
 
@@ -92,6 +96,9 @@ export default {
             //Import using html loarder
             this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${image}`);
         },
+        importBoss(image) {
+            this.screenContent = require(`!html-loader!../../../../assets/svgs/bosses/${image}`);
+        }, 
         getAttackPower(atkElement, atkPower, defElement) {
             var atkPowerTotal = 0;
 

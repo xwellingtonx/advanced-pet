@@ -27,7 +27,7 @@ export default {
     mounted() {
         var sound = new Howl({
             src: require("../../../../assets/sounds/hit-attack.mp3"),
-            volume: 0.1,
+            volume: 1,
             loop: true
         });
 

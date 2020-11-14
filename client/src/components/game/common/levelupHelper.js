@@ -1,4 +1,4 @@
-const base_exp = 10;
+const base_exp = 2;
 const exp_increase_per_level = 0.08;
 const max_level = 99;
 

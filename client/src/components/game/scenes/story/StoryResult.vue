@@ -15,7 +15,7 @@
 
 <script>
 import EventBus from '../../../../global/eventBus';
-import { SceneNames, Events } from '../../../../global/constants';
+import { SceneNames, Events, EnemyTypes } from '../../../../global/constants';
 import { mapState } from 'vuex'
 import { Howl } from 'howler';
 
@@ -26,19 +26,29 @@ export default {
             sound: null
         }
     },
+    computed: {
+        ...mapState({
+            exp: state => state.session.navi.exp,
+            level: state => state.session.navi.level,
+            enemy: state => state.battle.enemy
+        })
+    },      
     mounted() {
         EventBus.$on(Events.Right, () => {
            this.$store.commit('session/setCurrentScene', SceneNames.StoryResultDetails);
         });  
 
         EventBus.$on(Events.Confirmation, () => {
-            //TODO: If is navi battle is going to redirect to Arena OK screen
             if(this.sound != null)
                 this.sound.stop()
                 
             this.$store.commit('session/setIsInBattle', false);
 
-            this.$store.commit('session/setCurrentScene', SceneNames.StandBy);
+            if(this.enemy.type === EnemyTypes.Virus) {
+                this.$store.commit('session/setCurrentScene', SceneNames.StandBy);
+            } else if(this.enemy.type === EnemyTypes.Boss) {
+                this.$store.commit('session/setCurrentScene', SceneNames.TournamentStageClear);
+            }
         });  
 
         if(this.$store.state.session.sound && this.$store.state.session.lastScene !== SceneNames.StoryResultDetails) {
@@ -50,12 +60,6 @@ export default {
             this.sound.play();
         }
     },
-    computed: {
-        ...mapState({
-            exp: state => state.session.navi.exp,
-            level: state => state.session.navi.level
-        })
-    },  
     beforeDestroy() {
         EventBus.$off(Events.Left);
         EventBus.$off(Events.Confirmation);

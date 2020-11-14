@@ -80,6 +80,7 @@ export default {
         this.onCancel();
       }, 60000);
     }
+
     var title1TimeLine = new TimelineLite({
       repeat: -1
     });
@@ -107,12 +108,14 @@ export default {
         clearTimeout(this.virusTimeout);
         this.stopVirusSound();
         this.$store.commit('session/setCurrentScene', SceneNames.PlugIn);
+      } else if(this.notification.type === NotificationTypes.Tournament) {
+        this.$store.commit('session/setCurrentScene', SceneNames.Tournament);
       }
     },
     onCancel() {
       if(this.notification.type === NotificationTypes.Virus) {
-        this.$store.commit('session/setNotification', null);
         this.stopVirusSound();
+        this.$store.commit('session/setNotification', null);
         this.$store.commit('session/setCurrentScene', SceneNames.StandBy);
       }
     },

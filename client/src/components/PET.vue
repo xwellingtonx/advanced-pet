@@ -235,7 +235,7 @@ export default {
             }
         },
         togglePetLed() {
-            if(this.currentScene === SceneNames.VirusNotification && this.$store.state.session.notification !== null &&
+            if(this.currentScene === SceneNames.Notification && this.$store.state.session.notification !== null &&
                 this.$store.state.session.notification.type === NotificationTypes.Virus) {
                 this.isLightOn = true;
 
@@ -256,7 +256,7 @@ export default {
                     this.$store.commit('session/setNotification', 
                         new Notification("A VIRUS!!", NotificationTypes.Virus, virus));
 
-                    this.$store.commit('session/setCurrentScene', SceneNames.VirusNotification);    
+                    this.$store.commit('session/setCurrentScene', SceneNames.Notification);    
                 } else {
                     this.shakeCount += 1;
                     if(this.recovery < 100) {

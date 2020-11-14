@@ -33,7 +33,7 @@ export default {
         }
     },
     beforeDestroy() {
-         EventBus.$$off(Events.Confirmation);
+        EventBus.$off(Events.Confirmation);
     },
     methods: {
         moveToSlotIn() {

@@ -83,19 +83,39 @@ const mutations = {
   incrementNaviRecovery: (state, value) => {
     state.navi.recovery += value;
   },
+  setCurrentStage: (state, value) => {
+    state.currentStage = value;
+  },
+  setCurrentWorld: (state, value) => {
+    state.currentWorld = value;
+  },
   levelup: (state) => {
     var exp = state.navi.exp + 2;
 
     if(exp >= LevelupHelper.levelToTotalExp(state.navi.level + 1)) {
       state.navi.exp = 0;
       state.navi.level += 1;
-      state.navi.cp += 1;
-      state.navi.hp += 2;
-      state.navi.at += 1;
+      if(state.navi.level % 2 === 0) {
+        state.navi.cp += 1;
+        state.navi.hp += 2;
+
+        if(state.navi.at < 10) {
+          state.navi.at += 1;
+        }
+      }
     } else {
       state.navi.exp = exp;
     }
   },
+  resetGame: (state) => {
+    state.navi.level = 1;
+    state.navi.exp = 0;
+    state.navi.cp = 3;
+    state.navi.hp = 8;
+    state.navi.at = 1;
+    state.currentStage = 1;
+    state.stageClear = 0;
+  }
 }
 
 const actions = {
@@ -105,10 +125,27 @@ const actions = {
   stageClear({commit, state}) {
     var currentStage = World.getCurrentStage(state.deviceType, state.currentWorld, state.currentStage);
 
-    if(currentStage.stageClear === (state.stageClear + 1)) {
+    if((state.stageClear + 1) >= currentStage.stageClear) {
       commit('setNotification', new Notification("A EMAIL!", NotificationTypes.Tournament, currentStage.boss))
     } 
     commit('incrementStageClear', 1);
+  },
+  stageComplete({commit, state}) {
+    var currentWorld = World.getCurrentWorld(state.deviceType, state.currentWorld);
+    var nextStage = state.currentStage + 1;
+
+    if(nextStage > currentWorld.stages.length) {
+      var nextWorld = state.currentWorld + 1;
+      if(nextWorld > World.getWorldsCount()) {
+        commit('nextWorld', 1);
+      } else {
+        commit('nextWorld', nextWorld);
+      }
+      commit('resetGame');
+    } else {
+      commit('setCurrentStage', nextStage);
+      commit('decrementStageClear', state.stageClear);
+    }
   }
 }
 

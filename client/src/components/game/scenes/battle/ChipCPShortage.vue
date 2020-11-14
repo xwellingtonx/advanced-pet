@@ -41,7 +41,7 @@ export default {
         EventBus.$on(Events.Confirmation, this.moveToSlotIn);
     },
     beforeDestroy() {
-         EventBus.$$off(Events.Confirmation);
+         EventBus.$off(Events.Confirmation);
     },
     methods: {
         moveToSlotIn() {

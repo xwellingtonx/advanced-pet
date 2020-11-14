@@ -24,6 +24,8 @@ const SceneNames = {
   Opening: "other/Opening",
   StandBy: "other/StandBy",
   Splash: "other/Splash",
+  Notification: "other/Notification",
+
   
   Option: "option/Option",
   OptionTime: "option/OptionTime",
@@ -64,8 +66,8 @@ const SceneNames = {
   EnemyAttack: "story/EnemyAttack",
   StoryResult: "story/StoryResult",
   StoryResultDetails: "story/StoryResultDetails",
-  VirusNotification: "story/VirusNotification",
-
+  Tournament: "story/Tournament",
+  TournamentStageClear: "story/TournamentStageClear"
 }
 
 const Events = {

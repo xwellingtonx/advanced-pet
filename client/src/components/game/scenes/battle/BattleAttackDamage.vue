@@ -56,7 +56,7 @@ export default {
                 this.importVirus();
                 this.showHPStatus(this.enemy.hp, this.enemyDamageActions);
             } else if (this.enemy.type === EnemyTypes.Boss) {
-                //TODO: Import Boss sprite
+                this.importBoss();
                 //Boss
                 this.showHPStatus(this.enemy.hp, this.enemyDamageActions);
             } else {
@@ -100,9 +100,14 @@ export default {
                 if(this.battleType === BattleTypes.AI) {
                     if(this.turnType === TurnTypes.Attack) {
                         sceneName = SceneNames.BattleWinner;
-                        this.$store.commit('session/levelup');
-                        this.$store.dispatch('session/stageClear');
                         
+                        this.$store.commit('session/levelup');
+
+                        if(this.enemy.type === EnemyTypes.Virus) {
+                            this.$store.dispatch('session/stageClear');
+                        } else if(this.enemy.type === EnemyTypes.Boss) {
+                            this.$store.dispatch('session/stageComplete');
+                        }                        
                     } else {
                         sceneName = SceneNames.BattleLoser;
 
@@ -158,6 +163,10 @@ export default {
             //Import using html loarder
             this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${this.enemy.image}`);
         },
+        importBoss() {
+            //Import using html loarder
+            this.screenContent = require(`!html-loader!../../../../assets/svgs/bosses/${this.enemy.image}`);
+        },        
         showPlayerScreens(deviceType) {
             this.$socket.client.emit('getPlayersStatus', this.$store.state.battle.id);
 

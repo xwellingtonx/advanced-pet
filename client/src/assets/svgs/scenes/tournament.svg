@@ -1,0 +1,179 @@
+<defs>
+    <style>.pet-font{font-size:15px;}</style>
+</defs>
+<g>
+    <rect class="primary-color" x="3" y="3.19" width="77" height="12.15" />
+    <rect x="2.94" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="5.94" y="3.12" width="3" height="3" />
+    <rect x="5.94" y="0.12" width="3" height="3" />
+    <rect x="5.94" y="6.12" width="3" height="3" />
+    <rect x="8.94" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="8.94" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="2.94" y="0.12" width="3" height="3" />
+    <rect x="9.12" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="12.12" y="3.12" width="3" height="3" />
+    <rect x="12.12" y="0.12" width="3" height="3" />
+    <rect x="12.12" y="6.12" width="3" height="3" />
+    <rect x="15.12" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="15.12" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="9.12" y="0.12" width="3" height="3" />
+    <rect x="15.31" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="18.31" y="3.12" width="3" height="3" />
+    <rect x="18.31" y="0.12" width="3" height="3" />
+    <rect x="18.31" y="6.12" width="3" height="3" />
+    <rect x="21.31" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="21.31" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="15.31" y="0.12" width="3" height="3" />
+    <rect x="21.5" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="24.5" y="3.12" width="3" height="3" />
+    <rect x="24.5" y="0.12" width="3" height="3" />
+    <rect x="24.5" y="6.12" width="3" height="3" />
+    <rect x="27.5" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="27.5" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="21.5" y="0.12" width="3" height="3" />
+    <rect x="27.69" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="30.69" y="3.12" width="3" height="3" />
+    <rect x="30.69" y="0.12" width="3" height="3" />
+    <rect x="30.69" y="6.12" width="3" height="3" />
+    <rect x="33.69" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="33.69" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="27.69" y="0.12" width="3" height="3" />
+    <rect x="33.87" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="36.87" y="3.12" width="3" height="3" />
+    <rect x="36.87" y="0.12" width="3" height="3" />
+    <rect x="36.87" y="6.12" width="3" height="3" />
+    <rect x="39.87" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="39.87" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="33.87" y="0.12" width="3" height="3" />
+    <rect x="40.06" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="43.06" y="3.12" width="3" height="3" />
+    <rect x="43.06" y="0.12" width="3" height="3" />
+    <rect x="43.06" y="6.12" width="3" height="3" />
+    <rect x="46.06" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="46.06" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="40.06" y="0.12" width="3" height="3" />
+    <rect x="46.25" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="49.25" y="3.12" width="3" height="3" />
+    <rect x="49.25" y="0.12" width="3" height="3" />
+    <rect x="49.25" y="6.12" width="3" height="3" />
+    <rect x="52.25" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="52.25" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="46.25" y="0.12" width="3" height="3" />
+    <rect x="52.44" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="55.44" y="3.12" width="3" height="3" />
+    <rect x="55.44" y="0.12" width="3" height="3" />
+    <rect x="55.44" y="6.12" width="3" height="3" />
+    <rect x="58.44" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="58.44" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="52.44" y="0.12" width="3" height="3" />
+    <rect x="58.62" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="61.62" y="3.12" width="3" height="3" />
+    <rect x="61.62" y="0.12" width="3" height="3" />
+    <rect x="61.62" y="6.12" width="3" height="3" />
+    <rect x="64.62" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="64.62" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="58.62" y="0.12" width="3" height="3" />
+    <rect x="64.81" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="67.81" y="3.12" width="3" height="3" />
+    <rect x="67.81" y="0.12" width="3" height="3" />
+    <rect x="67.81" y="6.12" width="3" height="3" />
+    <rect x="70.81" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="70.81" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="64.81" y="0.12" width="3" height="3" />
+    <rect x="71" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="74" y="3.12" width="3" height="3" />
+    <rect x="74" y="0.12" width="3" height="3" />
+    <rect x="74" y="6.12" width="3" height="3" />
+    <rect x="77" y="3.12" width="3" height="3" />
+    <rect class="primary-color" x="77" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="71" y="0.12" width="3" height="3" />
+    <rect class="primary-color" x="2.94" y="20.82" width="77.06" height="22" />
+    <polygon class="primary-color" points="28.06 48.22 54.88 48.22 54.88 45.22 74 45.22 74 42.22 8.94 42.22 8.94 45.22 28.06 45.22 28.06 48.22" />
+    <polygon class="primary-color" points="74 45.22 74 48.22 54.88 48.22 54.88 51.22 28.06 51.22 28.06 48.22 8.94 48.22 8.94 45.22 5.94 45.22 2.94 45.22 2.94 54.18 77 54.18 77 51.22 77 48.22 77 45.22 74 45.22" />
+    <text class="pet-font" transform="translate(17.8 40.22)">tour</text>
+    <polygon class="primary-color" points="8.83 60.88 8.83 57.88 2.9 57.88 2.9 60.88 2.9 71.94 79.9 71.94 79.9 60.88 8.83 60.88" />
+    <rect x="2.83" y="69" width="3" height="3" />
+    <rect class="primary-color" x="5.83" y="69" width="3" height="3" />
+    <rect x="5.83" y="72" width="3" height="3" />
+    <rect x="5.83" y="66" width="3" height="3" />
+    <rect x="8.83" y="69" width="3" height="3" />
+    <rect class="primary-color" x="8.83" y="72" width="3" height="3" />
+    <rect class="primary-color" x="2.83" y="72" width="3" height="3" />
+    <rect x="9.02" y="69" width="3" height="3" />
+    <rect class="primary-color" x="12.02" y="69" width="3" height="3" />
+    <rect x="12.02" y="72" width="3" height="3" />
+    <rect x="12.02" y="66" width="3" height="3" />
+    <rect x="15.02" y="69" width="3" height="3" />
+    <rect class="primary-color" x="15.02" y="72" width="3" height="3" />
+    <rect class="primary-color" x="9.02" y="72" width="3" height="3" />
+    <rect x="15.21" y="69" width="3" height="3" />
+    <rect class="primary-color" x="18.21" y="69" width="3" height="3" />
+    <rect x="18.21" y="72" width="3" height="3" />
+    <rect x="18.21" y="66" width="3" height="3" />
+    <rect x="21.21" y="69" width="3" height="3" />
+    <rect class="primary-color" x="21.21" y="72" width="3" height="3" />
+    <rect class="primary-color" x="15.21" y="72" width="3" height="3" />
+    <rect x="21.4" y="69" width="3" height="3" />
+    <rect class="primary-color" x="24.4" y="69" width="3" height="3" />
+    <rect x="24.4" y="72" width="3" height="3" />
+    <rect x="24.4" y="66" width="3" height="3" />
+    <rect x="27.4" y="69" width="3" height="3" />
+    <rect class="primary-color" x="27.4" y="72" width="3" height="3" />
+    <rect class="primary-color" x="21.4" y="72" width="3" height="3" />
+    <rect x="27.58" y="69" width="3" height="3" />
+    <rect class="primary-color" x="30.58" y="69" width="3" height="3" />
+    <rect x="30.58" y="72" width="3" height="3" />
+    <rect x="30.58" y="66" width="3" height="3" />
+    <rect x="33.58" y="69" width="3" height="3" />
+    <rect class="primary-color" x="33.58" y="72" width="3" height="3" />
+    <rect class="primary-color" x="27.58" y="72" width="3" height="3" />
+    <rect x="33.77" y="69" width="3" height="3" />
+    <rect class="primary-color" x="36.77" y="69" width="3" height="3" />
+    <rect x="36.77" y="72" width="3" height="3" />
+    <rect x="36.77" y="66" width="3" height="3" />
+    <rect x="39.77" y="69" width="3" height="3" />
+    <rect class="primary-color" x="39.77" y="72" width="3" height="3" />
+    <rect class="primary-color" x="33.77" y="72" width="3" height="3" />
+    <rect x="39.96" y="69" width="3" height="3" />
+    <rect class="primary-color" x="42.96" y="69" width="3" height="3" />
+    <rect x="42.96" y="72" width="3" height="3" />
+    <rect x="42.96" y="66" width="3" height="3" />
+    <rect x="45.96" y="69" width="3" height="3" />
+    <rect class="primary-color" x="45.96" y="72" width="3" height="3" />
+    <rect class="primary-color" x="39.96" y="72" width="3" height="3" />
+    <rect x="46.15" y="69" width="3" height="3" />
+    <rect class="primary-color" x="49.15" y="69" width="3" height="3" />
+    <rect x="49.15" y="72" width="3" height="3" />
+    <rect x="49.15" y="66" width="3" height="3" />
+    <rect x="52.15" y="69" width="3" height="3" />
+    <rect class="primary-color" x="52.15" y="72" width="3" height="3" />
+    <rect class="primary-color" x="46.15" y="72" width="3" height="3" />
+    <rect x="52.33" y="69" width="3" height="3" />
+    <rect class="primary-color" x="55.33" y="69" width="3" height="3" />
+    <rect x="55.33" y="72" width="3" height="3" />
+    <rect x="55.33" y="66" width="3" height="3" />
+    <rect x="58.33" y="69" width="3" height="3" />
+    <rect class="primary-color" x="58.33" y="72" width="3" height="3" />
+    <rect class="primary-color" x="52.33" y="72" width="3" height="3" />
+    <rect x="58.52" y="69" width="3" height="3" />
+    <rect class="primary-color" x="61.52" y="69" width="3" height="3" />
+    <rect x="61.52" y="72" width="3" height="3" />
+    <rect x="61.52" y="66" width="3" height="3" />
+    <rect x="64.52" y="69" width="3" height="3" />
+    <rect class="primary-color" x="64.52" y="72" width="3" height="3" />
+    <rect class="primary-color" x="58.52" y="72" width="3" height="3" />
+    <rect x="64.71" y="69" width="3" height="3" />
+    <rect class="primary-color" x="67.71" y="69" width="3" height="3" />
+    <rect x="67.71" y="72" width="3" height="3" />
+    <rect x="67.71" y="66" width="3" height="3" />
+    <rect x="70.71" y="69" width="3" height="3" />
+    <rect class="primary-color" x="70.71" y="72" width="3" height="3" />
+    <rect class="primary-color" x="64.71" y="72" width="3" height="3" />
+    <rect x="70.9" y="69" width="3" height="3" />
+    <rect class="primary-color" x="73.9" y="69" width="3" height="3" />
+    <rect x="73.9" y="72" width="3" height="3" />
+    <rect x="73.9" y="66" width="3" height="3" />
+    <rect x="76.9" y="69" width="3" height="3" />
+    <rect class="primary-color" x="76.9" y="72" width="3" height="3" />
+    <rect class="primary-color" x="70.9" y="72" width="3" height="3" />        
+</g>

@@ -40,7 +40,7 @@ export default {
         if(this.$store.state.session.sound) {
             this.sound = new Howl({
                     src: require("../../../../assets/sounds/roulette.mp3"),
-                    volume: 0.5,
+                    volume: 1,
                     loop: true
                 });
                 

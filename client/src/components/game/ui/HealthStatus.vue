@@ -39,17 +39,20 @@ export default {
                     totalDamage += item.value
                 });
             }
-
+            
             //Show HP after damage
             var totalHP = (parseInt(hp) + parseInt(totalDamage)) / hp;
-            if(totalHP > 0 &  totalHP < 1) {
+            if(totalHP > 0 && totalHP < 1) {
                 //Remove bars based on the hp percentage
                 var leftBars = Math.round(totalHP * hp);
                 var endIndex = leftBars - 1;
                 this.currentHPBars = this.bars.slice(0, endIndex);
-
-            } else if( totalHP <= 0) {
-                this.currentHPBars = [];
+            } else {
+                if(totalHP == 1) {
+                    this.currentHPBars = this.bars;
+                } else if( totalHP <= 0) {
+                    this.currentHPBars = [];
+                }
             }            
         },
         getHealth() {

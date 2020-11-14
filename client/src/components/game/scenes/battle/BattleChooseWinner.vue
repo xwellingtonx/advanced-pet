@@ -65,7 +65,9 @@ export default {
     },
     methods: {
         createHPBars(character) {
-            this.$refs.hpBar.updateHealth(character.hp, this.getDamage(character));
+            if(this.$refs.hpBar) {
+                this.$refs.hpBar.updateHealth(character.hp, this.getDamage(character));
+            }
         },
         startAnim(character1, character2) {
             var intervaltime = 750, timeout = 4000, interval = null;  
@@ -107,9 +109,15 @@ export default {
             if(this.battleType === BattleTypes.AI) {
                 if(this.currentCharacter.type === EnemyTypes.Player) {
                     sceneName = SceneNames.BattleWinner;
+                    
                     this.$store.commit('session/levelup');
-                    this.$store.dispatch('session/stageClear');
-                } else {
+
+                    if(this.enemy.type === EnemyTypes.Virus) {
+                        this.$store.dispatch('session/stageClear');
+                    } else if(this.enemy.type === EnemyTypes.Boss) {
+                        this.$store.dispatch('session/stageComplete');
+                    }
+                } else { 
                     sceneName = SceneNames.BattleLoser;
 
                     if(this.currentCharacter.type === EnemyTypes.Boss) {
@@ -165,14 +173,14 @@ export default {
             return character.hp + totalDamage;
         },
         getDamage(character) {
-            var damages = null;
+            var damages = [];
             if(character.type === EnemyTypes.Player) {
                  if(character.sessionId === this.sessionId) {
                     damages = this.playerHPActions;
                  } else {
                     damages = this.enemyDamageActions;
                  }
-            } else if(character.type === EnemyTypes.Virus) {
+            } else {
                 damages = this.enemyDamageActions;
             } 
 
