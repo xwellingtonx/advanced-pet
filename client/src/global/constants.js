@@ -32,6 +32,11 @@ const SceneNames = {
   OptionSound: "option/OptionSound",
 
   NaviStatus: "status/NaviStatus",
+  NaviLevelDetails: "status/NaviLevelDetails",
+  NaviStageDetails: "status/NaviStageDetails",
+  NaviVsDetails: "status/NaviVsDetails",
+  NaviStatusDetails: "status/NaviStatusDetails",
+
 
   PlayerVSPlayer: "versus/PlayerVSPlayer",
   LookingPlayer: "versus/LookingPlayer",

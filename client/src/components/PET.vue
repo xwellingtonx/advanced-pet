@@ -231,6 +231,12 @@ export default {
             } else {
                 window.removeEventListener('shake', this.onShaking, false);
                 this.myShakeEvent.stop();
+                this.isShaking = false;
+                if(this.shakingSound) {
+                    this.shakingSound.stop();
+                }
+                
+                this.stopShakingForDesktop();
                 this.shakeCount = 0;
             }
         },

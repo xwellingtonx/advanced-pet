@@ -47,11 +47,15 @@ export default {
             EventBus.$on(Events.Right, this.moveToOptionScene);
             EventBus.$on(Events.Cancel, this.moveToStandByScene);
             EventBus.$on(Events.Left, this.moveToStandByScene);
+            EventBus.$on(Events.Confirmation, this.moveToLevelDetails);
+
         },
         unregisterListeners() {
             EventBus.$off(Events.Right);
             EventBus.$off(Events.Cancel);
             EventBus.$off(Events.Left);
+            EventBus.$off(Events.Confirmation);
+
         },
         moveToOptionScene() {
             this.$store.commit('session/setCurrentScene', SceneNames.Option);
@@ -59,6 +63,9 @@ export default {
         moveToStandByScene() {
             this.$store.commit('session/setCurrentScene', SceneNames.StandBy);
         },  
+        moveToLevelDetails() {
+            this.$store.commit('session/setCurrentScene', SceneNames.NaviLevelDetails);
+        }
     }
 }
 </script>
