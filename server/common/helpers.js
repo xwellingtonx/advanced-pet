@@ -20,10 +20,7 @@ class Helpers {
     }
 
     static removeRoomById(battleRooms, roomId) {
-        var index = battleRooms.indexOf(battleRooms.find(room => room.id === roomId));
-        if(index) {
-            battleRooms.splice(index, 1);
-        }
+        return battleRooms.filter(room => room.id !== roomId);
     }
 
     static removeRoomByPlayerId(battleRooms, playerId) {

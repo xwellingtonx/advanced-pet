@@ -100,13 +100,11 @@ export default {
                             this.$store.commit('battle/removeChip', lastChipPlugged);
                             this.$store.commit('session/setCurrentScene', SceneNames.ChipError);
                         } else {
-                            if(this.battleType === BattleTypes.AI) {
-                                //Prevent add the cannon fake chip
-                                this.$store.commit('battle/addBattleAction', {
-                                    type: BattleActionTypes.ChipUsage,
-                                    payload: lastChipPlugged
-                                });
-                            }
+                            //Prevent add the cannon fake chip
+                            this.$store.commit('battle/addBattleAction', {
+                                type: BattleActionTypes.ChipUsage,
+                                payload: lastChipPlugged
+                            });
 
                             this.activeSupportChipEffect(lastChipPlugged);
                             this.$store.commit('battle/decreasePlayerCP', lastChipPlugged.CP);
@@ -127,17 +125,17 @@ export default {
             }
         },
         moveToBattle(lastChipPlugged) {
+            //Prevent add the cannon fake chip
+            if(lastChipPlugged) {
+                this.$store.commit('battle/addBattleAction', {
+                    type: BattleActionTypes.ChipUsage,
+                    payload: lastChipPlugged
+                });
+
+                this.$store.commit('battle/decreasePlayerCP', lastChipPlugged.CP);
+            }
+
             if(this.battleType === BattleTypes.AI) {
-                //Prevent add the cannon fake chip
-                if(lastChipPlugged) {
-                    this.$store.commit('battle/addBattleAction', {
-                        type: BattleActionTypes.ChipUsage,
-                        payload: lastChipPlugged
-                    });
-
-                    this.$store.commit('battle/decreasePlayerCP', lastChipPlugged.CP);
-                }
-
                 this.$store.commit('session/setCurrentScene', SceneNames.BattleBoard);
             } else {
                 this.$socket.client.emit('chipPlugged', this.$store.state.battle.id);

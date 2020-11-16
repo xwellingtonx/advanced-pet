@@ -7,7 +7,7 @@
 
             <g v-if="this.battleType === 'ai' && this.currentCharacter !== null && this.currentCharacter.type === 'player'" v-html="this.screenContent" class="flip" />
 
-            <g v-if="this.battleType !== 'ai' && this.currentCharacter !== null" class="standby-face-right" :class="{ 'flip': currentCharacter.currentTurn === 'defense' }">
+            <g v-if="this.battleType !== 'ai' && this.currentCharacter !== null" class="standby-face-right" v-html="this.screenContent" :class="{ 'flip': currentCharacter.sessionId !== this.sessionId }">
             </g>    
 
             <health-status ref="hpBar" />
@@ -188,11 +188,8 @@ export default {
         }
     },
     sockets: {
-        playersStatus(attackPlayer, defensePlayer) {
-            attackPlayer.currentTurn = TurnTypes.Attack;
-            defensePlayer.currentTurn = TurnTypes.Defense;
-
-            this.startAnim(attackPlayer, defensePlayer);
+        playersStatus() {
+            this.startAnim(this.player, this.enemy);
         }
     }    
 }

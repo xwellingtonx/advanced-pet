@@ -156,7 +156,14 @@ export default {
                         value: -parseInt(attackPower)
                     });
                 }
-            } 
+            } else {
+                if(isAttackHit) {
+                    this.$store.commit('battle/addBattleAction', {
+                        type: BattleActionTypes.EnemyDamage, 
+                        value: -parseInt(attackPower)
+                    });
+                }
+            }
 
             this.$store.commit('battle/setIsAttackHit', isAttackHit);
             this.$store.commit('session/setCurrentScene', SceneNames.BattleFireAttack);

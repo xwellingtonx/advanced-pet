@@ -80,7 +80,7 @@ export default {
             if(this.sound !== null) {
                 this.sound.stop();
             }
-            console.log(this.battleType);
+
             if(this.battleType === BattleTypes.AI) {
                 this.$store.commit('battle/setTurnType', this.turnType);
 

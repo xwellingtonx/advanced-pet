@@ -41,7 +41,7 @@ Socketio.on("connection", socket => {
                         console.log("starting battle to room: " + room.id);
 
                         Socketio.to('room-' + room.id)
-                        .emit("initializeBattle", room.id);
+                        .emit("initializeBattle", room);
                     }
                 } else {
                     //Add player to a new room
@@ -147,8 +147,8 @@ Socketio.on("connection", socket => {
             room.turnBlockedItems = list;
         }
 
-        Socketio.to(socket.id)
-        .emit("startTurnResult", room.turnBlockedItems, room.turnCount);
+        Socketio.to('room-' + roomId)
+        .emit("startTurnResult", room.turnBlockedItems);
     });
 
     //Defense Movement
@@ -243,7 +243,7 @@ Socketio.on("connection", socket => {
             return;
         }
         console.log("Ending battle:" + roomId);
-        Helpers.removeRoomById(battleRooms, roomId);
+        battleRooms = Helpers.removeRoomById(battleRooms, roomId);
     });
 });
   

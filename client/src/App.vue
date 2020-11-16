@@ -56,6 +56,7 @@
 			<h1>Instrunctions Sheet:</h1>
 			<p style="text-align: left;">If you do not know how to use the PET, you can take a time to read the original instruncions sheet below, I'll post some video in the future to make easy.</p>
 			<p style="text-align: left;"><a class="external text" href="https://service.mattel.com/instruction_sheets/megaman.pdf" target="_blank" rel="nofollow noreferrer noopener">G4141 Megaman NT Warrior Advanced PET</a></p>
+			<p style="text-align: left;">**The virus mode can be played by shaking your smatphone or using the button Play(Orange) when acessing by large desktop.</p>
 			<p>&nbsp;</p>
 			<h1>Buy me a coffe:</h1>
 			<p style="text-align: left;">If you like this project and want buy me a coffe, feel free at link below. :)</p>

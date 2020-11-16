@@ -61,7 +61,8 @@ export default {
                 this.showHPStatus(this.enemy.hp, this.enemyDamageActions);
             } else {
                 //player
-                this.showPlayerScreens(this.enemy.name)
+                this.showPlayerScreens(this.enemy.name);
+                this.showHPStatus(this.enemy.hp, this.enemyDamageActions);
             }
         } else {
             this.showPlayerScreens(this.deviceType);
@@ -75,7 +76,11 @@ export default {
     sockets: {
         playersStatus(attackPlayer, defensePlayer) {
             this.defPlayer = defensePlayer;
-            this.showHPStatus(defensePlayer.naviStatus.hp)
+            if(defensePlayer.id === this.$store.state.session.id) {
+                this.showHPStatus(this.player.hp, this.playerHPActions);
+            } else {
+                this.showHPStatus(this.enemy.hp, this.enemyDamageActions);
+            }
         },
         changeTurn(turnType) {
             var sceneName = "";
