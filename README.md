@@ -17,7 +17,7 @@ The project was created with Vue/Vue CLI, if you're not familiar with, please ta
 [Vue CLI](https://cli.vuejs.org/)
 
 
-## Build Setup
+## Build Client Setup
 
 ``` bash
 # install dependencies
@@ -40,4 +40,14 @@ npm run e2e
 
 # run all tests
 npm test
+```
+
+## Build Serve Setup
+
+``` bash
+# install dependencies
+npm install
+
+# build application
+npm start
 ```
