@@ -44,8 +44,9 @@
 </template>
 
 <script>
-import { SceneNames } from '../../../../global/constants';
+import { BattleTypes, SceneNames } from '../../../../global/constants';
 import { Howl } from 'howler';
+import { mapState } from 'vuex'
 
 export default {
     name: "BattleWinner",
@@ -57,11 +58,16 @@ export default {
             winTextInterval: null
         }
     },
+    computed: {
+        ...mapState({
+            battleType: state => state.battle.type,
+        })
+    },  
     mounted() {
         if(this.$store.state.session.sound) {
             this.howlSound = new Howl({
                 src: require("../../../../assets/sounds/win-battle.mp3"),
-                volume: 0.1,
+                volume: 1,
                 loop: true
             });
 
@@ -74,7 +80,9 @@ export default {
 
         setTimeout(() => {
             clearInterval(this.winTextInterval);
-            this.howlSound.stop();
+            if(this.howlSound !== null) {
+                this.howlSound.stop();
+            }
             this.showNaviFace();
         }, 4000);
     },
@@ -85,7 +93,11 @@ export default {
 
             setTimeout(() => {
                 //Move to battle result scene
-                this.$store.commit('session/setCurrentScene', SceneNames.BattleResult);
+                if(this.battleType === BattleTypes.AI) {
+                    this.$store.commit('session/setCurrentScene', SceneNames.StoryResult);
+                } else {
+                    this.$store.commit('session/setCurrentScene', SceneNames.VersusResult);
+                }
             }, 1500);
         }
     }        

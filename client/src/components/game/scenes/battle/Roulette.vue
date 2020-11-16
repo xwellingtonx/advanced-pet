@@ -15,24 +15,38 @@
 
 <script>
 import EventBus from '../../../../global/eventBus';
-import { SceneNames, Events, TurnTypes } from '../../../../global/constants';
+import { SceneNames, Events, TurnTypes, BattleTypes } from '../../../../global/constants';
 import { mapState } from 'vuex'
+import { Howl } from 'howler';
 
 export default {
     name: "Roulette",
     computed: {
         ...mapState({
             battleId: state => state.battle.id,
+            battleType: state => state.battle.type
         })
     },    
     data() {
         return {
             turnType: "",
-            inteval: null
+            inteval: null,
+            sound: null
         }
     },
     mounted() {
         this.registerListeners();
+
+        if(this.$store.state.session.sound) {
+            this.sound = new Howl({
+                    src: require("../../../../assets/sounds/roulette.mp3"),
+                    volume: 1,
+                    loop: true
+                });
+                
+            this.sound.play();
+        }
+        
 
         this.turnType = TurnTypes.Attack;
 
@@ -62,8 +76,23 @@ export default {
         },
         onConfirmation() {
             clearInterval(this.inteval);
-            //Send value to the serve
-            this.$socket.client.emit('turnRoulette', this.battleId);
+
+            if(this.sound !== null) {
+                this.sound.stop();
+            }
+
+            if(this.battleType === BattleTypes.AI) {
+                this.$store.commit('battle/setTurnType', this.turnType);
+
+                if(this.turnType === TurnTypes.Attack) {
+                    this.$store.commit('session/setCurrentScene', SceneNames.SlotIn);
+                } else {
+                  this.$store.commit('session/setCurrentScene', SceneNames.EnemyAttack);
+                }
+            } else {
+                //Player battle
+                this.$socket.client.emit('turnRoulette', this.battleId);
+            }
         },
         changeTurnType() {
             this.turnType = this.turnType === TurnTypes.Attack ? TurnTypes.Defense : TurnTypes.Attack;

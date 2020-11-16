@@ -1,16 +1,26 @@
+import { BattleActionTypes, ChipTypes } from "../../global/constants";
+
 const state = {
     id: null,
     player: null,
+    enemy: null,
     turnType: "",
-    currentTurn: 0,
+    currentTurn: 1,
     chips: [],
-    isAttackHit: false
+    isAttackHit: false,
+    type: "",
+    battleActions: []
   }
   
   const mutations = {
     startBattle: (state, payload) => {
       state.id = payload.id;
       state.player = payload.player;
+      state.enemy = payload.enemy;
+      state.type = payload.type;
+      state.currentTurn = 1;
+      state.battleActions = [];
+      state.chips = [];
     },
     setTurnType: (state, turnType) => {
       state.turnType = turnType;
@@ -18,9 +28,9 @@ const state = {
     addChip: (state, chip) => {
       state.chips.push(chip);
     },
-    removeChip: (state, index) => {
-      if(index >= 0) {
-        state.chips.splice(index, 1)
+    removeChip: (state, chip) => {
+      if(chip) {
+        state.chips = state.chips.filter(x => x.Id !== chip.Id);
       }
     },
     clearChips:(state) => {
@@ -32,8 +42,12 @@ const state = {
     setIsAttackHit: (state, isAttackHit) => {
       state.isAttackHit = isAttackHit;
     },
-    setPlayerHit: (state, attackPower) => {
-      state.player.naviStatus.hp -= attackPower
+    addBattleAction:(state, action) => {
+      state.battleActions.push(action);
+    },
+    decreasePlayerCP: (state, value) => {
+      var decreasedCP = state.player.cp - value;
+      state.player.cp = decreasedCP < 0 ? 0 : decreasedCP
     }
   }
   
@@ -47,6 +61,29 @@ const state = {
   const getters = {
     getLastChip: state => {
       return state.chips[state.chips.length - 1];
+    },
+    getAttackChip: state => {
+      return state.chips.find(x => x.Type === ChipTypes.Attack);
+    },
+    getSupportChip: state => {
+      return state.chips.find(x => x.Type === ChipTypes.Support);
+    },
+    getAllPlayerHPActions: state => {
+      return state.battleActions.filter(x => x.type === BattleActionTypes.PlayerHP);
+    },
+    getAllEnemyDamageActions: state => {
+      return state.battleActions.filter(x => x.type === BattleActionTypes.EnemyDamage);
+    },    
+    getAllChipsActions: state => {
+      return state.battleActions.filter(x => x.type === BattleActionTypes.ChipUsage);
+    },
+    getPlayerCurrentHP: state => {
+      var playerHP = state.player.hp;
+      state.battleActions.filter(x => x.type === BattleActionTypes.PlayerHP).forEach((item) => {
+        playerHP += item.value
+      });
+
+      return playerHP;
     }
   }
 

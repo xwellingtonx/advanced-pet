@@ -23,10 +23,24 @@
 
 <script>
 import EventBus from '../../../../global/eventBus';
-import { SceneNames, Events } from '../../../../global/constants';
+import { SceneNames, Events, BattleTypes, BattleActionTypes, ChipTypes } from '../../../../global/constants';
+import { mapState, mapGetters } from 'vuex';
+import { getSupportChipEffectById } from '../../common/chipHelper';
 
 export default {
     name: "ChipOk",
+    computed: {
+        ...mapState({
+            lastScene: state => state.session.lastScene,
+            battleType: state => state.battle.type,
+            player: state => state.battle.player,
+            pluggedChips: state => state.battle.chips,
+        }),
+        ...mapGetters({
+            playerCurrentHP: 'battle/getPlayerCurrentHP',
+            chipsActions: 'battle/getAllChipsActions'
+        })        
+    },    
     data() {
         return {
             isChipOk: true
@@ -58,15 +72,95 @@ export default {
             this.isChipOk = this.isChipOk === true ? false : true;
         },
         onConfirmation() {
+            var lastChipPlugged = this.pluggedChips[this.pluggedChips.length - 1];
+
             if(this.isChipOk) {
-                this.$socket.client.emit('chipPlugged', this.$store.state.battle.id);
+                if(lastChipPlugged && 
+                    this.lastScene !== SceneNames.MegaBuster && 
+                    (lastChipPlugged.CP > this.player.cp || ((this.player.cp - lastChipPlugged.CP) < 0))) {
+                        
+                    this.$store.commit('battle/removeChip', lastChipPlugged);
+                    this.$store.commit('session/setCurrentScene', SceneNames.ChipCPShortage);
+                } else {
+                    if(!lastChipPlugged || this.lastScene === SceneNames.MegaBuster) { //cannon
+                        this.moveToBattle(null);
+                    } else if(lastChipPlugged.Type === ChipTypes.Attack) {
+                        //If the attack chip was already used in the battle, show the error view.
+                        if(this.chipsActions.length > 0 && this.chipsActions.some(x => x.payload.Id === lastChipPlugged.Id)) {
+                            this.$store.commit('battle/removeChip', lastChipPlugged);
+                            this.$store.commit('session/setCurrentScene', SceneNames.ChipError);
+                        } else {
+                            this.moveToBattle(lastChipPlugged);
+                        }
+                    } else {
+            
+                        //If any supportChip was already plugged move to error screen
+                        if(this.pluggedChips.filter(x => x.Type === ChipTypes.Support).length > 1) {
+                            //Move to error screen
+                            this.$store.commit('battle/removeChip', lastChipPlugged);
+                            this.$store.commit('session/setCurrentScene', SceneNames.ChipError);
+                        } else {
+                            //Prevent add the cannon fake chip
+                            this.$store.commit('battle/addBattleAction', {
+                                type: BattleActionTypes.ChipUsage,
+                                payload: lastChipPlugged
+                            });
+
+                            this.activeSupportChipEffect(lastChipPlugged);
+                            this.$store.commit('battle/decreasePlayerCP', lastChipPlugged.CP);
+
+                            //Redirect to slotin scene
+                            this.$store.commit('session/setCurrentScene', SceneNames.SlotIn);
+                        }
+                    }
+                }
             } else {
-                //Remove last chip added from battle chips
-                this.$store.commit('battle/removeChip', this.$store.state.battle.chips.length - 1);
+                if(this.lastScene !== SceneNames.MegaBuster) {
+                    //Remove last chip added from battle chips
+                    this.$store.commit('battle/removeChip', lastChipPlugged);
+                }
 
                 //Redirect to slotin scene
                 this.$store.commit('session/setCurrentScene', SceneNames.SlotIn);
             }
+        },
+        moveToBattle(lastChipPlugged) {
+            //Prevent add the cannon fake chip
+            if(lastChipPlugged) {
+                this.$store.commit('battle/addBattleAction', {
+                    type: BattleActionTypes.ChipUsage,
+                    payload: lastChipPlugged
+                });
+
+                this.$store.commit('battle/decreasePlayerCP', lastChipPlugged.CP);
+            }
+
+            if(this.battleType === BattleTypes.AI) {
+                this.$store.commit('session/setCurrentScene', SceneNames.BattleBoard);
+            } else {
+                this.$socket.client.emit('chipPlugged', this.$store.state.battle.id);
+            }            
+        },
+        activeSupportChipEffect(supportChip) {
+            if(supportChip && (supportChip.Id === "107" ||
+                supportChip.Id === "108" || supportChip.Id === "109" ||
+                supportChip.Id === "110" || supportChip.Id === "111" ||
+                supportChip.Id === "112" || supportChip.Id === "113" ||
+                supportChip.Id === "114" || supportChip.Id === "115")) {
+                    var effect = getSupportChipEffectById(supportChip.Id);
+                    var recoversHP = 0;
+                    
+                    if((this.playerCurrentHP + effect.value) > this.player.hp) {
+                        recoversHP = this.player.hp - this.playerCurrentHP;
+                    } else {
+                        recoversHP = effect.value;
+                    }
+
+                    this.$store.commit('battle/addBattleAction', {
+                        type: BattleActionTypes.PlayerHP, 
+                        value: recoversHP
+                    });
+                }
         }
     }    
 }

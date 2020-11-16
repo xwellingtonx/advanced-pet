@@ -139,8 +139,10 @@ import { mapState } from 'vuex'
 import { Howl } from 'howler';
 import SceneController from './game/SceneController.vue' 
 import ChipItem from './battlechip/ChipItem.vue'
-import { Events, SceneNames } from "../global/constants";
+import { Events, SceneNames, NotificationTypes } from "../global/constants";
 import EventBus from "../global/eventBus";
+import Notification from '../components/game/common/notification.js';
+import World from '../components/game/common/world.js'
 var Shake = require('shake.js');
 
 export default {
@@ -152,12 +154,14 @@ export default {
         ...mapState({
             isInBattle: state => state.session.isInBattle,
             currentScene: state => state.session.currentScene,
-            recovery: state => state.session.naviStatus.recovery,
+            recovery: state => state.session.navi.recovery,
+            notification: state => state.session.notification
         })
     },   
     watch: {
         currentScene() {
             this.toggleShakeEvent();
+            this.togglePetLed();
         }
     },
     data() {
@@ -227,33 +231,43 @@ export default {
             } else {
                 window.removeEventListener('shake', this.onShaking, false);
                 this.myShakeEvent.stop();
+                this.isShaking = false;
+                if(this.shakingSound) {
+                    this.shakingSound.stop();
+                }
+                
+                this.stopShakingForDesktop();
                 this.shakeCount = 0;
             }
         },
         togglePetLed() {
-            //TODO: Addd here virus alert Scene
-            //if(this.currentScene === SceneNames.StandBy) {
+            if(this.currentScene === SceneNames.Notification && this.$store.state.session.notification !== null &&
+                this.$store.state.session.notification.type === NotificationTypes.Virus) {
                 this.isLightOn = true;
 
-            //} else {
-                //this.isLightOn = false;
-
-                // if(this.shakingSound !== null) {
-                //     this.shakingSound.stop();
-                // }
-            //}
+            } else {
+                this.isLightOn = false;
+            }
         },
         onShaking() {
-            if(!this.isInBattle && this.recovery == 100) {
-                if(this.shakeCount > 5) {
+            if(!this.isInBattle && this.notification === null) {
+                if(this.shakeCount > 5 && this.recovery == 100) {
                     this.isShaking = false;
                     this.stopShakingForDesktop();
                     this.shakingSound.stop();
-                    //this.togglePetLed();
                     this.shakeCount = 0;
-                    alert('shake!');
+                    var virus = World.getRandomVirus(this.$store.state.session.deviceType,
+                        this.$store.state.session.currentWorld, this.$store.state.session.currentStage);
+
+                    this.$store.commit('session/setNotification', 
+                        new Notification("A VIRUS!!", NotificationTypes.Virus, virus));
+
+                    this.$store.commit('session/setCurrentScene', SceneNames.Notification);    
                 } else {
                     this.shakeCount += 1;
+                    if(this.recovery < 100) {
+                        this.$store.commit('session/incrementNaviRecovery', 10);
+                    }
                     this.startShakingAnimation();
                 }
             }

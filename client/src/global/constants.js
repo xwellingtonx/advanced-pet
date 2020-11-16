@@ -24,35 +24,55 @@ const SceneNames = {
   Opening: "other/Opening",
   StandBy: "other/StandBy",
   Splash: "other/Splash",
+  Notification: "other/Notification",
+
   
   Option: "option/Option",
   OptionTime: "option/OptionTime",
   OptionSound: "option/OptionSound",
 
   NaviStatus: "status/NaviStatus",
+  NaviLevelDetails: "status/NaviLevelDetails",
+  NaviStageDetails: "status/NaviStageDetails",
+  NaviVsDetails: "status/NaviVsDetails",
+  NaviStatusDetails: "status/NaviStatusDetails",
+
 
   PlayerVSPlayer: "versus/PlayerVSPlayer",
   LookingPlayer: "versus/LookingPlayer",
-  BattleStart: "versus/BattleStart",
-  Roulette: "versus/Roulette",
   LoadingNow: "versus/LoadingNow",
   RoundType: "versus/RoundType",
-  BattleResult: "versus/BattleResult",
+  VersusResult: "versus/VersusResult",
 
+  BattleStart: "battle/BattleStart",
+  Roulette: "battle/Roulette",
   SlotIn: "battle/SlotIn",
   MegaBuster: "battle/MegaBuster",
   MegaBusterStatus: "battle/MegaBusterStatus",
   ChipStatus: "battle/ChipStatus",
   ChipOk: "battle/ChipOk",
+  ChipError: "battle/ChipError",
+  ChipCPShortage: "battle/ChipCPShortage",
   BattleNaviStatus: "battle/BattleNaviStatus",
   ChipElement: "battle/ChipElement",
   ChipAttackArea: "battle/ChipAttackArea",
+  ChipSupportDetails: "battle/ChipSupportDetails",
   BattleBoard: "battle/BattleBoard",
   BattleFireAttack: "battle/BattleFireAttack",
+  BattleAttackHit: "battle/BattleAttackHit",
+  BattleAttackMiss: "battle/BattleAttackMiss",
   BattleAttackDamage: "battle/BattleAttackDamage",
   BattleChooseWinner: "battle/BattleChooseWinner",
   BattleWinner: "battle/BattleWinner",
   BattleLoser: "battle/BattleLoser",
+  
+  PlugIn: "story/PlugIn",
+  Enemy: "story/Enemy",
+  EnemyAttack: "story/EnemyAttack",
+  StoryResult: "story/StoryResult",
+  StoryResultDetails: "story/StoryResultDetails",
+  Tournament: "story/Tournament",
+  TournamentStageClear: "story/TournamentStageClear"
 }
 
 const Events = {
@@ -70,11 +90,45 @@ const TurnTypes = {
   Defense: "defense"
 }
 
+const NotificationTypes = {
+  Virus: "virus",
+  Email: "email",
+  Tournament: "tournament"
+}
+
+const BattleTypes = {
+  AI: "ai",
+  Player: "player"
+}
+
+const BattleActionTypes = {
+  PlayerHP: "playerHP",
+  EnemyDamage: "EnemyDamage",
+  ChipUsage: "chipUsage"
+}
+
+const DeviceTypes = {
+  Megaman: "megaman",
+  Protoman: "protoman", 
+  Bass: "bass"
+}
+
+const EnemyTypes = {
+  Virus: "virus",
+  Boss: "boss",
+  Player: "player"
+}
+
 export {
   ChipClasses,
   ElementTypes,
   ChipTypes,
   SceneNames,
   Events,
-  TurnTypes
+  TurnTypes,
+  NotificationTypes,
+  DeviceTypes,
+  BattleTypes,
+  EnemyTypes,
+  BattleActionTypes
 }

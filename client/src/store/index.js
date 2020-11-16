@@ -4,7 +4,8 @@ import chips from './modules/chips.store.js'
 import session from './modules/session.store.js'
 import battle from './modules/battle.store.js'
 import { SceneNames } from '../global/constants.js'
-
+var SecureLS = require("../../node_modules/secure-ls/dist/secure-ls.js");
+var ls = new SecureLS({encodingType: 'aes'})
 
 Vue.use(Vuex)
 
@@ -14,9 +15,9 @@ var store = new Vuex.Store({
   mutations: {
     initializeSession(state) {
       // Check if the ID exists
-      if(localStorage.getItem('sessionStore')) {
+      if(ls.get('sessionStore')) {
         //Assign session saved in local storage
-        var sessionState = Object.assign(state.session, JSON.parse(localStorage.getItem('sessionStore')));
+        var sessionState = Object.assign(state.session, JSON.parse(ls.get('sessionStore')));
         if(sessionState.isInBattle) {
           sessionState.isInBattle = false;
           sessionState.currentScene = SceneNames.StandBy;
@@ -39,7 +40,7 @@ var store = new Vuex.Store({
 store.subscribe((mutation, state) => {
   if(state.session) {
     // Store the state object as a JSON string
-    localStorage.setItem('sessionStore', JSON.stringify(state.session));
+    ls.set('sessionStore', JSON.stringify(state.session));
   }
 });
 

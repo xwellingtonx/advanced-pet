@@ -13,7 +13,7 @@
           <span class="fa fa-play"></span>
         </a>
       </li>	  
-      <li class="ms-li ms-li4">
+      <li class="ms-li ms-li4"  @click="showModal('informations')">
         <a href="javascript:void(0)" title="Informations">
           <span class="fa fa-info"></span>
         </a>
@@ -47,6 +47,32 @@
 		<chip-library v-if="this.modalType === 'library'"/>     
 
 		<iframe v-if="this.modalType === 'chat'" src="https://minnit.chat/AdvancedPET?embed&nickname=" style="border:none;width:100%;height:391px;" allowTransparency="true"></iframe>
+
+		<div v-if="this.modalType === 'informations'" class="full-padding">
+			<!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->
+			<h1>Info:</h1>
+			<p style="text-align: left;">Hi all!! I'm Wellington the developer of this Advanced PET project, I started this as a side project in April 2020 to study new technologies like VueJs, my intention was to rebuild as close as possible to the original toy made in 2004. I hope you enjoy as much I enjoyed building!!</p>
+			<p>&nbsp;</p>
+			<h1>Instrunctions Sheet:</h1>
+			<p style="text-align: left;">If you do not know how to use the PET, you can take a time to read the original instruncions sheet below, I'll post some video in the future to make easy.</p>
+			<p style="text-align: left;"><a class="external text" href="https://service.mattel.com/instruction_sheets/megaman.pdf" target="_blank" rel="nofollow noreferrer noopener">G4141 Megaman NT Warrior Advanced PET</a></p>
+			<p style="text-align: left;">**The virus mode can be played by shaking your smatphone or using the button Play(Orange) when acessing by large desktop.</p>
+			<p>&nbsp;</p>
+			<h1>Buy me a coffe:</h1>
+			<p style="text-align: left;">If you like this project and want buy me a coffe, feel free at link below. :)</p>
+			<form action="https://www.paypal.com/donate" method="post" target="_top">
+			<p style="text-align: left;"><input name="hosted_button_id" type="hidden" value="EZGYY3AEBG6A2" /> <input title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" type="image" /> <img src="https://www.paypal.com/en_IE/i/scr/pixel.gif" alt="" width="1" height="1" border="0" /></p>
+			<p>&nbsp;</p>
+			</form>
+			<h1>Thank you:</h1>
+			<p style="text-align: left;">I want to say a huge thank you to the people below that helped me a lot with many informations necessary to complete the project.</p>
+			<p style="text-align: left;">Discord/@DJRezzed</p>
+			<p style="text-align: left;">Discord/@seabit</p>
+			<p style="text-align: left;">Discord/@Rinangelsmile</p>
+			<p style="text-align: left;">Discord/@Deathila</p>
+			<p style="text-align: left;">Discord/@NettoHikari</p>
+			<p style="text-align: left;">Discord/@Darklexzx</p>	
+		</div>
 	</b-modal>
   </div>
 </template>
@@ -90,6 +116,17 @@ export default {
 </script>
 
 <style lang="scss">
+$primary-fill: #fff;
+$default-fill: #000;
+
+
+.primary-color {
+    fill: $primary-fill;    
+} 
+.default-color {
+    fill: $default-fill;    
+}
+
 @font-face {
     font-family: "Advanced Pet Font";
     src: url("./assets/fonts/advanced-pet-font.ttf"); /*IE doesn't support .ttf */
@@ -98,6 +135,17 @@ export default {
 @font-face {
     font-family: "BN Elements";
     src: url("./assets/fonts/bn-elements.ttf"); /*IE doesn't support .ttf */
+}
+.pet-font {
+	font-family: Advanced Pet Font;
+}
+
+.svg-text-right-direction {
+    direction: rtl;
+}
+
+.full-padding {
+	padding: 20px;
 }
 
 * {

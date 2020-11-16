@@ -49,7 +49,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import EventBus from '../../../../global/eventBus';
-import { Events, SceneNames } from '../../../../global/constants';
+import { ChipTypes, Events, SceneNames } from '../../../../global/constants';
 
 export default {
     name: "ChipElement",
@@ -71,7 +71,11 @@ export default {
             this.$store.commit('session/setCurrentScene', SceneNames.ChipStatus);
         },
         onRight() {
-            this.$store.commit('session/setCurrentScene', SceneNames.ChipAttackArea);
+            if(this.pluggedChip.Type === ChipTypes.Attack) {
+                this.$store.commit('session/setCurrentScene', SceneNames.ChipAttackArea);
+            } else {
+                this.$store.commit('session/setCurrentScene', SceneNames.ChipSupportDetails);
+            }
         }
     }       
 }

@@ -464,7 +464,7 @@ export default {
         if(this.$store.state.session.sound) {
             var sound = new Howl({
                 src: require("../../../../assets/sounds/opening.mp3"),
-                volume: 0.1,
+                volume: 1,
                 loop: true
             });
 
