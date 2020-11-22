@@ -493,6 +493,27 @@ export default {
         fill: #dcb72a;
       }
     }
+
+    /*Iceman background */
+    &.chip-327-bg {
+      .frame {
+        fill: #9BDFD0;
+      }
+      .frame-effects {
+        fill: #7eb7aa;
+      }
+    }    
+
+    /*Shadowman background */
+    &.chip-328-bg {
+      .frame {
+        fill: #D6217B;
+      }
+      .frame-effects {
+        fill: #af1b65;
+      }
+    }    
+    
   }
 }
 
