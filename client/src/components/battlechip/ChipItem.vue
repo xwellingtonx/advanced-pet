@@ -513,7 +513,57 @@ export default {
         fill: #af1b65;
       }
     }    
+
+    /*Elecman background */
+    &.chip-329-bg {
+      .frame {
+        fill: #dd801b;
+      }
+      .frame-effects {
+        fill: #bd6e18;
+      }
+    }  
+
+    /*Knight background */
+    &.chip-330-bg {
+      .frame {
+        fill: #2b4d68;
+      }
+      .frame-effects {
+        fill: #1e3446;
+      }
+    }  
     
+    /*Plantman background */
+    &.chip-331-bg {
+      .frame {
+        fill: #dcdcdc;
+      }
+      .frame-effects {
+        fill: #b3b0b0;
+      }
+    } 
+
+    /*Napalman background */
+    &.chip-332-bg {
+      .frame {
+        fill: #786994;
+      }
+      .frame-effects {
+        fill: #564b6b;
+      }
+    } 
+
+    
+    /*Forte background */
+    &.chip-333-bg {
+      .frame {
+        fill: #000;
+      }
+      .frame-effects {
+        fill: #2b2b2b;
+      }
+    } 
   }
 }
 
