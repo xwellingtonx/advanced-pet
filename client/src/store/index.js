@@ -7,6 +7,9 @@ import { SceneNames } from '../global/constants.js'
 var SecureLS = require("../../node_modules/secure-ls/dist/secure-ls.js");
 var ls = new SecureLS({encodingType: 'aes'})
 
+const isDevelop = process.env.NODE_ENV === 'development';
+const sessionStoreKey = 'sessionStore';
+
 Vue.use(Vuex)
 
 var store = new Vuex.Store({
@@ -14,10 +17,11 @@ var store = new Vuex.Store({
   },
   mutations: {
     initializeSession(state) {
+      var sessionStore = isDevelop ? localStorage.getItem(sessionStoreKey) : ls.get(sessionStoreKey)
       // Check if the ID exists
-      if(ls.get('sessionStore')) {
+      if(sessionStore) {
         //Assign session saved in local storage
-        var sessionState = Object.assign(state.session, JSON.parse(ls.get('sessionStore')));
+        var sessionState = Object.assign(state.session, JSON.parse(sessionStore));
         if(sessionState.isInBattle) {
           sessionState.isInBattle = false;
           sessionState.currentScene = SceneNames.StandBy;
@@ -40,7 +44,11 @@ var store = new Vuex.Store({
 store.subscribe((mutation, state) => {
   if(state.session) {
     // Store the state object as a JSON string
-    ls.set('sessionStore', JSON.stringify(state.session));
+    if(isDevelop) {
+      localStorage.setItem(sessionStoreKey, JSON.stringify(state.session))
+    } else {
+      ls.set(sessionStoreKey, JSON.stringify(state.session));
+    }
   }
 });
 

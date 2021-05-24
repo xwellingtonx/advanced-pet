@@ -8,6 +8,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import "font-awesome/css/font-awesome.min.css";
 import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client';
+import VueCarousel from 'vue-carousel';
 
 
 const serverUrl = process.env.NODE_ENV === 'development'
@@ -23,6 +24,7 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(Vddl)
 Vue.use(VueSocketIOExt, socket);
+Vue.use(VueCarousel);
 
 new Vue({
   store,

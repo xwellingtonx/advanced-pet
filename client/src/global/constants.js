@@ -19,6 +19,7 @@ const ChipTypes = {
 }
 
 const SceneNames = {
+  NaviSelection: "other/NaviSelection",
   Greeting: "other/Greeting",
   MadeBy: "other/MadeBy",
   Opening: "other/Opening",

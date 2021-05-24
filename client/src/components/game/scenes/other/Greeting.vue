@@ -41,19 +41,26 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { TimelineLite } from "gsap";
 import EventBus from '../../../../global/eventBus.js';
 import { SceneNames, Events } from '../../../../global/constants';
 
 export default {
     name: "Greeting",
+    computed: {
+         ...mapState({
+            deviceType: state => state.session.deviceType,
+        })       
+    },    
     data() {
         return {
-            greetingText: "Hi I'm Megaman",
+            greetingText: "",
             moveScene: false
         }
     },
     mounted() {
+        this.greetingText = `Hi I'm ${this.deviceType}`;
         this.registerListeners();
 
         var title1TimeLine = new TimelineLite({
