@@ -9,7 +9,7 @@
   
     <ul class="ms-nav">
       <input type="checkbox" id="ms-menu" class="ms-menu-toggle" name="ms-menu-toggle" />
-      <li class="ms-li ms-li5 ms-li-last shake-btn d-none d-md-block d-lg-block d-xl-block" @click="shakeButtonOnClick">
+      <li v-if="!isNaviSelection" class="ms-li ms-li5 ms-li-last shake-btn d-none d-md-block d-lg-block d-xl-block" @click="shakeButtonOnClick">
         <a href="javascript:void(0)" title="Shake">
           <span class="fa fa-play"></span>
         </a>
@@ -319,6 +319,9 @@ a {
 	position: relative;
 	text-align: center;
 	z-index: 19;
+	box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
+	-webkit-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
+	-moz-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
 }
 .ms-nav > li > a span {
 	position: absolute;
@@ -335,7 +338,7 @@ a {
 
 .shake-btn {
 	a {
-		background: #ffc107 !important;
+		background: #edd21c !important;
 	}
 }
 

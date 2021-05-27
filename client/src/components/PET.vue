@@ -101,9 +101,9 @@
                     <path class="base-color" :class="this.deviceType" d="M118.31,32.94H61a8.88,8.88,0,0,1-8.11-5.26L40.58.23A.16.16,0,0,1,40.73,0h97.83a.16.16,0,0,1,.15.23L126.43,27.68A8.9,8.9,0,0,1,118.31,32.94Z" />
                     <path class="base-color-shadow" :class="this.deviceType" d="M9.06,151.78V2.8a6.33,6.33,0,0,0-6,6.32V175.53h34.5Z" />
                     <path class="base-color-shadow" :class="this.deviceType" d="M172.51,3.43l-.08,0-.36-.15-.2-.08-.26-.08c-.11,0-.21-.07-.32-.09l-.16,0-.44-.09h-.06a4.52,4.52,0,0,0-.53-.06h0v149l-28.5,23.75h34.5V9.12h0A6.32,6.32,0,0,0,172.51,3.43Z" />
-                    <path class="cover-details" d="M150.11,2.78h-.05V149.45h.05L127.4,168.78v36a37.84,37.84,0,0,1-37.84,37.84h0a37.84,37.84,0,0,1-37.83-37.84v-36L29.78,149.45h-.05V2.78H20.31V153.87l23.26,18.58h-.51v32.17a46.25,46.25,0,0,0,46.25,46.25h0a46.25,46.25,0,0,0,46.25-46.25V172.45h0l23.26-18.58V2.78Z" />
-                    <path class="cover-details" d="M149,1.26h9.81a0,0,0,0,1,0,0v0a1.52,1.52,0,0,1-1.52,1.52h-6.77A1.52,1.52,0,0,1,149,1.26v0A0,0,0,0,1,149,1.26Z" transform="translate(307.81 4.04) rotate(-180)" />
-                    <path class="cover-details" d="M21.83,1.26H28.6a1.52,1.52,0,0,1,1.52,1.52v0a0,0,0,0,1,0,0H20.31a0,0,0,0,1,0,0v0A1.52,1.52,0,0,1,21.83,1.26Z" />
+                    <path class="cover-details" :class="this.deviceType" d="M150.11,2.78h-.05V149.45h.05L127.4,168.78v36a37.84,37.84,0,0,1-37.84,37.84h0a37.84,37.84,0,0,1-37.83-37.84v-36L29.78,149.45h-.05V2.78H20.31V153.87l23.26,18.58h-.51v32.17a46.25,46.25,0,0,0,46.25,46.25h0a46.25,46.25,0,0,0,46.25-46.25V172.45h0l23.26-18.58V2.78Z" />
+                    <path class="cover-details" :class="this.deviceType" d="M149,1.26h9.81a0,0,0,0,1,0,0v0a1.52,1.52,0,0,1-1.52,1.52h-6.77A1.52,1.52,0,0,1,149,1.26v0A0,0,0,0,1,149,1.26Z" transform="translate(307.81 4.04) rotate(-180)" />
+                    <path class="cover-details" :class="this.deviceType" d="M21.83,1.26H28.6a1.52,1.52,0,0,1,1.52,1.52v0a0,0,0,0,1,0,0H20.31a0,0,0,0,1,0,0v0A1.52,1.52,0,0,1,21.83,1.26Z" />
                     <g class="megaman-logo" v-on:click="this.openCover">
                         <NaviEmblem :deviceType="this.deviceType" :isCoverOpen="false" />
                     </g>
@@ -366,6 +366,9 @@ export default {
     &.protoman {
         fill:#ad0909;
     }
+    &.bass {
+        fill: #2d2c29;
+    }
 }
 .base-color-shadow {
     &.megaman {
@@ -374,6 +377,9 @@ export default {
     &.protoman {
         fill:#910505;
     }
+    &.bass {
+        fill: #0f1311;
+    }
 }
 .base-color-shadow2 {
     &.megaman {
@@ -381,6 +387,9 @@ export default {
     }
     &.protoman {
         fill:#820606;
+    }
+    &.bass {
+        fill: #0a0c0b;
     }  
 }
 .cover-details, .advanced-text {
@@ -404,7 +413,10 @@ export default {
     }
     &.protoman {
         fill:#333333;
-    }    
+    }  
+    &.bass {
+        fill: #5b1960;
+    }  
 }
 .handle-color-shadow {
     &.megaman {
@@ -413,6 +425,9 @@ export default {
     &.protoman {
         fill:#2d2d2d;
     }  
+    &.bass {
+        fill: #460f46;
+    }
 }
 
 .slide-cover-light, .frame-light {
@@ -426,6 +441,9 @@ export default {
     &.protoman {
         fill:#333333;
     }  
+    &.bass {
+        fill: #5b1960;
+    }
 }
 
 .frame-slider-color {
@@ -438,7 +456,10 @@ export default {
     }
     &.protoman {
         fill:#2d2d2d;
-    }     
+    }
+    &.bass {
+        fill:#2d2d2d;
+    }      
 }
 
 .light-on {

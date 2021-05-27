@@ -8,7 +8,7 @@ import World from '../../components/game/common/world';
 
 const state = {
   id: UUID(),
-  version: "1.0.0",
+  version: "1.1.0",
   currentWorld: 1,
   currentStage: 1,
   deviceType: DeviceTypes.Megaman,

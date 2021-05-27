@@ -1,17 +1,21 @@
 <template>
   <div >
-    <div class="arrow-container">
-      <div class="arrows prev" @click="onPrevious()"></div>
-      <div class="arrows next" @click="onNext()"></div>
+    <div class="pet-selector">
+      <img class="pet-emblem" v-for="(item, index) in devices" 
+        :key="index" 
+        :alt="item.deviceType"
+        :src="require('@/assets/emblems/' + item.deviceType + '.png')" v-on:click="onDeviceTypeClick(index)" />
     </div>
 
     <advanced-pet :readOnly="true" />
+
+    <b-button pill variant="primary" v-on:click="startGame()">Start Game</b-button>
   </div>
 </template>
 
 <script>
 import { DeviceTypes, ElementTypes } from '../global/constants'
-//import { Carousel, Slide } from 'vue-carousel';
+import { SceneNames } from  '../global/constants'
 import AdvancedPet from './PET.vue'
 
 export default {
@@ -21,7 +25,6 @@ export default {
     },
     data() {
       return {
-        currentIndex: 0,
         devices: [
             { deviceType: DeviceTypes.Megaman, element: ElementTypes.Neutral },
             { deviceType: DeviceTypes.Protoman, element: ElementTypes.Neutral },
@@ -30,61 +33,73 @@ export default {
       }
     },
     methods: {
-      onNext() {
-        this.currentIndex += 1;
-
-        if(this.currentIndex < this.devices.length) {
-          this.onPETChange(this.devices[this.currentIndex]);
-        } else {
-          this.currentIndex = 0;
-          this.onPETChange(this.devices[this.currentIndex]);
-        }
-      },
-      onPrevious() {
-        this.currentIndex -= 1;
-
-        if(this.currentIndex >= 0) {
-          this.onPETChange(this.devices[this.currentIndex]);
-        } else {
-          this.currentIndex = this.devices.length - 1;
-          this.onPETChange(this.devices[this.currentIndex]);
-        }
+      onDeviceTypeClick(index) {
+        this.onPETChange(this.devices[index]);
       },
       onPETChange(device) {
         this.$store.commit('session/setupPET', device);
+      },
+      startGame() {
+        this.$store.commit('session/setCurrentScene', SceneNames.Splash);
       }
     }
 }
 </script>
 
 <style scoped lang="scss">
-.arrow-container {
-  width: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  margin-left: -40px;
+::v-deep .megaman-logo {
+  cursor: default !important;
 }
-.arrows {
-  width: 32px;
-  height: 32px;
-  border-color: #FFF !important;
-  margin-left: 50px;
-  margin-right: 50px;
-  cursor: pointer !important;
 
-  &.prev {
-    border-bottom: 6px solid;
-    border-left: 6px solid;
-    transform: rotate(45deg);
-  }
+.btn-primary {
+  background-color: #edd21c;
+  font-weight: 600;
+  font-family: Advanced Pet Font;
+  border: 0px;
+  margin-left: 40px;
 
-  &.next {
-    border-bottom: 6px solid;
-    border-left: 6px solid;
-    transform: rotate(-135deg);
-   
+  &:hover {
+    background-color: #dfc41a;
   }
 }
+
+.pet-selector {
+  position: absolute;
+  background-color: #084caf;
+  border-radius: 25px 25px 0 25px;
+  right: 0;
+  margin-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  top: 0;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
+	-webkit-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
+	-moz-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
+
+  .pet-emblem {
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    background-color: transparent;
+    bottom: -50px;
+    height: 50px;
+    width: 25px;
+    border-top-right-radius: 25px;
+    box-shadow: 0 -25px 0 0 #084caf;
+  }
+}
+
 </style>
