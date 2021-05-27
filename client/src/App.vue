@@ -1,14 +1,15 @@
 <template>
   <div id="app">
 	<a href="https://github.com/xwellingtonx/advanced-pet" target="_blank" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#084caf; color:#151513; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="#f9f9f9" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="#f9f9f9" class="octo-body"></path></svg></a>
+
+	<PETSelection v-if="isNaviSelection" />
 	
-	<section class="left-container">
-      <advanced-pet ref="advancedPet" @dragstart="showModalWithDelay('myChips')" />
-    </section>
+    <advanced-pet ref="advancedPet" v-if="!isNaviSelection"
+		@dragstart="showModalWithDelay('myChips')" />
   
     <ul class="ms-nav">
       <input type="checkbox" id="ms-menu" class="ms-menu-toggle" name="ms-menu-toggle" />
-      <li class="ms-li ms-li5 ms-li-last shake-btn d-none d-md-block d-lg-block d-xl-block" @click="shakeButtonOnClick">
+      <li v-if="!isNaviSelection" class="ms-li ms-li5 ms-li-last shake-btn d-none d-md-block d-lg-block d-xl-block" @click="shakeButtonOnClick">
         <a href="javascript:void(0)" title="Shake">
           <span class="fa fa-play"></span>
         </a>
@@ -81,19 +82,36 @@
 import ChipLibrary from './components/battlechip/ChipLibrary.vue'
 import MyChips from './components/battlechip/MyChips.vue'
 import AdvancedPet from './components/PET.vue'
+import { mapState } from 'vuex';
+import PETSelection from  './components/PETSelection.vue'
+import { SceneNames } from './global/constants'
 
 export default {
   name: 'App',
   components: {
-    AdvancedPet, ChipLibrary, MyChips
+    ChipLibrary, MyChips, PETSelection, AdvancedPet
   },
+  computed: {
+    ...mapState({
+        currentScene: state => state.session.currentScene,
+    })
+  },
+  watch: {
+    currentScene() {
+        this.checkCurrentScene();
+    }
+  },     
   data() {
     return {
 		modalType: String,
+		isNaviSelection: Boolean
     }
   },
   beforeCreate() {
 	this.$store.commit('initializeSession');
+  },
+  mounted() {
+	this.checkCurrentScene();
   },
   methods: {
 	showModal(type) {
@@ -110,6 +128,9 @@ export default {
 	},
 	shakeButtonOnClick() {
 		this.$refs['advancedPet'].startShakingForDesktop();
+	},
+	checkCurrentScene() {
+		this.isNaviSelection = this.currentScene == SceneNames.NaviSelection;
 	}
   }
 }
@@ -176,15 +197,6 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-
-  .left-container {
-    margin-left: 25px;
-  }  
-  .right-container {
-    width: 610px;
-    background-color: white;
-    border-radius: 2%;
-  }
 }
 
 .modal {
@@ -307,6 +319,9 @@ a {
 	position: relative;
 	text-align: center;
 	z-index: 19;
+	box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
+	-webkit-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
+	-moz-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
 }
 .ms-nav > li > a span {
 	position: absolute;
@@ -323,7 +338,7 @@ a {
 
 .shake-btn {
 	a {
-		background: #ffc107 !important;
+		background: #edd21c !important;
 	}
 }
 
@@ -350,24 +365,6 @@ a {
     height: 0;    
     border-bottom: 4px solid #fff;
 }
-
-// .my-modal:before {
-//     content: '';
-//     position: absolute;
-//     top: 0; right: 0;
-//     border-top: 80px solid transparent;
-//     border-left: 80px solid red;
-//     width: 0;
-// }
-
-// .my-modal:after {
-//     content: '';
-//     position: absolute;
-//     bottom: 0; left: 0;
-//     border-bottom: 80px solid transparent;
-//     border-right: 80px solid red;
-//     width: 0;
-// }
 
 .github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}
 @keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}

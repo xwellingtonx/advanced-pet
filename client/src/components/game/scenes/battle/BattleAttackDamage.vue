@@ -162,7 +162,7 @@ export default {
             this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(deviceType.toLowerCase())}/damage-face.svg`);
         },
         importRightFace(deviceType) {
-            this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(deviceType.toLowerCase())}/right-face.svg`);
+            this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(deviceType.toLowerCase())}/attack-face.svg`);
         },
         importVirus() {
             //Import using html loarder

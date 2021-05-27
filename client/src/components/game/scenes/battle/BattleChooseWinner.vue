@@ -142,7 +142,7 @@ export default {
             this.$store.commit('session/setCurrentScene', sceneName);
         },
         importRightFace() {
-            this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(this.deviceType.toLowerCase())}/right-face.svg`);
+            this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(this.deviceType.toLowerCase())}/attack-face.svg`);
         },
         importVirus() {
             //Import using html loarder

@@ -1,0 +1,27 @@
+<g id="damageFace" >
+    <rect class="primary-color" x="2.91" y="2.93" width="77.18" height="59.09" />
+    <rect class="default-color" x="37.85" y="48.59" width="9.7" height="1.63" />
+    <rect class="default-color" x="37.85" y="53.12" width="9.7" height="2.04" />
+    <rect class="default-color" x="35.19" y="50.22" width="2.66" height="2.89" />
+    <path class="default-color" d="M50.21,50.22H47.55v2.9h2.63v4.15H49.09V55.54H36.25v1.73H35.19V53.12H33.84v6.2h1.32v1.22h1.09v1.53h13V60.54h.88V59.26h1.27V53.12H50.21ZM48,60.54H37.34V57.27H48Z" />
+    <polygon class="default-color" points="44.77 40.97 42.77 40.97 42.77 43.27 40.44 43.27 40.44 45.58 42.77 45.58 44.77 45.58 44.77 40.97" />
+    <rect class="default-color" x="54.86" y="33.76" width="4.96" height="2.21" />
+    <polygon class="default-color" points="50.18 38.24 47.55 38.24 47.55 40.67 59.82 40.67 59.82 38.24 54.86 38.24 54.86 35.97 50.18 35.97 50.18 38.24" />
+    <rect class="default-color" x="12.67" y="38.25" width="2.05" height="7.33" />
+    <rect class="default-color" x="14.72" y="45.58" width="2.75" height="2.05" />
+    <rect class="default-color" x="5.56" y="32.02" width="1.92" height="10.62" />
+    <rect class="default-color" x="7.87" y="42.63" width="1.78" height="5.4" />
+    <rect class="default-color" x="10.46" y="48.03" width="1.89" height="2.19" />
+    <polygon class="default-color" points="27.55 57.27 25.1 57.27 25.1 54.74 25.1 52.82 22.19 52.82 22.19 46.06 20.7 46.06 20.7 48.59 17.33 48.59 17.33 50.48 20.7 50.48 20.7 52.82 15.4 52.82 15.4 50.22 13.12 50.22 13.12 52.82 8.19 52.82 8.19 54.74 3.64 54.74 3.64 57.27 10.46 57.27 10.46 59.61 19.01 59.61 19.01 62.08 31.2 62.08 31.2 59.61 27.55 59.61 27.55 57.27" />
+    <rect class="default-color" x="55.72" y="60.54" width="2.31" height="1.54" />
+    <rect class="default-color" x="58.03" y="57.27" width="2.34" height="2.34" />
+    <polygon class="default-color" points="64.66 50.22 67.54 50.22 67.54 48.17 64.66 48.17 64.66 45.15 62.93 45.15 62.93 52.59 60.37 52.59 60.37 53.78 60.37 54.74 60.37 57.27 63.28 57.27 63.28 54.74 70.26 54.74 70.26 52.59 64.66 52.59 64.66 50.22" />
+    <rect class="default-color" x="70.26" y="49.81" width="1.86" height="2.79" />
+    <rect class="default-color" x="67.54" y="45.58" width="2.13" height="2.13" />
+    <rect class="default-color" x="69.67" y="38.25" width="1.81" height="7.33" />
+    <rect class="default-color" x="74.94" y="44.42" width="2.11" height="2.57" />
+    <rect class="default-color" x="72.82" y="46.99" width="2.1" height="2.82" />
+    <rect class="default-color" x="77.05" y="32.32" width="2.31" height="11.34" />
+    <rect class="default-color" x="73.87" y="27.2" width="2.12" height="4.82" />
+    <path class="default-color" d="M70.57,17.33V6.82h-4V8.68H68.6v7.21H66.82v7.34h-3v3.84h-2v2.54H59.08V22.07h2.09V18.23h2.62v-7.5h2.74V8.68H63.79V6.82H60.86V4.31H58V3H52.52V9.13H31.2V3h-9V4.6H20V6.79H18.21V9.13H16.65v2h3.13v6.73h2.41v4.61h2.3v7.09h-2.3V27.2H19.66V22.9H17.48v-7H14.26V9.13h2.39V7.46h-4.3V18.23H10v8H7.48V32H10V28.67h2.37V36h3.21v2.28h1.92v7.07h2.18V36H17.48V32h0v2.16h2.17V32H30v1.64H25.07v2.21h5V33.76H34.7v2.11H30v2.27h-5v2.42H37.34V38.14H34.71V36h5.73v2.28h4.33V36h5.41V33.76h4.68V32h12V36.5H64.66v8.65h2.16v-6.9H68.6V36h2.88V29.12h1.86V17.33Zm-18,6.15H31.2V12.33H52.52Z" />
+</g>

@@ -1,5 +1,5 @@
 var UUID = require('uuid-random');
-import {SceneNames, DeviceTypes, ElementTypes, NotificationTypes} from '../../global/constants'
+import {DeviceTypes, ElementTypes, NotificationTypes, SceneNames} from '../../global/constants'
 import moment from 'moment'
 import LevelupHelper from '../../components/game/common/levelupHelper';
 import Notification from '../../components/game/common/notification';
@@ -8,11 +8,11 @@ import World from '../../components/game/common/world';
 
 const state = {
   id: UUID(),
-  version: "1.0.0",
+  version: "1.1.0",
   currentWorld: 1,
   currentStage: 1,
   deviceType: DeviceTypes.Megaman,
-  currentScene: SceneNames.MadeBy,
+  currentScene: SceneNames.NaviSelection,
   lastScene: "",
   time: new moment().format("hh:mm"),
   myChips: [],
@@ -37,6 +37,10 @@ const getters = {
 }
 
 const mutations = {
+  setupPET: (state, pet) => {
+    state.deviceType = pet.deviceType;
+    state.navi.element = pet.element;
+  },
   updateNaviStatus: (state, status) => {
     state.naviStatus = status;
   },
