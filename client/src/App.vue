@@ -9,7 +9,7 @@
   
     <ul class="ms-nav">
       <input type="checkbox" id="ms-menu" class="ms-menu-toggle" name="ms-menu-toggle" />
-      <li v-if="!isNaviSelection" class="ms-li ms-li5 ms-li-last shake-btn d-none d-md-block d-lg-block d-xl-block" @click="shakeButtonOnClick">
+      <li v-if="!isNaviSelection" class="ms-li ms-li5 ms-li-last shake-btn d-none d-sm-block d-md-block d-lg-block d-xl-block" @click="shakeButtonOnClick">
         <a href="javascript:void(0)" title="Shake">
           <span class="fa fa-play"></span>
         </a>
