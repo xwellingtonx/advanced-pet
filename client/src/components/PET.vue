@@ -123,7 +123,17 @@
                     <path d="M99.88,51v2.44h7.18v6.84a.85.85,0,0,0,.86.86h3.92a.85.85,0,0,0,.86-.86V53.39h7.18V51Z" />                      
                 </g>
             </svg>
-        </div>        
+        </div> 
+
+         <b-modal :static="true" ref="my-modal" content-class="my-modal-content" hide-footer>
+            <template #modal-title>
+                You're using iOS!
+            </template>
+            <div class="d-block text-center">
+                <span>We need access to the accelerometer of your phone to be able to active the shake feature.</span>
+            </div>
+            <b-button ref="request-button" class="mt-3" block >Request Permission</b-button>
+        </b-modal>       
     </div>
 </template>
 
@@ -183,15 +193,38 @@ export default {
     },
     mounted() {
         if(!this.readOnly) {
+            this.initializeShake();
+        }
+    },
+    methods: {
+        initializeShake() {
+            var hasDeviceMotion = 'ondevicemotion' in window;
+            
+            //Request permision to use the device motion on iOS 13+
+            if (!hasDeviceMotion && typeof DeviceMotionEvent.requestPermission === 'function') {
+                this.$refs['request-button'].addEventListener('click', () => {
+                    this.$refs['my-modal'].hide();
+
+                    DeviceMotionEvent.requestPermission().then(permissionState => {
+                        if (permissionState === 'granted') {
+                            this.createShakeInstance();
+                        }
+                    })
+                    .catch(console.error);
+                });
+                this.$refs['my-modal'].show();
+            } else {
+                this.createShakeInstance();
+            }
+        },
+        createShakeInstance() {
             this.myShakeEvent = new Shake({
                 threshold: 10, // optional shake strength threshold
                 timeout: 1000 // optional, determines the frequency of event generation
             });
 
             this.toggleShakeEvent();
-        }
-    },
-    methods: {
+        },
         openCover() {
             if(!this.readOnly) {
                 this.isCoverOpened = true;
@@ -318,6 +351,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+::v-deep {
+    .modal-body {
+        min-height: auto !important;
+    }
+}
 .advanced-pet {
     .megaman-logo, 
     #ConfirmationButton, 
