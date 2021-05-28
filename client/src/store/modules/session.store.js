@@ -30,7 +30,8 @@ const state = {
   losses: 0,
   stageClear: 0,
   isInBattle: false,
-  notification: null
+  notification: null,
+  isiOSMotionGranted: false
 }
 
 const getters = {
@@ -92,6 +93,9 @@ const mutations = {
   },
   setCurrentWorld: (state, value) => {
     state.currentWorld = value;
+  },
+  setIsiOSMotionGranted: (state, value) => {
+    state.isiOSMotionGranted = value;
   },
   levelup: (state) => {
     var exp = state.navi.exp + 2;

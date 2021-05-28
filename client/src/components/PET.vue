@@ -164,7 +164,8 @@ export default {
             currentScene: state => state.session.currentScene,
             recovery: state => state.session.navi.recovery,
             notification: state => state.session.notification,
-            deviceType: state => state.session.deviceType
+            deviceType: state => state.session.deviceType,
+            isiOSMotionGranted: state => state.session.isiOSMotionGranted
         })
     },   
     watch: {
@@ -198,20 +199,20 @@ export default {
     },
     methods: {
         initializeShake() {
-            var hasDeviceMotion = 'ondevicemotion' in window;
-            
             //Request permision to use the device motion on iOS 13+
-            if (!hasDeviceMotion && typeof DeviceMotionEvent.requestPermission === 'function') {
+            if (!this.isiOSMotionGranted && typeof DeviceMotionEvent.requestPermission === 'function') {
                 this.$refs['request-button'].addEventListener('click', () => {
                     this.$refs['my-modal'].hide();
 
                     DeviceMotionEvent.requestPermission().then(permissionState => {
                         if (permissionState === 'granted') {
                             this.createShakeInstance();
+                            this.$store.commit('session/setIsiOSMotionGranted', true);
                         }
                     })
                     .catch(console.error);
                 });
+                
                 this.$refs['my-modal'].show();
             } else {
                 this.createShakeInstance();
