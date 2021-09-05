@@ -31,3 +31,4 @@ jobs:
         heroku_app_name: "advanced-pet-server" #Must be unique in Heroku
         heroku_email: ${{secrets.HEROKU_EMAIL}}
         appdir: "server"
+        dontuseforce: "true"
