@@ -9,6 +9,8 @@ import "font-awesome/css/font-awesome.min.css";
 import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client';
 import VueCarousel from 'vue-carousel';
+import "mobile-drag-drop/index"
+import "mobile-drag-drop/default.css"
 
 
 const serverUrl = process.env.NODE_ENV === 'development'
