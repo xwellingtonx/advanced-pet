@@ -9,7 +9,7 @@ import "font-awesome/css/font-awesome.min.css";
 import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client';
 import VueCarousel from 'vue-carousel';
-import "mobile-drag-drop/index"
+import {polyfill} from "mobile-drag-drop";
 import "mobile-drag-drop/default.css"
 
 
@@ -22,9 +22,10 @@ const socket = io(serverUrl, {
 });
  
 
-Vue.config.productionTip = false
-Vue.use(BootstrapVue)
-Vue.use(Vddl)
+Vue.config.productionTip = false;
+Vue.use(BootstrapVue);
+Vue.use(polyfill);
+Vue.use(Vddl);
 Vue.use(VueSocketIOExt, socket);
 Vue.use(VueCarousel);
 
