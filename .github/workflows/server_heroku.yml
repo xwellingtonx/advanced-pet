@@ -24,8 +24,8 @@ jobs:
       run: |
         npm install
 
-    - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
     - name: Deploy to Heroku
+      uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: "advanced-pet-server" #Must be unique in Heroku
