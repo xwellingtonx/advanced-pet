@@ -416,7 +416,7 @@ var allWorlds = [
             {
                 id: 9,
                 stageClear: 200,
-                boss: new Navi("SearchMan", 40, 20, ElementTypes.Neutral, 5, "searchman.svg", ""),
+                boss: new Navi("Bass", 40, 20, ElementTypes.Neutral, 5, "bass.svg", ""),
                 viruses: [
                     new Virus("Mettaur", 5, 14, ElementTypes.Neutral, 5, "mettaur.svg"),
                     new Virus("Spikey", 5, 14, ElementTypes.Fire, 5, "spikey.svg"),
