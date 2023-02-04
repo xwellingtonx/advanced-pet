@@ -272,7 +272,7 @@ var allWorlds = [
             {
                 id: 9,
                 stageClear: 200,
-                boss: new Navi("ProtoMan", 40, 20, ElementTypes.Neutral, 5, "protoman.svg", ""),
+                boss: new Navi("ProtoMan", 40, 20, ElementTypes.Neutral, 5, "protoman.svg", "enzan.svg"),
                 viruses: [
                     new Virus("Mettaur", 5, 14, ElementTypes.Neutral, 5, "mettaur.svg"),
                     new Virus("Spikey", 5, 14, ElementTypes.Fire, 5, "spikey.svg"),
