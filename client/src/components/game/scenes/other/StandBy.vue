@@ -55,10 +55,10 @@ export default {
         }
     },
     created() {
-        this.frontFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/front-face.svg`);
-        this.leftFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/left-face.svg`);
-        this.rightFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/right-face.svg`);
-        this.sadFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/sad-face.svg`);
+        this.frontFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/front-face.svg`).default;
+        this.leftFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/left-face.svg`).default;
+        this.rightFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/right-face.svg`).default;
+        this.sadFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/sad-face.svg`).default;
     },
     mounted() {
         this.registerListeners();

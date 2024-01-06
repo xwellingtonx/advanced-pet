@@ -74,7 +74,7 @@ export default {
     methods: {
         importVirus(image) {
             //Import using html loarder
-            this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${image}`);
+            this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${image}`).default;
         },
         startFlipAnim() {
             setInterval(() => {

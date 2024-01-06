@@ -46,7 +46,7 @@ export default {
         })
     },  
     created() {
-        this.winnerPose = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/winner-pose.svg`);
+        this.winnerPose = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/winner-pose.svg`).default;
     },
     mounted() {
         if(this.$store.state.session.sound) {

@@ -48,7 +48,7 @@ export default {
         }
     },
     created() {
-        this.rightFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/right-face.svg`);
+        this.rightFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/right-face.svg`).default;
     },
     mounted() {
         this.registerListeners();

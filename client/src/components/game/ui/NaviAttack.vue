@@ -65,7 +65,7 @@ export default {
         }
     },
     created() {
-        this.naviAttackPose = require(`!html-loader!../../../assets/svgs/players/${this.deviceType}/attack-pose.svg`);
+        this.naviAttackPose = require(`!html-loader!../../../assets/svgs/players/${this.deviceType}/attack-pose.svg`).default;
     },
     mounted() {
         this.attackTimeLine = new TimelineLite();

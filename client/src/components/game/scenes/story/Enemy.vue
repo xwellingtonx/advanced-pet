@@ -131,25 +131,25 @@ export default {
 
             this.currentSvg = "boss";
             //Import using html loarder
-            this.screenContent = require(`!html-loader!../../../../assets/svgs/bosses/${image}`);
+            this.screenContent = require(`!html-loader!../../../../assets/svgs/bosses/${image}`).default;
         },   
         importOperator(image) {
             this.currentSvg = "operator";
             //Import using html loarder
-            this.screenContent = require(`!html-loader!../../../../assets/svgs/operators/${image}`);
+            this.screenContent = require(`!html-loader!../../../../assets/svgs/operators/${image}`).default;
         },  
         importVirus(image) {
             this.playEnemySound();
 
             this.currentSvg = "virus";
             //Import using html loarder
-            this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${image}`);
+            this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${image}`).default;
         },
         importEnemyStatus(name, level) {
             //Import using html loarder
             //TODO: The name is not static needs to move like in StandBy
             this.currentSvg = "enemyStatus";
-            var template = require("!html-loader!../../../../assets/svgs/scenes/enemy-status.svg");
+            var template = require("!html-loader!../../../../assets/svgs/scenes/enemy-status.svg").default;
             template = template.replace('{name}', name);
             template = template.replace('{level}', level);
             this.screenContent = template;
@@ -157,7 +157,7 @@ export default {
         },
         importEnemyElement(element) {
             this.currentSvg = "enemyElement";
-            this.screenContent =  require(`!html-loader!../../../../assets/svgs/elements/${(element.toLowerCase())}.svg`);
+            this.screenContent =  require(`!html-loader!../../../../assets/svgs/elements/${(element.toLowerCase())}.svg`).default;
         }
     }
 }

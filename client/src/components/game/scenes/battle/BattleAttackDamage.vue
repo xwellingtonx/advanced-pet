@@ -159,19 +159,19 @@ export default {
             }
         },
         importDamageFace(deviceType) {
-            this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(deviceType.toLowerCase())}/damage-face.svg`);
+            this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(deviceType.toLowerCase())}/damage-face.svg`).default;
         },
         importRightFace(deviceType) {
-            this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(deviceType.toLowerCase())}/attack-face.svg`);
+            this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(deviceType.toLowerCase())}/attack-face.svg`).default;
         },
         importVirus() {
             //Import using html loarder
-            this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${this.enemy.image}`);
+            this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${this.enemy.image}`).default;
         },
         importBoss() {
             //Import using html loarder
-            this.screenContent = require(`!html-loader!../../../../assets/svgs/bosses/${this.enemy.image}`);
-        },        
+            this.screenContent = require(`!html-loader!../../../../assets/svgs/bosses/${this.enemy.image}`).default;
+        },
         showPlayerScreens(deviceType) {
             this.$socket.client.emit('getPlayersStatus', this.$store.state.battle.id);
 

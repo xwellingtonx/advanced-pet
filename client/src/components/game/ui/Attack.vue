@@ -35,7 +35,7 @@ export default {
     },
     methods: {
         importAttackSprite() {
-            return require(`!html-loader!../../../assets/svgs/attacks/${this.elementType.toLowerCase()}.svg`);
+            return require(`!html-loader!../../../assets/svgs/attacks/${this.elementType.toLowerCase()}.svg`).default;
         }
     }
 }

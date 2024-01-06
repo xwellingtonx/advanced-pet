@@ -142,15 +142,15 @@ export default {
             this.$store.commit('session/setCurrentScene', sceneName);
         },
         importRightFace() {
-            this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(this.deviceType.toLowerCase())}/attack-face.svg`);
+            this.screenContent =  require(`!html-loader!../../../../assets/svgs/players/${(this.deviceType.toLowerCase())}/attack-face.svg`).default;
         },
         importVirus() {
             //Import using html loarder
-            this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${this.enemy.image}`);
+            this.screenContent = require(`!html-loader!../../../../assets/svgs/viruses/${this.enemy.image}`).default;
         },
         importBoss() {
             //Import using html loarder
-            this.screenContent = require(`!html-loader!../../../../assets/svgs/bosses/${this.enemy.image}`);
+            this.screenContent = require(`!html-loader!../../../../assets/svgs/bosses/${this.enemy.image}`).default;
         },
         createUI() {
             if(this.currentCharacter.type === EnemyTypes.Player) {

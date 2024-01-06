@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         importEmblem() {
-            this.emblem = require(`!html-loader!../../../assets/svgs/players/${this.deviceType}/emblem-${this.isCoverOpen ? 'opened' : 'closed'}.svg`);
+            this.emblem = require(`!html-loader!../../../assets/svgs/players/${this.deviceType}/emblem-${this.isCoverOpen ? 'opened' : 'closed'}.svg`).default;
         }
     }    
 

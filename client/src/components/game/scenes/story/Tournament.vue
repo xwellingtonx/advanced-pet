@@ -36,7 +36,7 @@ export default {
     },    
     methods: {
         importScreen(screen) {
-            return require(`!html-loader!../../../../assets/svgs/scenes/${screen}.svg`);
+            return require(`!html-loader!../../../../assets/svgs/scenes/${screen}.svg`).default;
         },
         onConfirmation() {
             if(this.currentSvg === "tournament") {

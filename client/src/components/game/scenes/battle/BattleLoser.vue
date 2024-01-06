@@ -44,7 +44,7 @@ export default {
         })
     },
     created() {
-        this.loserPose = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/loser-pose.svg`);
+        this.loserPose = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/loser-pose.svg`).default;
     },   
     mounted() {
         if(this.$store.state.session.sound) {

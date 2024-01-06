@@ -35,8 +35,8 @@ export default {
         }
     },
     created() {
-        this.talkFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/talk-face.svg`);
-        this.frontFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/front-face.svg`);
+        this.talkFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/talk-face.svg`).default;
+        this.frontFace = require(`!html-loader!../../../../assets/svgs/players/${this.deviceType}/front-face.svg`).default;
     },
     mounted() {
         this.greetingText = `Hi I'm ${this.deviceType}`;
