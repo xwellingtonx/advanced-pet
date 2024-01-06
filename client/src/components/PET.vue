@@ -195,6 +195,7 @@ export default {
     mounted() {
         if(!this.readOnly) {
             this.initializeShake();
+            window.addEventListener("keyup", this.handleKey);
         }
     },
     methods: {
@@ -346,6 +347,40 @@ export default {
         },
         sendParentMessage() {
             this.$emit('dragstart');
+        },
+        handleKey(e) {
+            const convertions = {
+                38: {
+                    name: "upEvent",
+                    value: Events.Up
+                },
+                40: {
+                    name: "downEvent",
+                    value: Events.Down
+                },
+                37: {
+                    name: "leftEvent",
+                    value: Events.Left
+                },
+                39: {
+                    name: "rightEvent",
+                    value: Events.Right
+                },
+                13: {
+                    name: "confirmationEvent",
+                    value: Events.Confirmation
+                },
+                27: {
+                    name: "cancelEvent",
+                    value: Events.Cancel
+                },
+            };
+            const selectedConvertion = convertions[e.keyCode];
+            if (selectedConvertion === undefined || this.readOnly || !this.isCoverOpened) {
+                return;
+            }
+
+            EventBus.$emit(selectedConvertion.value, selectedConvertion.name);
         }
     }
 }
