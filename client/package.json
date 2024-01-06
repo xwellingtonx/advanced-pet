@@ -23,9 +23,6 @@
     "uuid-random": "^1.3.2",
     "vddl": "^0.7.1",
     "vue": "^2.6.14",
-    "vue-carousel": "^0.18.0",
-    "vue-cryptojs": "^2.1.6",
-    "vue-inline-svg": "^2.1.3",
     "vue-socket.io-extended": "^4.2.0",
     "vuex": "^3.6.2"
   },

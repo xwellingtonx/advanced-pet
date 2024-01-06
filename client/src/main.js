@@ -8,10 +8,8 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import "font-awesome/css/font-awesome.min.css";
 import VueSocketIOExt from "vue-socket.io-extended";
 import io from "socket.io-client";
-import VueCarousel from "vue-carousel";
 import { polyfill } from "mobile-drag-drop";
 import "mobile-drag-drop/default.css";
-import InlineSvg from "vue-inline-svg";
 
 const serverUrl =
   process.env.NODE_ENV === "development"
@@ -27,8 +25,6 @@ Vue.use(BootstrapVue);
 Vue.use(polyfill);
 Vue.use(Vddl);
 Vue.use(VueSocketIOExt, socket);
-Vue.use(VueCarousel);
-Vue.component("inline-svg", InlineSvg);
 
 new Vue({
   store,
